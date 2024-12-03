@@ -15,9 +15,7 @@ function App() {
   // https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
 
   useEffect(() => {
-    const data = fetch("https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json", {
-      mode: "no-cors",
-    });
+    const data = fetch("/api", {});
     data
       .then((data) => {
         return data.json();
