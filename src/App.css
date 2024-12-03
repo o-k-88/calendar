@@ -1,0 +1,22 @@
+
+/*.react-datepicker__month-container {*/
+/*  width: 100vw;*/
+/*  padding: 0 50px;*/
+/*  box-sizing: border-box;*/
+/*}*/
+
+/*.react-datepicker__day,*/
+/*.react-datepicker__day-name {*/
+/*  width: calc(100 / 7 * 1vw) !important;*/
+/*}*/
+
+/*.react-datepicker__week {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*}*/
+
+/*.react-datepicker__day {*/
+/*  border: 1px solid #000;*/
+/*  height: calc(100 / 5 * 1vh) !important;*/
+/*  white-space: normal !important;*/
+/*}*/

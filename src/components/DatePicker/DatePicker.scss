@@ -1,0 +1,125 @@
+.wrapper-date-picker {
+  & > div {
+    display: block !important;
+    width: 100%;
+  }
+}
+
+.g-date-picker {
+  width: 100%;
+
+  .react-datepicker__navigation {
+  }
+  .react-datepicker__navigation--previous {
+  }
+  .react-datepicker__navigation--next {
+  }
+
+  .react-datepicker__month-container {
+    width: 100%;
+  }
+
+  .react-datepicker__header {
+    background-color: #1d428a;
+  }
+
+  .react-datepicker__day-names {
+  }
+
+  .react-datepicker__day-name {
+  }
+
+  .react-datepicker__day-names,
+  .react-datepicker__week {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .react-datepicker__day-name,
+  .react-datepicker__day {
+    color: #fff;
+    // margin: 0;
+    min-width: 44px;
+    width: calc(100 / 7 * 1%);
+  }
+
+  .react-datepicker__month {
+    margin: 0;
+  }
+  .react-datepicker__current-month {
+    color: #fff;
+  }
+
+  .react-datepicker__week {
+  }
+
+  .react-datepicker__day {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: 1px solid #f0f0f0;
+    // height: 100%;
+    height: 106px;
+    padding: 12px;
+    box-sizing: border-box;
+
+    &:hover,
+    &.react-datepicker__day--keyboard-selected,
+    &.react-datepicker__day--selected {
+      border-radius: 0;
+      border-color: #000;
+      background-color: transparent;
+      color: #000;
+    }
+
+    &:focus,
+    &:hover {
+      border-color: #000;
+      outline: none;
+      background-color: #f0f0f0;
+    }
+
+    .title {
+      padding: 0 6px;
+      box-sizing: border-box;
+      width: 100%;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #000;
+
+      @media (max-width: 767px) {
+        display: none;
+      }
+    }
+    .day {
+      color: #000;
+    }
+
+    .label {
+      display: none;
+      position: absolute;
+      top: -2px;
+      right: -8px;
+      // width: 16px;
+      // height: 16px;
+      // background-color: lightblue;
+      width: 0px;
+      height: 0px;
+      border-style: solid;
+      border-width: 0px 10px 10px 10px;
+      border-color: transparent transparent #ff4532 transparent;
+      transform: rotate(45deg);
+
+      @media (max-width: 767px) {
+        display: block;
+      }
+    }
+  }
+}

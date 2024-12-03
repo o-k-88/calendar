@@ -1,0 +1,13 @@
+.modal-calendar {
+  max-height: 600px;
+  height: 100%;
+  .modal-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .modal-content {
+    overflow-y: auto;
+    height: 100%;
+  }
+}
