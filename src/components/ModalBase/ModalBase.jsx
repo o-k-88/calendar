@@ -19,7 +19,7 @@ const ModalBase = (props) => {
           {data.map((item, index) => (
             <div key={index}>
               <h4>{item.title}</h4>
-              <p>Time: {item.time}</p>
+
               <p dangerouslySetInnerHTML={{ __html: item.description }} />
             </div>
           ))}

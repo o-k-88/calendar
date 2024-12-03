@@ -29,7 +29,7 @@ const DatePickerView = (props) => {
   };
   return (
     <>
-      <div className="date-picker-navigation">
+      {/* <div className="date-picker-navigation">
         <button>Month</button>
         <button>Week</button>
         <button>Day</button>
@@ -37,7 +37,7 @@ const DatePickerView = (props) => {
           <button>Current day</button>
           <input type="date" />
         </div>
-      </div>
+      </div> */}
       <div className="wrapper-date-picker">
         <DatePicker
           calendarClassName={cn("g-date-picker", className)}
