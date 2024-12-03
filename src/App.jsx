@@ -13,7 +13,7 @@ function App() {
   const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
-    const data = fetch("/api");
+    const data = fetch("https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json");
     data
       .then((data) => {
         return data.json();
