@@ -13,7 +13,7 @@ function App() {
   const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
-    const data = fetch("/api");
+    const data = fetch("https://hybridcal.dev.sunyempire.edu");
     data
       .then((data) => {
         return data.json();
@@ -26,7 +26,7 @@ function App() {
 
           const date = new Date(Number(matchData) * 1000);
 
-          console.log(`${date.getHours()}:${date.getMinutes() == 0 ? '00' : date.getMinutes()}`)
+          console.log(`${date.getHours()}:${date.getMinutes() == 0 ? "00" : date.getMinutes()}`);
 
           return {
             title,
