@@ -12,12 +12,11 @@ function App() {
   const [popupData, setPopupData] = useState([]);
   const [isShow, setIsShow] = useState(false);
 
+  // https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
+
   useEffect(() => {
     const data = fetch("https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      mode: "no-cors",
     });
     data
       .then((data) => {
