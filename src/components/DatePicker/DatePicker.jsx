@@ -17,8 +17,8 @@ const DatePickerView = (props) => {
     return (
       <>
         <div className={"day"}>{day}</div>
-        {filteredTooltipText.map((item) => (
-          <div>
+        {filteredTooltipText.map((item, index) => (
+          <div key={index}>
             {item?.title && <span className="label" />}
 
             <span className={"title"}>{item?.title}</span>
