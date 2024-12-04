@@ -38,6 +38,9 @@ function App() {
         });
 
         setEvents(split);
+      })
+      .catch((e) => {
+        console.error("Fucking CORS", e);
       });
   }, []);
 
