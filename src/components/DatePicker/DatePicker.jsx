@@ -21,7 +21,7 @@ const DatePickerView = (props) => {
           <div key={index}>
             {item?.title && <span className="label" />}
 
-            <span className={"title"}>{item?.title}</span>
+            <span className={"title"}>{item?.time} - {item?.title}</span>
           </div>
         ))}
       </>

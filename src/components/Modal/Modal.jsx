@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const Modal = ({children, className}) => {
   return (
-    <div className={cn("modal-wrapper", className)}>
+    <div className={cn("modal modal-wrapper", className)}>
       <div className="modal-box">{children}</div>
     </div>
   )

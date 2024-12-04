@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import dayjs from "dayjs";
 import "./App.css";
 import DatePicker from "./components/DatePicker/DatePicker.jsx";
 import ModalBase from "./components/ModalBase/ModalBase.jsx";
@@ -9,31 +10,57 @@ import Layout from "./layout/Layout.jsx";
 function App() {
   const [startDate, setStartDate] = useState(new Date());
   const [events, setEvents] = useState([]);
+  const [category, setCategory] = useState([]);
   const [popupData, setPopupData] = useState([]);
   const [isShow, setIsShow] = useState(false);
 
   // https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
 
   useEffect(() => {
-    const data = fetch("https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json", {});
+    const data = fetch("https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json");
     data
       .then((data) => {
         return data.json();
       })
       .then((current) => {
-        const split = current.rows.map(({ field_start_date, title, field_description }) => {
+        const split = current.rows.map(({ field_start_date, title, field_description, field_category }) => {
+        
+          const regex_data = /datetime="([^"]+)"/;
+          let matchTime = field_start_date.match(regex_data);
+          let currentHour = matchTime[1].split("T")[1].slice(0,2)
+          let currentMinute = matchTime[1].split("T")[1].slice(3,5)
+          let currentTime = dayjs().set('hour', currentHour).set('minute', currentMinute)
+          
           const regex = /<time[^>]*>(\d+)<\/time>/;
-
-          const matchData = field_start_date.match(regex)[1];
-
-          const date = new Date(Number(matchData) * 1000);
+          let matchData = field_start_date.match(regex)[1];
+          let date = new Date(Number(matchData) * 1000);
+          
+          
+          // const datejs = dayjs(Number(matchData) * 1000)
+          // console.log('datejs',date, datejs.format('hh:mm A'));
+          // console.log('match',matchTime[1].split("T")[1].slice(0,5));
+          
+          setCategory((prev) => {
+            // const arr = [...prev, field_category]
+            //
+            // return new Set(arr)
+            
+            return [...prev, field_category]
+            
+            // if (prev.length > 0 && prev.some((item) => item === field_category)){
+            //   return [...prev, field_category]
+            // } else {
+            //   return [field_category]
+            // }
+          })
 
           return {
             title,
-            time: date.getHours(),
+            time: currentTime.format("hh:mm A"),
             description: field_description,
             date: `${date.getFullYear()}${date.getMonth()}${date.getDate()}`,
             currentDate: field_start_date,
+            category: field_category,
           };
         });
 
@@ -42,6 +69,10 @@ function App() {
       .catch((e) => {
         console.error("Fucking CORS", e);
       });
+    
+    // category.map((item) => {
+    //   console.log(item)
+    // })
   }, []);
 
   const handlerStartDate = (date) => setStartDate(date);
@@ -60,7 +91,9 @@ function App() {
       handlerIsModal();
     }
   };
-
+  
+  // console.log('category',category);
+  
   return (
     <>
       <Layout>
