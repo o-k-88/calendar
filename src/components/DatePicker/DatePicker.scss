@@ -84,15 +84,23 @@
       background-color: #f0f0f0;
     }
 
+    .time {
+      color: #000;
+    }
+
     .title {
-      padding: 0 6px;
+      // padding: 0 6px;
       box-sizing: border-box;
       width: 100%;
-      display: inline-block;
+      // display: inline-block;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       color: #000;
+
+      &:hover {
+        text-decoration: underline;
+      }
 
       @media (max-width: 767px) {
         display: none;

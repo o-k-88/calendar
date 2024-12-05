@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./DatePicker.scss";
 
 const DatePickerView = (props) => {
-  const { startDate, onChange, onSelect, events, renderDay, className } = props;
+  const { startDate, onChange, onSelect, events, renderDay, handlerIsModal, className } = props;
   const renderDayContents = (day, date) => {
     const current = new Date(date);
     const filteredTooltipText = events?.filter(({ date }) => {
@@ -20,8 +20,10 @@ const DatePickerView = (props) => {
         {filteredTooltipText.map((item, index) => (
           <div key={index}>
             {item?.title && <span className="label" />}
-
-            <span className={"title"}>{item?.time} - {item?.title}</span>
+            <span className="time">{item?.time} - </span>
+            <span onClick={handlerIsModal} className={"title"}>
+              {item?.title}
+            </span>
           </div>
         ))}
       </>

@@ -7,8 +7,9 @@ import ModalClose from "../Modal/ModalClose";
 
 import "./ModalCalendar.scss";
 
-const ModalBase = (props) => {
+const ModalCalendar = (props) => {
   const { handleClose, isOpen, data, children, handleOk } = props;
+  console.log(data);
   return (
     <ModalWrapper isOpen={isOpen} handleClose={handleClose} isOutside>
       <Modal className="modal-calendar">
@@ -16,14 +17,24 @@ const ModalBase = (props) => {
           <ModalClose onClick={handleClose} />
         </ModalHeader>
         <ModalBody>
-          {data.map((item, index) => (
+          {/* {data.map((item, index) => (
             <div key={index}>
               <h4>{item.title}</h4>
+              <p>{item.id}</p>
               <p>{item.time}</p>
 
               <p dangerouslySetInnerHTML={{ __html: item.description }} />
             </div>
-          ))}
+          ))} */}
+          {data && (
+            <div>
+              <h4>{data.title}</h4>
+              <p>{data.id}</p>
+              <p>{data.time}</p>
+
+              <p dangerouslySetInnerHTML={{ __html: data.description }} />
+            </div>
+          )}
         </ModalBody>
         <ModalFooter
           // textFirst={"OK"}
@@ -36,4 +47,4 @@ const ModalBase = (props) => {
   );
 };
 
-export default ModalBase;
+export default ModalCalendar;

@@ -7,7 +7,9 @@ const Layout = ({ children }) => {
   return (
     <div className="g-layout">
       <Header />
-      <main className="main">{children}</main>
+      <main className="main">
+        <div className="container">{children}</div>
+      </main>
       <Footer />
     </div>
   );

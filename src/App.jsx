@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import "./App.css";
 import DatePicker from "./components/DatePicker/DatePicker.jsx";
-import ModalBase from "./components/ModalBase/ModalBase.jsx";
+import ModalCalendar from "./components/ModalCalendar/ModalCalendar.jsx";
 import Widget from "./containers/Widget/Widget.jsx";
 
 import Layout from "./layout/Layout.jsx";
@@ -11,9 +11,8 @@ function App() {
   const [startDate, setStartDate] = useState(new Date());
   const [events, setEvents] = useState([]);
   const [category, setCategory] = useState([]);
-  const [popupData, setPopupData] = useState([]);
+  const [popupData, setPopupData] = useState({}); //
   const [isShow, setIsShow] = useState(false);
-  // new code?
 
   // https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
 
@@ -25,7 +24,7 @@ function App() {
       })
       .then((current) => {
         const split = current.rows.map(
-          ({ field_start_date, title, field_description, field_category }) => {
+          ({ field_start_date, title, field_description, field_category, nid }) => {
             const regex_data = /datetime="([^"]+)"/;
             let matchTime = field_start_date.match(regex_data);
             let currentHour = matchTime[1].split("T")[1].slice(0, 2);
@@ -46,6 +45,7 @@ function App() {
             });
 
             return {
+              id: nid,
               title,
               time: currentTime.format("hh:mm A"),
               description: field_description,
@@ -64,9 +64,16 @@ function App() {
   }, []);
 
   const handlerStartDate = (date) => setStartDate(date);
-  const handlerIsModal = () => setIsShow(!isShow);
+
+  const handlerIsModal = (e) => {
+    const currentEvent = e.target.textContent;
+    console.log(currentEvent);
+    setPopupData(events.find((item) => item.title === currentEvent));
+    setIsShow(!isShow);
+  };
+
   const handlerSelect = (dateSelect) => {
-    console.log("handlerSelect", dateSelect);
+    // console.log("handlerSelect", dateSelect);
 
     const current = new Date(dateSelect);
 
@@ -74,17 +81,13 @@ function App() {
 
     const FilteredEvents = events.filter((item) => item.date === dateId);
 
-    setPopupData(FilteredEvents || []);
-    if (FilteredEvents.length) {
-      handlerIsModal();
-    }
+    // setPopupData(FilteredEvents || []);
+    // if (FilteredEvents.length) {
+    //   // handlerIsModal();
+    // }
   };
 
-  console.log("category", category);
-
-  category.map((item) => {
-    console.log("item", item);
-  });
+  // console.log("category", category);
 
   return (
     <>
@@ -102,15 +105,16 @@ function App() {
             events={events}
             onChange={handlerStartDate}
             onSelect={handlerSelect}
+            handlerIsModal={handlerIsModal}
           />
         </Widget>
       </Layout>
-      <ModalBase
+      <ModalCalendar
         isOpen={isShow}
         data={popupData}
         handleClose={handlerIsModal}
         handleOk={handlerIsModal}
-      ></ModalBase>
+      ></ModalCalendar>
     </>
   );
 }
