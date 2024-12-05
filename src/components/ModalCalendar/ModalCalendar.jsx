@@ -9,7 +9,7 @@ import "./ModalCalendar.scss";
 
 const ModalCalendar = (props) => {
   const { handleClose, isOpen, data, children, handleOk } = props;
-  console.log(data);
+
   return (
     <ModalWrapper isOpen={isOpen} handleClose={handleClose} isOutside>
       <Modal className="modal-calendar">
@@ -29,7 +29,6 @@ const ModalCalendar = (props) => {
           {data && (
             <div>
               <h4>{data.title}</h4>
-              <p>{data.id}</p>
               <p>{data.time}</p>
 
               <p dangerouslySetInnerHTML={{ __html: data.description }} />

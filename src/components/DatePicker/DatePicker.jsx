@@ -20,9 +20,9 @@ const DatePickerView = (props) => {
         {filteredTooltipText.map((item, index) => (
           <div key={index}>
             {item?.title && <span className="label" />}
-            <span className="time">{item?.time} - </span>
+            {/* <span className="time">{item?.time} - </span> */}
             <span onClick={handlerIsModal} className={"title"}>
-              {item?.title}
+              {item?.time} - {item?.title}
             </span>
           </div>
         ))}

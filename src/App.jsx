@@ -66,7 +66,7 @@ function App() {
   const handlerStartDate = (date) => setStartDate(date);
 
   const handlerIsModal = (e) => {
-    const currentEvent = e.target.textContent;
+    const currentEvent = e.target.textContent.replace(/^\d{2}:\d{2} [APM]{2} -\s*/, ""); //I'm not sure if this is the best way to do this
     console.log(currentEvent);
     setPopupData(events.find((item) => item.title === currentEvent));
     setIsShow(!isShow);
@@ -79,7 +79,7 @@ function App() {
 
     const dateId = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
 
-    const FilteredEvents = events.filter((item) => item.date === dateId);
+    // const FilteredEvents = events.filter((item) => item.date === dateId);
 
     // setPopupData(FilteredEvents || []);
     // if (FilteredEvents.length) {
