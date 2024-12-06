@@ -8,7 +8,6 @@ import Widget from "./containers/Widget/Widget.jsx";
 import Layout from "./layout/Layout.jsx";
 
 function App() {
-  const [startDate, setStartDate] = useState(new Date());
   const [events, setEvents] = useState([]);
   const [category, setCategory] = useState([]);
   const [popupData, setPopupData] = useState({}); //
@@ -63,28 +62,11 @@ function App() {
       });
   }, []);
 
-  const handlerStartDate = (date) => setStartDate(date);
-
   const handlerIsModal = (e) => {
     const currentEvent = e.target.textContent.replace(/^\d{2}:\d{2} [APM]{2} -\s*/, ""); //I'm not sure if this is the best way to do this
     console.log(currentEvent);
     setPopupData(events.find((item) => item.title === currentEvent));
     setIsShow(!isShow);
-  };
-
-  const handlerSelect = (dateSelect) => {
-    // console.log("handlerSelect", dateSelect);
-
-    const current = new Date(dateSelect);
-
-    const dateId = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
-
-    // const FilteredEvents = events.filter((item) => item.date === dateId);
-
-    // setPopupData(FilteredEvents || []);
-    // if (FilteredEvents.length) {
-    //   // handlerIsModal();
-    // }
   };
 
   // console.log("category", category);
@@ -99,14 +81,7 @@ function App() {
             <input type="text" /> <br />
             <input type="text" /> <br />
           </div> */}
-          <DatePicker
-            className={"asdasdsadsa"}
-            startDate={startDate}
-            events={events}
-            onChange={handlerStartDate}
-            onSelect={handlerSelect}
-            handlerIsModal={handlerIsModal}
-          />
+          <DatePicker className={"asdasdsadsa"} events={events} handlerIsModal={handlerIsModal} />
         </Widget>
       </Layout>
       <ModalCalendar
