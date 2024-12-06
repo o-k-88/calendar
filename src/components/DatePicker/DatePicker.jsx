@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import cn from "classnames";
 import Button from "../Button/Button";
+import DatePickerNavigation from "../DatePickerNavigation/DatePickerNavigation";
 import "react-datepicker/dist/react-datepicker.css";
 import "./DatePicker.scss";
 
 const DatePickerView = (props) => {
-  const { events, renderDay, handlerIsModal, className } = props;
+  const { events, renderDay, handlerIsModal, className, category } = props;
+
   const [startDate, setStartDate] = useState(new Date());
   const [inputValue, setInputValue] = useState(new Date().toISOString().slice(0, 10));
 
@@ -47,51 +49,10 @@ const DatePickerView = (props) => {
     );
   };
 
-  const handlerTodayButton = () => {
-    handlerStartDate(new Date());
-    setInputValue(new Date().toISOString().slice(0, 10));
-  };
-
-  const handlerInputValue = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const handlerInputDate = () => {
-    if (inputValue) {
-      const [year, month, day] = inputValue.split("-");
-      const date = new Date(year, month - 1, day);
-      handlerStartDate(new Date(date));
-    }
-  };
-
   return (
     <>
-      <div className="date-picker-navigation">
-        {/* <button>Month</button>
-        <button>Week</button> */}
+      <DatePickerNavigation category={category} handlerStartDate={handlerStartDate} />
 
-        <Button
-          underlineView
-          classNames="date-picker-navigation-btn-today"
-          onClick={handlerTodayButton}
-        >
-          Today
-        </Button>
-
-        <Button
-          underlineView
-          classNames="date-picker-navigation-set-day"
-          onClick={handlerInputDate}
-        >
-          Set date
-        </Button>
-        <input
-          className="date-picker-navigation-input-day"
-          onChange={handlerInputValue}
-          type="date"
-          value={inputValue}
-        />
-      </div>
       <div className="wrapper-date-picker">
         <DatePicker
           calendarClassName={cn("g-date-picker", className)}

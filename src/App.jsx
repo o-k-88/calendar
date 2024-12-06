@@ -69,8 +69,6 @@ function App() {
     setIsShow(!isShow);
   };
 
-  // console.log("category", category);
-
   return (
     <>
       <Layout>
@@ -81,7 +79,12 @@ function App() {
             <input type="text" /> <br />
             <input type="text" /> <br />
           </div> */}
-          <DatePicker className={"asdasdsadsa"} events={events} handlerIsModal={handlerIsModal} />
+          <DatePicker
+            className={"asdasdsadsa"}
+            events={events}
+            handlerIsModal={handlerIsModal}
+            category={category}
+          />
         </Widget>
       </Layout>
       <ModalCalendar
