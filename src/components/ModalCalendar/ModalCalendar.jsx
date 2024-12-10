@@ -8,7 +8,7 @@ import ModalClose from "../Modal/ModalClose";
 import "./ModalCalendar.scss";
 
 const ModalCalendar = (props) => {
-  const { handleClose, isOpen, data, children, handleOk } = props;
+  const { handleClose, isOpen, data, children } = props;
 
   return (
     <ModalWrapper isOpen={isOpen} handleClose={handleClose} isOutside>

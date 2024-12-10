@@ -10,12 +10,12 @@ const DatePickerView = (props) => {
   const { events, renderDay, handlerIsModal, className, category } = props;
 
   const [startDate, setStartDate] = useState(new Date());
-  const [inputValue, setInputValue] = useState(new Date().toISOString().slice(0, 10));
+  // const [inputValue, setInputValue] = useState(new Date().toISOString().slice(0, 10));
 
   const handlerStartDate = (date) => setStartDate(date);
 
   const handlerSelect = (dateSelect) => {
-    console.log("handlerSelect", dateSelect);
+    // console.log("handlerSelect", dateSelect);
     // const current = new Date(dateSelect);
     // const dateId = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
     // const FilteredEvents = events.filter((item) => item.date === dateId);
@@ -39,7 +39,7 @@ const DatePickerView = (props) => {
         {filteredTooltipText.map((item, index) => (
           <div key={index}>
             {item?.title && <span className="label" />}
-            {/* <span className="time">{item?.time} - </span> */}
+
             <span onClick={handlerIsModal} className={"title"}>
               {item?.time} - {item?.title}
             </span>
@@ -51,7 +51,11 @@ const DatePickerView = (props) => {
 
   return (
     <>
-      <DatePickerNavigation category={category} handlerStartDate={handlerStartDate} />
+      <DatePickerNavigation
+        category={category}
+        handlerStartDate={handlerStartDate}
+        events={events}
+      />
 
       <div className="wrapper-date-picker">
         <DatePicker

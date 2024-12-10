@@ -6,6 +6,7 @@ import ModalCalendar from "./components/ModalCalendar/ModalCalendar.jsx";
 import Widget from "./containers/Widget/Widget.jsx";
 
 import Layout from "./layout/Layout.jsx";
+import DatePickerNavigation from "./components/DatePickerNavigation/DatePickerNavigation.jsx";
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -63,9 +64,9 @@ function App() {
   }, []);
 
   const handlerIsModal = (e) => {
-    const currentEvent = e.target.textContent.replace(/^\d{2}:\d{2} [APM]{2} -\s*/, ""); //I'm not sure if this is the best way to do this
-    console.log(currentEvent);
-    setPopupData(events.find((item) => item.title === currentEvent));
+    const currentEventTitle = e.target.textContent.replace(/^\d{2}:\d{2} [APM]{2} -\s*/, ""); //I'm not sure if this is the best way to do this
+    console.log("currentEventTitle", currentEventTitle);
+    setPopupData(events.find((item) => item.title === currentEventTitle));
     setIsShow(!isShow);
   };
 
@@ -73,12 +74,6 @@ function App() {
     <>
       <Layout>
         <Widget>
-          {/* <div className="navigation">
-            <input type="text" /> <br />
-            <input type="text" /> <br />
-            <input type="text" /> <br />
-            <input type="text" /> <br />
-          </div> */}
           <DatePicker
             className={"asdasdsadsa"}
             events={events}
@@ -87,12 +82,7 @@ function App() {
           />
         </Widget>
       </Layout>
-      <ModalCalendar
-        isOpen={isShow}
-        data={popupData}
-        handleClose={handlerIsModal}
-        handleOk={handlerIsModal}
-      ></ModalCalendar>
+      <ModalCalendar isOpen={isShow} data={popupData} handleClose={handlerIsModal}></ModalCalendar>
     </>
   );
 }

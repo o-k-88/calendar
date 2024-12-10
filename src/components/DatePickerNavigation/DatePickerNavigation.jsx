@@ -2,8 +2,11 @@ import React from "react";
 import { useState } from "react";
 import Button from "../Button/Button";
 
-const DatePickerNavigation = ({ category, handlerStartDate }) => {
+import "./DatePickerNavigation.scss";
+
+const DatePickerNavigation = ({ category, handlerStartDate, events }) => {
   const [inputValue, setInputValue] = useState(new Date().toISOString().slice(0, 10));
+  const [filteredEvents, setFilteredEvents] = useState([]);
 
   const handlerTodayButton = () => {
     handlerStartDate(new Date());
@@ -21,6 +24,15 @@ const DatePickerNavigation = ({ category, handlerStartDate }) => {
       handlerStartDate(date);
     }
   };
+
+  const handlerSelectOptions = (e) => {
+    let currentOption = e.target.value;
+
+    console.log(currentOption);
+    setFilteredEvents(events.filter((item) => item.category === currentOption));
+    console.log(filteredEvents);
+  };
+
   return (
     <div className="date-picker-navigation">
       {/* <button>Month</button>
@@ -43,10 +55,18 @@ const DatePickerNavigation = ({ category, handlerStartDate }) => {
       />
       <div>
         <div>Filters</div>
-        {category.map((item, index) => (
-          <button key={index}>{item}</button>
-        ))}
-        <button>All</button>
+        <select
+          className="date-picker-navigation-select"
+          name=""
+          id=""
+          onChange={handlerSelectOptions}
+        >
+          {category.map((item, index) => (
+            <option className="date-picker-navigation-option" key={index} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
