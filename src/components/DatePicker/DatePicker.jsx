@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./DatePicker.scss";
 
 const DatePickerView = (props) => {
-  const { events, renderDay, handlerIsModal, className, category } = props;
+  const { events, renderDay, handlerIsModal, className, category, onSelect } = props;
 
   const [startDate, setStartDate] = useState(new Date());
   // const [inputValue, setInputValue] = useState(new Date().toISOString().slice(0, 10));
@@ -31,7 +31,8 @@ const DatePickerView = (props) => {
 
             <span
               onClick={(e) => {
-                handlerIsModal(e);
+                handlerIsModal();
+                onSelect(date, e);
               }}
               className={"title"}
             >
@@ -56,6 +57,7 @@ const DatePickerView = (props) => {
           calendarClassName={cn("g-date-picker", className)}
           selected={startDate}
           onChange={handlerStartDate}
+          onSelect={onSelect}
           renderDayContents={renderDay ? renderDay : renderDayContents}
           inline
         />

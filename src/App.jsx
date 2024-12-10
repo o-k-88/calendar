@@ -63,8 +63,12 @@ function App() {
       });
   }, []);
 
-  const handlerSelect = (dateSelect) => {
-    // console.log("handlerSelect", dateSelect);
+  const handlerSelect = (dateSelect, e) => {
+    console.log("handlerSelect", dateSelect);
+    const currentEventTitle = e.target.textContent.replace(/^\d{2}:\d{2} [APM]{2} -\s*/, ""); //I'm not sure if this is the best way to do this
+    console.log("currentEventTitle", currentEventTitle);
+    setPopupData(events.find((item) => item.title === currentEventTitle));
+
     // const current = new Date(dateSelect);
     // const dateId = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
     // const FilteredEvents = events.filter((item) => item.date === dateId);
@@ -74,13 +78,7 @@ function App() {
     // }
   };
 
-  const handlerIsModal = (e) => {
-    const currentEventTitle = e.target.textContent.replace(/^\d{2}:\d{2} [APM]{2} -\s*/, ""); //I'm not sure if this is the best way to do this
-    console.log("currentEventTitle", currentEventTitle);
-    setPopupData(events.find((item) => item.title === currentEventTitle));
-
-    setIsShow(!isShow);
-  };
+  const handlerIsModal = () => setIsShow(!isShow);
 
   return (
     <>
@@ -91,7 +89,7 @@ function App() {
             events={events}
             handlerIsModal={handlerIsModal}
             category={category}
-            handlerSelect={handlerSelect}
+            onSelect={handlerSelect}
           />
         </Widget>
       </Layout>
