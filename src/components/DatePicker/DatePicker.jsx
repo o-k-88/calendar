@@ -14,17 +14,6 @@ const DatePickerView = (props) => {
 
   const handlerStartDate = (date) => setStartDate(date);
 
-  const handlerSelect = (dateSelect) => {
-    // console.log("handlerSelect", dateSelect);
-    // const current = new Date(dateSelect);
-    // const dateId = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
-    // const FilteredEvents = events.filter((item) => item.date === dateId);
-    // setPopupData(FilteredEvents || []);
-    // if (FilteredEvents.length) {
-    //   // handlerIsModal();
-    // }
-  };
-
   const renderDayContents = (day, date) => {
     const current = new Date(date);
     const filteredTooltipText = events?.filter(({ date }) => {
@@ -40,7 +29,12 @@ const DatePickerView = (props) => {
           <div key={index}>
             {item?.title && <span className="label" />}
 
-            <span onClick={handlerIsModal} className={"title"}>
+            <span
+              onClick={(e) => {
+                handlerIsModal(e);
+              }}
+              className={"title"}
+            >
               {item?.time} - {item?.title}
             </span>
           </div>
@@ -62,7 +56,6 @@ const DatePickerView = (props) => {
           calendarClassName={cn("g-date-picker", className)}
           selected={startDate}
           onChange={handlerStartDate}
-          onSelect={handlerSelect}
           renderDayContents={renderDay ? renderDay : renderDayContents}
           inline
         />
