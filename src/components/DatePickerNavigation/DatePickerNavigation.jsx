@@ -6,7 +6,7 @@ import "./DatePickerNavigation.scss";
 
 const DatePickerNavigation = ({ category, handlerStartDate, events }) => {
   const [inputValue, setInputValue] = useState(new Date().toISOString().slice(0, 10));
-  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [filteredBySelectEvents, setFilteredBySelectEvents] = useState([]);
 
   const handlerTodayButton = () => {
     handlerStartDate(new Date());
@@ -17,7 +17,7 @@ const DatePickerNavigation = ({ category, handlerStartDate, events }) => {
     setInputValue(e.target.value);
   };
 
-  const handlerInputDate = () => {
+  const handlerSetDateButton = () => {
     if (inputValue) {
       const [year, month, day] = inputValue.split("-");
       const date = new Date(year, month - 1, day);
@@ -29,8 +29,8 @@ const DatePickerNavigation = ({ category, handlerStartDate, events }) => {
     let currentOption = e.target.value;
 
     console.log(currentOption);
-    setFilteredEvents(events.filter((item) => item.category === currentOption));
-    console.log(filteredEvents);
+    setFilteredBySelectEvents(events.filter((item) => item.category === currentOption));
+    console.log(filteredBySelectEvents);
   };
 
   return (
@@ -44,7 +44,11 @@ const DatePickerNavigation = ({ category, handlerStartDate, events }) => {
       >
         Today
       </Button>
-      <Button underlineView classNames="date-picker-navigation-set-day" onClick={handlerInputDate}>
+      <Button
+        underlineView
+        classNames="date-picker-navigation-set-day"
+        onClick={handlerSetDateButton}
+      >
         Set date
       </Button>
       <input
