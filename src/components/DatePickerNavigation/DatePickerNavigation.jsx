@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Button from "../Button/Button";
 
@@ -28,10 +28,20 @@ const DatePickerNavigation = ({ category, handlerStartDate, events }) => {
   const handlerSelectOptions = (e) => {
     let currentOption = e.target.value;
 
+    if (currentOption === "all") {
+      setFilteredBySelectEvents(events);
+      return;
+    }
+
     console.log(currentOption);
     setFilteredBySelectEvents(events.filter((item) => item.category === currentOption));
+
     console.log(filteredBySelectEvents);
   };
+
+  // useEffect(() => {
+  //   setFilteredBySelectEvents(events);
+  // }, [events]);
 
   return (
     <div className="date-picker-navigation">
@@ -57,20 +67,28 @@ const DatePickerNavigation = ({ category, handlerStartDate, events }) => {
         type="date"
         value={inputValue}
       />
-      <div>
+      <div className="filters">
         <div>Filters</div>
-        <select
-          className="date-picker-navigation-select"
-          name=""
-          id=""
-          onChange={handlerSelectOptions}
-        >
-          {category.map((item, index) => (
-            <option className="date-picker-navigation-option" key={index} value={item}>
-              {item}
-            </option>
+        <div className="date-picker-wrapper">
+          <select
+            className="date-picker-navigation-select"
+            name=""
+            id=""
+            onChange={handlerSelectOptions}
+          >
+            <option value="all">All</option>
+            {category.map((item, index) => (
+              <option className="date-picker-navigation-option" key={index} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          {filteredBySelectEvents.map((item) => (
+            <div key={item.id}>{item.title}</div>
           ))}
-        </select>
+        </div>
       </div>
     </div>
   );
