@@ -6,7 +6,6 @@ import ModalCalendar from "./components/ModalCalendar/ModalCalendar.jsx";
 import Widget from "./containers/Widget/Widget.jsx";
 
 import Layout from "./layout/Layout.jsx";
-import DatePickerNavigation from "./components/DatePickerNavigation/DatePickerNavigation.jsx";
 
 function App() {
   const [events, setEvents] = useState([]);
