@@ -8,46 +8,37 @@ import "./DatePickerNavigation.scss";
 const DatePickerNavigation = ({
 	                              category,
 	                              onStartDate,
-	                              setShowMonth,
-	                              currentMonth,
-	                              customDate,
-	                              onCustomDate,
+	                              onShowMonthView,
+	                              currentDay,
+	                              onDateInput,
 	                              events
                               }) => {
-	// const [inputValue, setInputValue] = useState(currentMonth ? new Date(currentMonth).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10));
 	const [filteredBySelectEvents, setFilteredBySelectEvents] = useState([]);
 	
 	const handlerTodayButton = () => {
 		onStartDate(new Date());
-		setInputValue(new Date().toISOString().slice(0, 10));
 	};
 	
 	const handlerMonthButton = () => {
-		setShowMonth(true);
+		onShowMonthView(true);
 	};
 	
-	const handlerInputValue = (e) => {
-		setInputValue(e.target.value);
-	};
-	
-	const handlerSetDateButton = () => {
-		onStartDate(customDate);
-		
-		console.log('handlerSetDateButton',customDate);
-	};
+	// const handlerInputValue = (e) => {
+	// 	setInputValue(e.target.value);
+	// };
 	
 	const handlerSelectOptions = (e) => {
 		let currentOption = e.target.value;
-		
+
 		if (currentOption === "all") {
 			setFilteredBySelectEvents(events);
 			return;
 		}
-		
-		console.log(currentOption);
+
+		// console.log(currentOption);
 		setFilteredBySelectEvents(events.filter((item) => item.category === currentOption));
-		
-		console.log(filteredBySelectEvents);
+
+		// console.log(filteredBySelectEvents);
 	};
 	
 	// useEffect(() => {
@@ -72,13 +63,6 @@ const DatePickerNavigation = ({
 			>
 				Month
 			</Button>
-			<Button
-				underlineView
-				classNames="date-picker-navigation-set-day"
-				onClick={handlerSetDateButton}
-			>
-				Set date
-			</Button>
 			{/*<input*/}
 			{/*	className="date-picker-navigation-input-day"*/}
 			{/*	onChange={handlerInputValue}*/}
@@ -86,8 +70,9 @@ const DatePickerNavigation = ({
 			{/*	value={inputValue}*/}
 			{/*/>*/}
 			<DataCustom
-				selected={customDate}
-				onChange={onCustomDate}
+				selected={currentDay}
+				startDate={currentDay}
+				onChange={(date) => onDateInput(date)}
 			/>
 			<div className="filters">
 				<div>Filters</div>

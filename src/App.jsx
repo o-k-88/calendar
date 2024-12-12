@@ -63,9 +63,9 @@ function App() {
   }, []);
 
   const handlerSelect = (dateSelect, e) => {
-    console.log("handlerSelect", dateSelect);
+    // console.log("handlerSelect", dateSelect);
     const currentEventTitle = e.target.textContent.replace(/^\d{2}:\d{2} [APM]{2} -\s*/, ""); //I'm not sure if this is the best way to do this
-    console.log("currentEventTitle", currentEventTitle);
+    // console.log("currentEventTitle", currentEventTitle);
     setPopupData(events.find((item) => item.title === currentEventTitle));
 
     // const current = new Date(dateSelect);
