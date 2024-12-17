@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import "./DataCustom.scss";
 
 const getCurrentYear = new Date().getFullYear();
 const years = Array.from({ length: 50 }, (v, i) => getCurrentYear + i);
@@ -29,6 +30,7 @@ const getMonth = (date) => {
 function DataCustom(props) {
   return (
     <DatePicker
+      className="data-custom"
       renderCustomHeader={({
         date,
         changeYear,

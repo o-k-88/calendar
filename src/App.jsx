@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
-import "./App.css";
 import DatePicker from "./components/DatePicker/DatePicker.jsx";
 import ModalCalendar from "./components/ModalCalendar/ModalCalendar.jsx";
 import Widget from "./containers/Widget/Widget.jsx";
-
 import Layout from "./layout/Layout.jsx";
+
+import "./App.scss";
 
 function App() {
   const [events, setEvents] = useState([]);
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState(["All"]);
   const [popupData, setPopupData] = useState({}); //
   const [isShow, setIsShow] = useState(false);
 
@@ -29,7 +29,6 @@ function App() {
             let currentHour = matchTime[1].split("T")[1].slice(0, 2);
             let currentMinute = matchTime[1].split("T")[1].slice(3, 5);
             let currentTime = dayjs().set("hour", currentHour).set("minute", currentMinute);
-
             const regex = /<time[^>]*>(\d+)<\/time>/;
             let matchData = field_start_date.match(regex)[1];
             let date = new Date(Number(matchData) * 1000);
@@ -56,6 +55,7 @@ function App() {
         );
 
         setEvents(split);
+        // setFilteredEvents(split);
       })
       .catch((e) => {
         console.error(e);
@@ -78,6 +78,14 @@ function App() {
   };
 
   const handlerIsModal = () => setIsShow(!isShow);
+
+  // const handlerSelectOptions = (e) => {
+  //   if (e.target.value === "All") {
+  //     setFilteredEvents(events);
+  //   } else {
+  //     setFilteredEvents(events.filter((event) => event.category === e.target.value));
+  //   }
+  // };
 
   return (
     <>

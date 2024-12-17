@@ -32,6 +32,7 @@ const ModalCalendar = (props) => {
               <p>{data.time}</p>
 
               <p dangerouslySetInnerHTML={{ __html: data.description }} />
+              <p>Category {data?.category}</p>
             </div>
           )}
         </ModalBody>

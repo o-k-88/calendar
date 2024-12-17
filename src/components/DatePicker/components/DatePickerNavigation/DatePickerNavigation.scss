@@ -1,6 +1,18 @@
 .filters {
   margin-left: 20px;
 }
+.date-picker-navigation {
+  padding: 6px 0;
+  display: flex;
+
+  .date-picker-navigation-btn-today {
+    margin-right: 8px;
+  }
+
+  .date-picker-navigation-set-day {
+    margin-right: 8px;
+  }
+}
 
 .date-picker-wrapper {
   position: relative;

@@ -23,32 +23,19 @@ const DatePickerNavigation = ({
     onShowMonthView(true);
   };
 
-  // const handlerInputValue = (e) => {
-  // 	setInputValue(e.target.value);
-  // };
-
   const handlerSelectOptions = (e) => {
-    let currentOption = e.target.value;
-
-    if (currentOption === "all") {
+    if (e.target.value === "All") {
       setFilteredBySelectEvents(events);
-      return;
+    } else {
+      setFilteredBySelectEvents(events.filter((item) => item.category === e.target.value));
     }
 
-    // console.log(currentOption);
+    let currentOption = e.target.value;
     setFilteredBySelectEvents(events.filter((item) => item.category === currentOption));
-
-    // console.log(filteredBySelectEvents);
   };
-
-  // useEffect(() => {
-  //   setFilteredBySelectEvents(events);
-  // }, [events]);
 
   return (
     <div className="date-picker-navigation">
-      {/* <button>Month</button>
-        <button>Week</button> */}
       <Button
         underlineView
         classNames="date-picker-navigation-btn-today"
@@ -63,18 +50,13 @@ const DatePickerNavigation = ({
       >
         Month
       </Button>
-      {/*<input*/}
-      {/*	className="date-picker-navigation-input-day"*/}
-      {/*	onChange={handlerInputValue}*/}
-      {/*	type="date"*/}
-      {/*	value={inputValue}*/}
-      {/*/>*/}
+
       <DataCustom
         selected={currentDay}
         startDate={currentDay}
         onChange={(date) => onDateInput(date)}
       />
-      <div className="filters">
+      {/* <div className="filters">
         <div>Filters</div>
         <div className="date-picker-wrapper">
           <select
@@ -83,7 +65,6 @@ const DatePickerNavigation = ({
             id=""
             onChange={handlerSelectOptions}
           >
-            <option value="all">All</option>
             {category.map((item, index) => (
               <option className="date-picker-navigation-option" key={index} value={item}>
                 {item}
@@ -91,12 +72,7 @@ const DatePickerNavigation = ({
             ))}
           </select>
         </div>
-        <div>
-          {filteredBySelectEvents.map((item) => (
-            <div key={item.id}>{item.title}</div>
-          ))}
-        </div>
-      </div>
+      </div> */}
     </div>
   );
 };
