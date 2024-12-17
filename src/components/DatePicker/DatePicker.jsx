@@ -8,12 +8,19 @@ import "./DatePicker.scss";
 import { use } from "react";
 
 const DatePickerView = (props) => {
-  const { events, renderDay, renderMonth, handlerIsModal, className, category, onSelect } = props;
+  const {
+    events,
+    renderDay,
+    renderMonth,
+    handlerIsModal,
+    className,
+    category,
+    onSelect,
+    filteredEvents,
+  } = props;
 
   const [startDate, setStartDate] = useState(new Date());
   const [showMonthView, setShowMonthView] = useState(false);
-
-  const [filteredEvents, setFilteredEvents] = useState(events);
 
   const handlerStartDate = (date) => setStartDate(date);
   const handlerSetDateInput = (day) => setStartDate(day);
@@ -69,26 +76,14 @@ const DatePickerView = (props) => {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div className="filter-container ">
-          <select className="filter-select" onChange={handlerSelectOptions}>
-            {category.map((item, index) => (
-              <option className="date-picker-navigation-option" key={index} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-          <span className="filter-title">Filter</span>
-        </div>
-        <DatePickerNavigation
-          category={category}
-          onStartDate={handlerStartDate}
-          onShowMonthView={setShowMonthView}
-          currentDay={startDate}
-          onDateInput={handlerSetDateInput}
-          events={events}
-        />
-      </div>
+      <DatePickerNavigation
+        category={category}
+        onStartDate={handlerStartDate}
+        onShowMonthView={setShowMonthView}
+        currentDay={startDate}
+        onDateInput={handlerSetDateInput}
+        events={events}
+      />
 
       <div className="wrapper-date-picker">
         <DatePickerMain

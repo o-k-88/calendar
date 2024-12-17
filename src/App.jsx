@@ -13,6 +13,8 @@ function App() {
   const [popupData, setPopupData] = useState({}); //
   const [isShow, setIsShow] = useState(false);
 
+  const [filteredEvents, setFilteredEvents] = useState([]);
+
   // https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
 
   useEffect(() => {
@@ -55,7 +57,7 @@ function App() {
         );
 
         setEvents(split);
-        // setFilteredEvents(split);
+        setFilteredEvents(split);
       })
       .catch((e) => {
         console.error(e);
@@ -79,24 +81,35 @@ function App() {
 
   const handlerIsModal = () => setIsShow(!isShow);
 
-  // const handlerSelectOptions = (e) => {
-  //   if (e.target.value === "All") {
-  //     setFilteredEvents(events);
-  //   } else {
-  //     setFilteredEvents(events.filter((event) => event.category === e.target.value));
-  //   }
-  // };
+  const handlerSelectOptions = (e) => {
+    if (e.target.value === "All") {
+      setFilteredEvents(events);
+    } else {
+      setFilteredEvents(events.filter((event) => event.category === e.target.value));
+    }
+  };
 
   return (
     <>
       <Layout>
         <Widget>
+          <div className="filter-container ">
+            <select className="filter-select" onChange={handlerSelectOptions}>
+              {category.map((item, index) => (
+                <option className="date-picker-navigation-option" key={index} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+            <span className="filter-title">Filter</span>
+          </div>
           <DatePicker
             className={"asdasdsadsa"}
             events={events}
             handlerIsModal={handlerIsModal}
             category={category}
             onSelect={handlerSelect}
+            filteredEvents={filteredEvents}
           />
         </Widget>
       </Layout>
