@@ -5,18 +5,17 @@ import cn from "classnames";
 import DatePickerNavigation from "./components/DatePickerNavigation/DatePickerNavigation.jsx";
 import "react-datepicker/dist/react-datepicker.css";
 import "./DatePicker.scss";
-import { use } from "react";
 
 const DatePickerView = (props) => {
   const {
     events,
     renderDay,
     renderMonth,
-    handlerIsModal,
+    onModal,
     className,
     category,
     onSelect,
-    filteredEvents,
+    onSelectOptions,
   } = props;
 
   const [startDate, setStartDate] = useState(new Date());
@@ -27,7 +26,7 @@ const DatePickerView = (props) => {
 
   const renderDayContents = (day, date) => {
     const current = new Date(date);
-    const filteredTooltipText = filteredEvents?.filter(({ date }) => {
+    const filteredTooltipText = events?.filter(({ date }) => {
       const currentDate = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
 
       return date === currentDate;
@@ -37,18 +36,18 @@ const DatePickerView = (props) => {
       <>
         <div className={"day"}>{day}</div>
         {filteredTooltipText.map((item, index) => (
-          <div key={index}>
+          <div key={index} className={"event"}>
             {item?.title && <span className="label" />}
 
-            <span
+            <div
               onClick={(e) => {
-                handlerIsModal();
+                onModal();
                 onSelect(date, e);
               }}
               className={"title"}
             >
               {item?.time} - {item?.title}
-            </span>
+            </div>
           </div>
         ))}
       </>
@@ -63,15 +62,7 @@ const DatePickerView = (props) => {
       handlerStartDate(new Date(`${fullYear}-01-${month + 1 < 10 ? `0${month + 1}` : month + 1}`));
     };
 
-    return <span onClick={handlerSelectMonth}>{shortMonth}</span>;
-  };
-
-  const handlerSelectOptions = (e) => {
-    if (e.target.value === "All") {
-      setFilteredEvents(events);
-    } else {
-      setFilteredEvents(events.filter((event) => event.category === e.target.value));
-    }
+    return <div onClick={handlerSelectMonth}>{shortMonth}</div>;
   };
 
   return (
@@ -82,6 +73,7 @@ const DatePickerView = (props) => {
         onShowMonthView={setShowMonthView}
         currentDay={startDate}
         onDateInput={handlerSetDateInput}
+        onSelectOptions={onSelectOptions}
         events={events}
       />
 

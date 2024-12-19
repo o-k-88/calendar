@@ -81,11 +81,11 @@ function App() {
 
   const handlerIsModal = () => setIsShow(!isShow);
 
-  const handlerSelectOptions = (e) => {
-    if (e.target.value === "All") {
+  const handlerSelectOptions = (value) => {
+      if (value.value === "All") {
       setFilteredEvents(events);
     } else {
-      setFilteredEvents(events.filter((event) => event.category === e.target.value));
+      setFilteredEvents(events.filter((event) => event.category === value.value));
     }
   };
 
@@ -93,23 +93,14 @@ function App() {
     <>
       <Layout>
         <Widget>
-          <div className="filter-container ">
-            <select className="filter-select" onChange={handlerSelectOptions}>
-              {category.map((item, index) => (
-                <option className="date-picker-navigation-option" key={index} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-            <span className="filter-title">Filter</span>
-          </div>
+          
           <DatePicker
             className={"asdasdsadsa"}
-            events={events}
-            handlerIsModal={handlerIsModal}
+            events={filteredEvents}
+            onModal={handlerIsModal}
             category={category}
             onSelect={handlerSelect}
-            filteredEvents={filteredEvents}
+            onSelectOptions={handlerSelectOptions}
           />
         </Widget>
       </Layout>

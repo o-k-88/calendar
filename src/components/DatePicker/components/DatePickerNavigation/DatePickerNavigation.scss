@@ -53,3 +53,96 @@
     font-size: 16px;
   }
 }
+
+
+.date-picker-select {
+  width: 270px;
+
+  .date-picker__control {
+    min-height: 53px;
+    border-color: #6b78d6;
+    cursor: pointer;
+
+    &:hover {
+      border-color: #6b78d6;
+      box-shadow: rgba(107, 120, 214, 0.5) 0px 4px 12px;
+    }
+  }
+
+  .date-picker__single-value,
+  .date-picker__input {
+    font-size: 16px !important;
+    color: #6b78d6 !important;
+    font-weight: 400 !important;
+    font-family: "Helvetica Neue", helvetica, arial, sans-serif !important;
+  }
+
+  .date-picker__menu {}
+  .date-picker__option {
+    padding: 12px 16px;
+
+    &.date-picker__option--is-selected {
+      background-color: #6b78d6;
+    }
+
+    &.date-picker__option--is-focused {
+      background-color: rgba(#6b78d6,0.2);
+      color: #000;
+    }
+  }
+}
+
+.date-picker-filter {
+  display: flex;
+  flex: 1 1 0.1%;
+  justify-content: flex-end;
+  align-items: center;
+  padding-left: 8px;
+  box-sizing: border-box;
+
+  .filter-title {
+    margin-left: 8px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #6b78d6;
+  }
+
+  //.filter-select {
+  //  appearance: none; // Removes default browser styling
+  //  background-color: #fff;
+  //  border: 1px solid #6b78d6;
+  //  border-radius: 5px;
+  //  padding: 0.5rem 1rem;
+  //  cursor: pointer;
+  //  transition: all 0.3s ease;
+  //  height: 53px;
+  //  box-sizing: border-box;
+  //  font-size: 16px;
+  //  font-family: Arial, sans-serif;
+  //  color: #6b78d6;
+  //  font-weight: 400;
+  //
+  //  &:hover {
+  //    box-shadow: rgba(107, 120, 214, 0.5) 0 4px 12px;
+  //    //background-color: #f0f0f0;
+  //    //border-color: #888;
+  //  }
+  //
+  //  &:focus {
+  //    outline: none;
+  //    border-color: #6b78d6;
+  //    box-shadow: rgba(107, 120, 214, 0.5) 0 4px 12px;
+  //  }
+  //}
+  //
+  //.date-picker-navigation-option {
+  //  font-size: 0.95rem;
+  //  padding: 0.25rem;
+  //  background-color: #fff;
+  //
+  //  &:hover {
+  //    background-color: #f1f1f1;
+  //  }
+  //}
+}

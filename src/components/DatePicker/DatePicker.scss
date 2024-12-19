@@ -108,12 +108,12 @@
 
     .title {
       // padding: 0 6px;
-      box-sizing: border-box;
-      width: 100%;
+      //box-sizing: border-box;
+      //width: 100%;
       // display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      //white-space: nowrap;
+      //overflow: hidden;
+      //text-overflow: ellipsis;
       color: #000;
 
       &:hover {
@@ -127,6 +127,17 @@
 
     .day {
       color: #000;
+    }
+
+    .event {
+      font-size: 14px;
+      line-height: 1.33;
+      white-space: normal;
+      text-align: left;
+
+      & + .event {
+        margin-top: 8px;
+      }
     }
 
     .label {
