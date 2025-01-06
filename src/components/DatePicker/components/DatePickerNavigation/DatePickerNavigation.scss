@@ -5,10 +5,18 @@
   padding: 6px 0;
   display: flex;
 
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    gap: 8px;
+  }
+
   .date-picker-navigation-add-event,
   .date-picker-navigation-btn-today,
   .date-picker-navigation-set-day {
     margin-right: 8px;
+    @media (max-width: 1000px) {
+      margin-right: 0;
+    }
   }
 }
 

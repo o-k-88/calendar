@@ -8,7 +8,9 @@ const Layout = ({ children }) => {
     <div className="g-layout">
       <Header />
       <main className="main">
-        <div className="container-fluid">{children}</div>
+        <div className="container-fluid" style={{ width: "auto" }}>
+          {children}
+        </div>
       </main>
       <Footer />
     </div>
