@@ -5,10 +5,8 @@
   padding: 6px 0;
   display: flex;
 
-  .date-picker-navigation-btn-today {
-    margin-right: 8px;
-  }
-
+  .date-picker-navigation-add-event,
+  .date-picker-navigation-btn-today,
   .date-picker-navigation-set-day {
     margin-right: 8px;
   }
@@ -54,7 +52,6 @@
   }
 }
 
-
 .date-picker-select {
   width: 270px;
 
@@ -77,7 +74,8 @@
     font-family: "Helvetica Neue", helvetica, arial, sans-serif !important;
   }
 
-  .date-picker__menu {}
+  .date-picker__menu {
+  }
   .date-picker__option {
     padding: 12px 16px;
 
@@ -86,7 +84,7 @@
     }
 
     &.date-picker__option--is-focused {
-      background-color: rgba(#6b78d6,0.2);
+      background-color: rgba(#6b78d6, 0.2);
       color: #000;
     }
   }

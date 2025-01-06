@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
     <div className="g-layout">
       <Header />
       <main className="main">
-        <div className="container">{children}</div>
+        <div className="container-fluid">{children}</div>
       </main>
       <Footer />
     </div>
