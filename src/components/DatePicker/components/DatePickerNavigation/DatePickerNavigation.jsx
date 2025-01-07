@@ -42,6 +42,20 @@ const DatePickerNavigation = (props) => {
       >
         Month
       </Button>
+      <Button
+        underlineView
+        classNames="date-picker-navigation-btn-today"
+        href={"https://sunyempire.edu/media/academic-affairs/registrar/2024-2025-Academic-Year.pdf"}
+      >
+        '24-'25 Term Bookmark
+      </Button>
+      <Button
+        underlineView
+        classNames="date-picker-navigation-btn-today"
+        href={"https://sunyempire.edu/media/academic-affairs/registrar/2025-2026-Academic-Year.pdf"}
+      >
+        '25-'26 Term Bookmark
+      </Button>
 
       <DataCustom
         selected={currentDay}

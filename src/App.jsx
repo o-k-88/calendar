@@ -9,7 +9,7 @@ import "./App.scss";
 
 function App() {
   const [events, setEvents] = useState([]);
-  const [category, setCategory] = useState(["All"]);
+  const [category, setCategory] = useState(["All Categories"]);
   const [popupData, setPopupData] = useState({}); //
   const [isShow, setIsShow] = useState(false);
 
@@ -82,7 +82,7 @@ function App() {
   const handlerIsModal = () => setIsShow(!isShow);
 
   const handlerSelectOptions = (value) => {
-      if (value.value === "All") {
+    if (value.value === "All") {
       setFilteredEvents(events);
     } else {
       setFilteredEvents(events.filter((event) => event.category === value.value));
@@ -93,7 +93,6 @@ function App() {
     <>
       <Layout>
         <Widget>
-          
           <DatePicker
             className={"asdasdsadsa"}
             events={filteredEvents}
