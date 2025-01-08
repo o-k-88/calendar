@@ -41,14 +41,17 @@ const ModalSearch = (props) => {
     setInputValue(e.target.value);
   };
 
-  console.log(inputValue);
-
   return (
     <ModalWrapper isOpen={isOpen} handleClose={handleClose} isOutside>
       <Modal className={"modal-search"}>
         <ModalHeader>
           <ModalClose onClick={handleClose} />
-          <InputSearch onChange={handleInputValue} placeholder="Search" type="text" />
+          <InputSearch
+            onChange={handleInputValue}
+            placeholder="Search"
+            type="text"
+            value={inputValue}
+          />
         </ModalHeader>
         <ModalBody>
           {searchedData.length > 0 &&
@@ -57,6 +60,7 @@ const ModalSearch = (props) => {
                 <div className="searched-date">
                   <span>{item?.currentDate.toDateString()}</span>
                 </div>
+                <div className="searched-category">{item?.category}</div>
                 <div className="searched-details">
                   <span className="searched-time">{item?.time} - </span>
                   <span className="searched-title">{item?.title}</span>

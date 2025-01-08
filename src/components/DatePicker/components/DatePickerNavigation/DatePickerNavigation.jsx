@@ -7,8 +7,15 @@ import SelectCustom from "../SelectCustom/SelectCustom";
 import "./DatePickerNavigation.scss";
 
 const DatePickerNavigation = (props) => {
-  const { category, onStartDate, onShowMonthView, currentDay, onDateInput, onSelectOptions } =
-    props;
+  const {
+    category,
+    onStartDate,
+    onShowMonthView,
+    currentDay,
+    onDateInput,
+    onSelectOptions,
+    onSearch,
+  } = props;
 
   const handlerTodayButton = () => {
     onStartDate(new Date());
@@ -55,6 +62,9 @@ const DatePickerNavigation = (props) => {
         href={"https://sunyempire.edu/media/academic-affairs/registrar/2025-2026-Academic-Year.pdf"}
       >
         '25-'26 Term Bookmark
+      </Button>
+      <Button onClick={onSearch} underlineView classNames="date-picker-navigation-btn-search">
+        Search
       </Button>
 
       <DataCustom

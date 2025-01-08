@@ -12,6 +12,7 @@ function App() {
   const [events, setEvents] = useState([]);
   const [category, setCategory] = useState(["All Categories"]);
   const [popupData, setPopupData] = useState({});
+
   const [isShow, setIsShow] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
 
@@ -96,11 +97,11 @@ function App() {
     <>
       <Layout>
         <Widget>
-          <button onClick={handlerIsSearch}>Search</button>
           <DatePicker
             className={"asdasdsadsa"}
             events={filteredEvents}
             onModal={handlerIsModal}
+            onSearch={handlerIsSearch}
             category={category}
             onSelect={handlerSelect}
             onSelectOptions={handlerSelectOptions}
