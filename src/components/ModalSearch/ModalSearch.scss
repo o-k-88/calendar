@@ -1,0 +1,50 @@
+.modal-wrapper.modal-search {
+  max-width: 1000px;
+}
+
+.modal-search {
+  .modal-box {
+    .modal-header {
+    }
+    .modal-content {
+      overflow-y: auto;
+      max-height: 600px;
+      .searched-item {
+        border: 1px solid #ccc;
+        padding: 16px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        .searched-date span {
+          font-size: 14px;
+          color: #666;
+          font-weight: bold;
+        }
+        .searched-details {
+          margin-top: 8px;
+          font-size: 16px;
+          .searched-time {
+            font-weight: bold;
+            color: #333;
+          }
+          .searched-title {
+            font-weight: normal;
+            color: #555;
+          }
+        }
+
+        .searched-description {
+          margin-top: 12px;
+          font-size: 14px;
+          line-height: 1.5;
+          color: #444;
+        }
+      }
+    }
+    .modal-footer {
+      & button {
+        margin-right: 8px;
+      }
+    }
+  }
+}

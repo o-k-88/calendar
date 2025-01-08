@@ -6,12 +6,14 @@ import Widget from "./containers/Widget/Widget.jsx";
 import Layout from "./layout/Layout.jsx";
 
 import "./App.scss";
+import ModalSearch from "./components/ModalSearch/ModalSearch.jsx";
 
 function App() {
   const [events, setEvents] = useState([]);
   const [category, setCategory] = useState(["All Categories"]);
-  const [popupData, setPopupData] = useState({}); //
+  const [popupData, setPopupData] = useState({});
   const [isShow, setIsShow] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
 
   const [filteredEvents, setFilteredEvents] = useState([]);
 
@@ -80,9 +82,10 @@ function App() {
   };
 
   const handlerIsModal = () => setIsShow(!isShow);
+  const handlerIsSearch = () => setIsSearch(!isSearch);
 
   const handlerSelectOptions = (value) => {
-    if (value.value === "All") {
+    if (value.value === "All Categories") {
       setFilteredEvents(events);
     } else {
       setFilteredEvents(events.filter((event) => event.category === value.value));
@@ -93,6 +96,7 @@ function App() {
     <>
       <Layout>
         <Widget>
+          <button onClick={handlerIsSearch}>Search</button>
           <DatePicker
             className={"asdasdsadsa"}
             events={filteredEvents}
@@ -104,6 +108,7 @@ function App() {
         </Widget>
       </Layout>
       <ModalCalendar isOpen={isShow} data={popupData} handleClose={handlerIsModal}></ModalCalendar>
+      <ModalSearch isOpen={isSearch} data={events} handleClose={handlerIsSearch}></ModalSearch>
     </>
   );
 }
