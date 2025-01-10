@@ -1,14 +1,19 @@
 .modal-wrapper.modal-search {
-  max-width: 1000px;
+  max-width: 600px;
 }
 
 .modal-search {
+  max-height: 500px;
+  height: 100%;
   .modal-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     .modal-header {
     }
     .modal-content {
       overflow-y: auto;
-      max-height: 600px;
+      max-height: 500px;
       .searched-item {
         border: 1px solid #ccc;
         padding: 16px;
