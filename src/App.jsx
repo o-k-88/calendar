@@ -7,6 +7,7 @@ import Layout from "./layout/Layout.jsx";
 
 import "./App.scss";
 import ModalSearch from "./components/ModalSearch/ModalSearch.jsx";
+import ModalCreateEvent from "./components/ModalCreateEvent/ModalCreateEvent.jsx";
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -15,6 +16,7 @@ function App() {
 
   const [isShow, setIsShow] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
+  const [createEvent, setCreateEvent] = useState(false);
 
   const [filteredEvents, setFilteredEvents] = useState([]);
 
@@ -83,7 +85,14 @@ function App() {
   };
 
   const handlerIsModal = () => setIsShow(!isShow);
-  const handlerIsSearch = () => setIsSearch(!isSearch);
+  const handlerIsSearch = () => {
+    setIsSearch(!isSearch);
+    document.body.style.overflow = isSearch ? "auto" : "hidden";
+  };
+
+  const handleCreateEvent = () => {
+    setCreateEvent(!createEvent);
+  };
 
   const handlerSelectOptions = (value) => {
     if (value.value === "All Categories") {
@@ -105,11 +114,13 @@ function App() {
             category={category}
             onSelect={handlerSelect}
             onSelectOptions={handlerSelectOptions}
+            onCreateEvent={handleCreateEvent}
           />
         </Widget>
       </Layout>
       <ModalCalendar isOpen={isShow} data={popupData} handleClose={handlerIsModal}></ModalCalendar>
       <ModalSearch isOpen={isSearch} data={events} handleClose={handlerIsSearch}></ModalSearch>
+      <ModalCreateEvent isOpen={createEvent} handleClose={handleCreateEvent}></ModalCreateEvent>
     </>
   );
 }

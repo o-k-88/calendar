@@ -15,6 +15,7 @@ const DatePickerNavigation = (props) => {
     onDateInput,
     onSelectOptions,
     onSearch,
+    onCreateEvent,
   } = props;
 
   const handlerTodayButton = () => {
@@ -34,6 +35,9 @@ const DatePickerNavigation = (props) => {
         target="_blank"
       >
         Add New Event
+      </Button>
+      <Button onClick={onCreateEvent} underlineView classNames="date-picker-navigation-add-event">
+        Add New Event Form
       </Button>
       <Button
         underlineView

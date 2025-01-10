@@ -1,0 +1,64 @@
+.modal-create-event {
+  max-width: 600px;
+  max-height: 500px;
+  height: 100%;
+  .modal-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .modal-content {
+      overflow-y: auto;
+      max-height: 500px;
+    }
+  }
+  .event-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+
+  .event-form label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .event-form input,
+  .event-form select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .event-form input:focus,
+  .event-form select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  .date-time-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .date-time-group input {
+    width: calc(50% - 0.5rem);
+  }
+
+  .event-form div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .event-form input[type="date"],
+  .event-form input[type="time"] {
+    flex: 1;
+    min-width: 150px;
+  }
+}

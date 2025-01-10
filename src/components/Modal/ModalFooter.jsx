@@ -1,9 +1,14 @@
 import Button from "../Button/Button";
 
-const ModalFooter = ({ clickFirst, clickSecondary, textFirst, textSecondary }) => {
+const ModalFooter = ({ clickFirst, clickSecondary, textFirst, textSecondary, children }) => {
   return (
     <div className="modal-footer">
-      {textFirst && <Button onClick={clickFirst}>{textFirst}</Button>}
+      {children}
+      {textFirst && (
+        <Button underlineView onClick={clickFirst}>
+          {textFirst}
+        </Button>
+      )}
       {textSecondary && (
         <Button underlineView onClick={clickSecondary}>
           {textSecondary}

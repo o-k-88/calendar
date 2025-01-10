@@ -17,6 +17,7 @@ const DatePickerView = (props) => {
     onSelect,
     onSearch,
     onSelectOptions,
+    onCreateEvent,
   } = props;
 
   const [startDate, setStartDate] = useState(new Date());
@@ -77,6 +78,7 @@ const DatePickerView = (props) => {
         onSelectOptions={onSelectOptions}
         events={events}
         onSearch={onSearch}
+        onCreateEvent={onCreateEvent}
       />
 
       <div className="wrapper-date-picker">

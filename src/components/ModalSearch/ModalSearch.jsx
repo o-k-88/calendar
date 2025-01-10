@@ -11,6 +11,7 @@ import InputSearch from "../InputSearch/InputSearch";
 
 const ModalSearch = (props) => {
   const { handleClose, isOpen, data, children } = props;
+
   const [inputValue, setInputValue] = useState("");
   const [searchedData, setSearchedData] = useState([]);
 
@@ -46,6 +47,7 @@ const ModalSearch = (props) => {
       <Modal className={"modal-search"}>
         <ModalHeader>
           <ModalClose onClick={handleClose} />
+
           <InputSearch
             onChange={handleInputValue}
             placeholder="Search"
