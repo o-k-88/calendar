@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { overflowHidden } from "./helpers/overflowHidden.js";
 import dayjs from "dayjs";
 import DatePicker from "./components/DatePicker/DatePicker.jsx";
 import ModalCalendar from "./components/ModalCalendar/ModalCalendar.jsx";
 import Widget from "./containers/Widget/Widget.jsx";
 import Layout from "./layout/Layout.jsx";
-
-import "./App.scss";
 import ModalSearch from "./components/ModalSearch/ModalSearch.jsx";
 import ModalCreateEvent from "./components/ModalCreateEvent/ModalCreateEvent.jsx";
+
+import "./App.scss";
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -70,28 +71,22 @@ function App() {
   }, []);
 
   const handlerSelect = (dateSelect, e) => {
-    // console.log("handlerSelect", dateSelect);
     const currentEventTitle = e.target.textContent.replace(/^\d{2}:\d{2} [APM]{2} -\s*/, ""); //I'm not sure if this is the best way to do this
-    // console.log("currentEventTitle", currentEventTitle);
     setPopupData(events.find((item) => item.title === currentEventTitle));
-
-    // const current = new Date(dateSelect);
-    // const dateId = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
-    // const FilteredEvents = events.filter((item) => item.date === dateId);
-    // setPopupData(FilteredEvents || []);
-    // if (FilteredEvents.length) {
-    //   // handlerIsModal();
-    // }
   };
 
-  const handlerIsModal = () => setIsShow(!isShow);
+  const handlerIsModal = () => {
+    setIsShow(!isShow);
+    overflowHidden(isShow);
+  };
   const handlerIsSearch = () => {
     setIsSearch(!isSearch);
-    document.body.style.overflow = isSearch ? "auto" : "hidden";
+    overflowHidden(isSearch);
   };
 
   const handleCreateEvent = () => {
     setCreateEvent(!createEvent);
+    overflowHidden(createEvent);
   };
 
   const handlerSelectOptions = (value) => {
