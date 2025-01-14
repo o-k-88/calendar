@@ -7,6 +7,7 @@ import Widget from "./containers/Widget/Widget.jsx";
 import Layout from "./layout/Layout.jsx";
 import ModalSearch from "./components/ModalSearch/ModalSearch.jsx";
 import ModalCreateEvent from "./components/ModalCreateEvent/ModalCreateEvent.jsx";
+import LoginForm from "./components/LoginForm/LoginForm.jsx";
 
 import "./App.scss";
 
@@ -20,6 +21,8 @@ function App() {
   const [createEvent, setCreateEvent] = useState(false);
 
   const [filteredEvents, setFilteredEvents] = useState([]);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
 
@@ -97,21 +100,29 @@ function App() {
     }
   };
 
+  const handlerIsLoggedIn = () => {
+    setIsLoggedIn(true);
+  };
+
   return (
     <>
       <Layout>
-        <Widget>
-          <DatePicker
-            className={"asdasdsadsa"}
-            events={filteredEvents}
-            onModal={handlerIsModal}
-            onSearch={handlerIsSearch}
-            category={category}
-            onSelect={handlerSelect}
-            onSelectOptions={handlerSelectOptions}
-            onCreateEvent={handleCreateEvent}
-          />
-        </Widget>
+        {isLoggedIn ? (
+          <Widget>
+            <DatePicker
+              className={"asdasdsadsa"}
+              events={filteredEvents}
+              onModal={handlerIsModal}
+              onSearch={handlerIsSearch}
+              category={category}
+              onSelect={handlerSelect}
+              onSelectOptions={handlerSelectOptions}
+              onCreateEvent={handleCreateEvent}
+            />
+          </Widget>
+        ) : (
+          <LoginForm onLogin={handlerIsLoggedIn} />
+        )}
       </Layout>
       <ModalCalendar isOpen={isShow} data={popupData} handleClose={handlerIsModal}></ModalCalendar>
       <ModalSearch isOpen={isSearch} data={events} handleClose={handlerIsSearch}></ModalSearch>

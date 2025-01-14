@@ -7,7 +7,7 @@ import ModalFooter from "../Modal/ModalFooter";
 import ModalClose from "../Modal/ModalClose";
 
 import "./ModalCreateEvent.scss";
-import {FormCreateEvent} from "../../composition/FormCreateEvent/FormCreateEvent.jsx";
+import { FormCreateEvent } from "../../composition/FormCreateEvent/FormCreateEvent";
 
 const ModalCreateEvent = ({ isOpen, handleClose, data }) => {
   return (
