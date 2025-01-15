@@ -31,12 +31,12 @@
 
     &:focus {
       outline: none;
-      border-color: #0056b3;
-      box-shadow: 0 0 4px rgba(0, 86, 179, 0.5);
+      border-color: #bedeef;
+      box-shadow: 0 0 4px #bedeef;
     }
 
     &:hover {
-      border-color: #007bff;
+      border-color: #bedeef;
     }
   }
 }
@@ -48,20 +48,21 @@
   font-size: 1.1rem;
   font-weight: 700;
   text-align: center;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
+  color: #444;
+  border: 1px solid #bedeef;
+  background-color: transparent;
+
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #bedeef;
   }
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 6px #bedeef;
   }
 
   &:active {
