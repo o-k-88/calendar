@@ -71,7 +71,7 @@ function App() {
       .catch((e) => {
         console.error(e);
       });
-  }, []);
+  }, [events]);
 
   const handlerSelect = (dateSelect, e) => {
     const currentEventTitle = e.target.textContent.replace(/^\d{2}:\d{2} [APM]{2} -\s*/, ""); //I'm not sure if this is the best way to do this

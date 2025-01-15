@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import Button from "../../components/Button/Button.jsx";
 
-export const FormCreateEvent = () => {
+export const FormCreateEvent = ({ handleClose }) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -61,6 +61,7 @@ export const FormCreateEvent = () => {
           .then((data) => {
             console.log("data from server form create event", data);
           });
+        handleClose();
       }}
     >
       {() => (
