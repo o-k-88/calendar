@@ -1,64 +1,117 @@
 .modal-create-event {
-  max-width: 600px;
-  max-height: 500px;
-  height: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .modal-box {
     display: flex;
     flex-direction: column;
     height: 100%;
+    max-height: calc(-60px + 100vh);
+    width: 100%;
     .modal-content {
       overflow-y: auto;
-      max-height: 500px;
+      max-height: 600px;
     }
   }
-  .event-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-width: 400px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
-  }
+}
 
-  .event-form label {
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
+.modal-create-event-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
 
-  .event-form input,
-  .event-form select {
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
+/* General container styling */
 
-  .event-form input:focus,
-  .event-form select:focus {
-    border-color: #007bff;
-    outline: none;
-  }
+form {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
 
+/* Label and paragraph styling */
+label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+label p {
+  margin: 0 0 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Input and select styling */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Date-time group styling */
+.date-time-group {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.date-time-group label {
+  flex: 1;
+}
+
+/* Horizontal rule styling */
+hr {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+/* Submit button styling */
+button[type="submit"] {
+  display: inline-block;
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
   .date-time-group {
-    display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .date-time-group input {
-    width: calc(50% - 0.5rem);
-  }
-
-  .event-form div {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .event-form input[type="date"],
-  .event-form input[type="time"] {
-    flex: 1;
-    min-width: 150px;
+    gap: 10px;
   }
 }

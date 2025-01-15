@@ -17,7 +17,7 @@ const ModalCreateEvent = ({ isOpen, handleClose, data }) => {
           <ModalClose onClick={handleClose} />
         </ModalHeader>
         <ModalBody>
-          <h1>Create Calendar Event</h1>
+          <h1 className="modal-create-event-title">Create Calendar Event</h1>
           <FormCreateEvent />
         </ModalBody>
       </Modal>

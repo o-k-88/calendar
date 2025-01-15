@@ -18,8 +18,6 @@ export const FormCreateEvent = () => {
       });
   }, []);
 
-  console.log("categories", categories);
-
   return (
     <Formik
       initialValues={{ type: "calendar_event" }}

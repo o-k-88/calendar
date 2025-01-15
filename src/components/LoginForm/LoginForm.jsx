@@ -14,12 +14,16 @@ const LoginForm = ({ onLogin }) => {
       >
         <Form>
           <div className="login-form-group">
-            <label htmlFor="email">Email</label>
-            <Field type="email" name="email" id="email" />
+            <label className="login-label" htmlFor="email">
+              Email
+            </label>
+            <Field className="login-input" type="email" name="email" id="email" />
           </div>
           <div className="login-form-group">
-            <label htmlFor="password">Password</label>
-            <Field type="password" name="password" id="password" />
+            <label className="login-label" htmlFor="password">
+              Password
+            </label>
+            <Field className="login-input" type="password" name="password" id="password" />
           </div>
           <button className="login-submit-btn" type="submit">
             Submit
