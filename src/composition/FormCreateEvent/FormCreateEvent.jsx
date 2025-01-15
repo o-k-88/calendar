@@ -22,7 +22,7 @@ export const FormCreateEvent = ({ handleClose }) => {
     <Formik
       initialValues={{ type: "calendar_event" }}
       onSubmit={(values, actions) => {
-        // console.log(values);
+        // console.log("initial form data", values);
         const initialFormData = {
           ...values,
           field_start_date: `${values.field_start_date}T${values["start-time"]}:00Z`,
