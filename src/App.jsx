@@ -50,9 +50,16 @@ function App() {
 
             setCategory((prev) => {
               const categoriesArray = new Set([...prev, field_category]);
-              return [...categoriesArray];
-            });
+              const removeEmptyString = [...categoriesArray].filter((item) => item !== "");
+              const removeSymbol = removeEmptyString.map((item) => {
+                if (item.includes("&#039;")) {
+                  return item.replace("&#039;", "'");
+                }
+                return item;
+              });
 
+              return [...removeSymbol];
+            });
             return {
               id: nid,
               title,
