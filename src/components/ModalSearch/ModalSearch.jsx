@@ -25,6 +25,8 @@ const ModalSearch = (props) => {
     };
   });
 
+  console.log(updatedData);
+
   const handleSearchBtn = () => {
     if (inputValue !== "") {
       const filteredData = updatedData.filter(

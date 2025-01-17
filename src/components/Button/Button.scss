@@ -18,30 +18,31 @@
   background-color: #fff;
   box-shadow: none;
   border: 1px solid #d1d1d1;
-  color: #767676;
-  padding: 8px 16px;
+  color: rgb(66, 66, 66);
+  padding: 6px 16px;
+  border-radius: 4px;
 
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
   &:focus,
   &:hover {
-    border-color: #767676;
+    border-color: rgb(66, 66, 66);
   }
 
   &.active {
-    background-color: red;
-    color: #000;
+    // background-color: red;
+    color: rgb(66, 66, 66);
   }
 
   &._outline {
-    border-color: #6b78d6;
+    border-color: #e0e0e0;
     background-color: transparent;
-    color: #6b78d6;
+    color: rgb(66, 66, 66);
 
     &:focus,
     &:hover {
-      background-color: #6b78d6;
-      color: #fff;
+      background-color: #e0e0e0;
+      color: rgb(66, 66, 66);
     }
   }
 }

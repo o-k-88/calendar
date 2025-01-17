@@ -10,6 +10,7 @@ import ModalCreateEvent from "./components/ModalCreateEvent/ModalCreateEvent.jsx
 import LoginForm from "./components/LoginForm/LoginForm.jsx";
 
 import "./App.scss";
+import RightSideBar from "./components/RightSideBar/RightSideBar.jsx";
 
 function App() {
   const [events, setEvents] = useState([]);
@@ -43,10 +44,6 @@ function App() {
             const regex = /<time[^>]*>(\d+)<\/time>/;
             let matchData = field_start_date.match(regex)[1];
             let date = new Date(Number(matchData) * 1000);
-
-            // const datejs = dayjs(Number(matchData) * 1000)
-            // console.log('datejs',date, datejs.format('hh:mm A'));
-            // console.log('match',matchTime[1].split("T")[1].slice(0,5));
 
             setCategory((prev) => {
               const categoriesArray = new Set([...prev, field_category]);
@@ -107,37 +104,22 @@ function App() {
     }
   };
 
-  const handlerIsLoggedIn = () => {
-    setIsLoggedIn(true);
-    localStorage.setItem("isLoggedIn", true);
-  };
-
-  useEffect(() => {
-    const loggedIn = localStorage.getItem("isLoggedIn");
-    if (loggedIn) {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
   return (
     <>
       <Layout>
-        {isLoggedIn ? (
-          <Widget>
-            <DatePicker
-              className={"asdasdsadsa"}
-              events={filteredEvents}
-              onModal={handlerIsModal}
-              onSearch={handlerIsSearch}
-              category={category}
-              onSelect={handlerSelect}
-              onSelectOptions={handlerSelectOptions}
-              onCreateEvent={handleCreateEvent}
-            />
-          </Widget>
-        ) : (
-          <LoginForm onLogin={handlerIsLoggedIn} />
-        )}
+        <Widget>
+          <DatePicker
+            className={"asdasdsadsa"}
+            events={filteredEvents}
+            onModal={handlerIsModal}
+            onSearch={handlerIsSearch}
+            category={category}
+            onSelect={handlerSelect}
+            onSelectOptions={handlerSelectOptions}
+            onCreateEvent={handleCreateEvent}
+          />
+        </Widget>
+        <RightSideBar />
       </Layout>
       <ModalCalendar isOpen={isShow} data={popupData} handleClose={handlerIsModal}></ModalCalendar>
       <ModalSearch isOpen={isSearch} data={events} handleClose={handlerIsSearch}></ModalSearch>

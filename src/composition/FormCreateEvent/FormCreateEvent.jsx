@@ -66,23 +66,23 @@ export const FormCreateEvent = ({ handleClose }) => {
       }}
     >
       {() => (
-        <Form>
+        <Form className="modal-create-event-form ">
           <Field type="hidden" name="calendar_event" value="calendar_event" />
-          <label>
-            <p>Title</p>
+          <label className="modal-create-event-form-label">
+            <p className="modal-create-event-form-title">Title</p>
             <Field type="text" id="title" name="title" />
           </label>
-          <label>
+          <label className="modal-create-event-form-label">
             <p>Description</p>
             <Field type="text" id="description" name="field_description" />
           </label>
-          <label>
+          <label className="modal-create-event-form-label">
             <p>Location</p>
             <Field type="text" id="location" name="field_location" />
           </label>
-          <label>
+          <label className="modal-create-event-form-label">
             <p>Category</p>
-            <Field as="select" name="field_category">
+            <Field className="modal-create-event-form-select" as="select" name="field_category">
               {categories.map((category) => (
                 <option key={category.tid} value={category.tid}>
                   {category.name}
@@ -92,28 +92,30 @@ export const FormCreateEvent = ({ handleClose }) => {
           </label>
 
           <div className="date-time-group">
-            <label>
+            <label className="modal-create-event-form-label">
               <p>Start Date</p>
               <Field type="date" id="start-date" name="field_start_date" />
             </label>
-            <label>
+            <label className="modal-create-event-form-label">
               <p>Time</p>
               <Field type="time" id="start-time" name="start-time" />
             </label>
           </div>
           <hr />
           <div className="date-time-group">
-            <label>
+            <label className="modal-create-event-form-label">
               <p>End Date</p>
               <Field type="date" id="end-date" name="field_end_date" />
             </label>
-            <label>
+            <label className="modal-create-event-form-label">
               <p>Time</p>
               <Field type="time" id="end-time" name="end-time" />
             </label>
           </div>
           <div>
-            <Button type="submit">submit</Button>
+            <Button classNames="modal-create-event-form-submit" type="submit">
+              submit
+            </Button>
           </div>
         </Form>
       )}

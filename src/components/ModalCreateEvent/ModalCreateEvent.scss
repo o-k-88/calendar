@@ -25,7 +25,7 @@
 
 /* General container styling */
 
-form {
+.modal-create-event-form {
   max-width: 600px;
   margin: 40px auto;
   padding: 20px;
@@ -37,12 +37,12 @@ form {
 }
 
 /* Label and paragraph styling */
-label {
+.modal-create-event-form-label {
   display: block;
   margin-bottom: 15px;
 }
 
-label p {
+.modal-create-event-form-label p {
   margin: 0 0 5px;
   font-weight: bold;
   color: #333;
@@ -52,7 +52,7 @@ label p {
 input[type="text"],
 input[type="date"],
 input[type="time"],
-select {
+.modal-create-event-form-select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -90,7 +90,7 @@ hr {
 }
 
 /* Submit button styling */
-button[type="submit"] {
+.modal-create-event-form-submit {
   display: inline-block;
   width: 100%;
   padding: 12px;
@@ -102,10 +102,9 @@ button[type="submit"] {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
-}
-
-button[type="submit"]:hover {
-  background-color: #0056b3;
+  &:hover {
+    background-color: #0056b3;
+  }
 }
 
 /* Responsive design */
