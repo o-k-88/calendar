@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import Button from "../../components/Button/Button.jsx";
 
-export const FormCreateEvent = ({ handleClose }) => {
+export const FormCreateEvent = ({ handleClose,onUpdateEvents }) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -63,6 +63,7 @@ export const FormCreateEvent = ({ handleClose }) => {
           });
 
         handleClose();
+          onUpdateEvents()
       }}
     >
       {() => (

@@ -9,7 +9,7 @@ import ModalClose from "../Modal/ModalClose";
 import "./ModalCreateEvent.scss";
 import { FormCreateEvent } from "../../composition/FormCreateEvent/FormCreateEvent";
 
-const ModalCreateEvent = ({ isOpen, handleClose, data }) => {
+const ModalCreateEvent = ({ isOpen, handleClose, onUpdateEvents, data }) => {
   return (
     <ModalWrapper isOpen={isOpen} isOutside handleClose={handleClose}>
       <Modal className={"modal-create-event"}>
@@ -18,7 +18,7 @@ const ModalCreateEvent = ({ isOpen, handleClose, data }) => {
         </ModalHeader>
         <ModalBody>
           <h1 className="modal-create-event-title">Create Calendar Event</h1>
-          <FormCreateEvent handleClose={handleClose} />
+          <FormCreateEvent handleClose={handleClose}  onUpdateEvents ={onUpdateEvents}/>
         </ModalBody>
       </Modal>
     </ModalWrapper>

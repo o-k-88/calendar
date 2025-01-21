@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { overflowHidden } from "./helpers/overflowHidden.js";
+import React, {useState, useEffect, Suspense} from "react";
+import {overflowHidden} from "./helpers/overflowHidden.js";
 import dayjs from "dayjs";
 import DatePicker from "./components/DatePicker/DatePicker.jsx";
 import ModalCalendar from "./components/ModalCalendar/ModalCalendar.jsx";
@@ -11,121 +11,146 @@ import LoginForm from "./components/LoginForm/LoginForm.jsx";
 
 import "./App.scss";
 import RightSideBar from "./components/RightSideBar/RightSideBar.jsx";
+import {eventItem} from "./helpers/formatEvent.js";
 
 function App() {
-  const [events, setEvents] = useState([]);
-  const [category, setCategory] = useState(["All Categories"]);
-  const [popupData, setPopupData] = useState({});
-
-  const [isShow, setIsShow] = useState(false);
-  const [isSearch, setIsSearch] = useState(false);
-  const [createEvent, setCreateEvent] = useState(false);
-
-  const [filteredEvents, setFilteredEvents] = useState([]);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
-
-  useEffect(() => {
-    const data = fetch("https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json");
-    data
-      .then((data) => {
-        return data.json();
-      })
-      .then((current) => {
-        const split = current.rows.map(
-          ({ field_start_date, title, field_description, field_category, nid }) => {
-            const regex_data = /datetime="([^"]+)"/;
-            let matchTime = field_start_date.match(regex_data);
-            let currentHour = matchTime[1].split("T")[1].slice(0, 2);
-            let currentMinute = matchTime[1].split("T")[1].slice(3, 5);
-            let currentTime = dayjs().set("hour", currentHour).set("minute", currentMinute);
-            const regex = /<time[^>]*>(\d+)<\/time>/;
-            let matchData = field_start_date.match(regex)[1];
-            let date = new Date(Number(matchData) * 1000);
-
-            setCategory((prev) => {
-              const categoriesArray = new Set([...prev, field_category]);
-              const removeEmptyString = [...categoriesArray].filter((item) => item !== "");
-              const removeSymbol = removeEmptyString.map((item) => {
-                if (item.includes("&#039;")) {
-                  return item.replace("&#039;", "'");
-                }
-                return item;
-              });
-
-              return [...removeSymbol];
-            });
-            return {
-              id: nid,
-              title,
-              time: currentTime.format("hh:mm A"),
-              description: field_description,
-              date: `${date.getFullYear()}${date.getMonth()}${date.getDate()}`,
-              currentDate: field_start_date,
-              category: field_category,
-            };
-          }
-        );
-
-        setEvents(split);
-        setFilteredEvents(split);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  }, []);
-
-  const handlerSelect = (dateSelect, e) => {
-    const currentEventTitle = e.target.textContent.replace(/^\d{2}:\d{2} [APM]{2} -\s*/, ""); //I'm not sure if this is the best way to do this
-    setPopupData(events.find((item) => item.title === currentEventTitle));
-  };
-
-  const handlerIsModal = () => {
-    setIsShow(!isShow);
-    overflowHidden(isShow);
-  };
-  const handlerIsSearch = () => {
-    setIsSearch(!isSearch);
-    overflowHidden(isSearch);
-  };
-
-  const handleCreateEvent = () => {
-    setCreateEvent(!createEvent);
-    overflowHidden(createEvent);
-  };
-
-  const handlerSelectOptions = (value) => {
-    if (value.value === "All Categories") {
-      setFilteredEvents(events);
-    } else {
-      setFilteredEvents(events.filter((event) => event.category === value.value));
-    }
-  };
-
-  return (
-    <>
-      <Layout>
-        <Widget>
-          <DatePicker
-            className={"asdasdsadsa"}
-            events={filteredEvents}
-            onModal={handlerIsModal}
-            onSearch={handlerIsSearch}
-            category={category}
-            onSelect={handlerSelect}
-            onSelectOptions={handlerSelectOptions}
-            onCreateEvent={handleCreateEvent}
-          />
-        </Widget>
-        <RightSideBar />
-      </Layout>
-      <ModalCalendar isOpen={isShow} data={popupData} handleClose={handlerIsModal}></ModalCalendar>
-      <ModalSearch isOpen={isSearch} data={events} handleClose={handlerIsSearch}></ModalSearch>
-      <ModalCreateEvent isOpen={createEvent} handleClose={handleCreateEvent}></ModalCreateEvent>
-    </>
-  );
+	const [events, setEvents] = useState([]);
+	const [category, setCategory] = useState(["All Categories"]);
+	const [popupData, setPopupData] = useState({});
+	
+	const [isShow, setIsShow] = useState(false);
+	const [isSearch, setIsSearch] = useState(false);
+	const [createEvent, setCreateEvent] = useState(false);
+	
+	const [filteredEvents, setFilteredEvents] = useState([]);
+	
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	
+	// https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
+	
+	useEffect(() => {
+		const data = fetch("https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json");
+		data
+			.then((data) => {
+				return data.json();
+			})
+			.then((current) => {
+				const split = current.rows.map(
+					({field_start_date, title, field_description, field_category, nid}) => {
+						const regex_data = /datetime="([^"]+)"/;
+						let matchTime = field_start_date.match(regex_data);
+						let currentHour = matchTime[1].split("T")[1].slice(0, 2);
+						let currentMinute = matchTime[1].split("T")[1].slice(3, 5);
+						let currentTime = dayjs().set("hour", currentHour).set("minute", currentMinute);
+						const regex = /<time[^>]*>(\d+)<\/time>/;
+						let matchData = field_start_date.match(regex)[1];
+						let date = new Date(Number(matchData) * 1000);
+						
+						setCategory((prev) => {
+							const categoriesArray = new Set([...prev, field_category]);
+							const removeEmptyString = [...categoriesArray].filter((item) => item !== "");
+							const removeSymbol = removeEmptyString.map((item) => {
+								if (item.includes("&#039;")) {
+									return item.replace("&#039;", "'");
+								}
+								return item;
+							});
+							
+							return [...removeSymbol];
+						});
+						return {
+							id: nid,
+							title,
+							time: currentTime.format("hh:mm A"),
+							description: field_description,
+							date: `${date.getFullYear()}${date.getMonth()}${date.getDate()}`,
+							currentDate: field_start_date,
+							category: field_category,
+						};
+					}
+				);
+				
+				setEvents(split);
+				setFilteredEvents(split);
+			})
+			.catch((e) => {
+				console.error(e);
+			});
+	}, []);
+	
+	const handlerSelect = (dateSelect, e) => {
+		const currentEventTitle = e.target.textContent.replace(/^\d{2}:\d{2} [APM]{2} -\s*/, ""); //I'm not sure if this is the best way to do this
+		setPopupData(events.find((item) => item.title === currentEventTitle));
+	};
+	
+	const handlerIsModal = () => {
+		setIsShow(!isShow);
+		overflowHidden(isShow);
+	};
+	const handlerIsSearch = () => {
+		setIsSearch(!isSearch);
+		overflowHidden(isSearch);
+	};
+	
+	
+	const handleUpdateEvents = () => {
+		console.log('handleUpdateEvents', );
+		const obj = {
+			field_category: {value: '5'},
+			field_description: {value: 'sdfsdfds'},
+			field_end_date: {value: '2025-01-23T20:07:00Z'},
+			field_location: {value: 'US'},
+			field_start_date: {value: '2025-01-23T20:07:00Z'},
+			title: {value: '322323232323'},
+			type: "calendar_event"
+		}
+		
+		console.log('handleUpdateEvents: - eventItem', eventItem(obj));
+		
+		setFilteredEvents((prev) => [...prev, eventItem(obj)])
+        setEvents((prev) => [...prev, eventItem(obj)])
+	}
+	
+	const handleCreateEvent = () => {
+		setCreateEvent(!createEvent);
+		overflowHidden(createEvent);
+	};
+	
+	const handlerSelectOptions = (value) => {
+		if (value.value === "All Categories") {
+			setFilteredEvents(events);
+		} else {
+			setFilteredEvents(events.filter((event) => event.category === value.value));
+		}
+	};
+    
+    
+    console.log('filteredEvents',filteredEvents)
+	
+	return (
+		<>
+			<Layout>
+				<Widget>
+					<Suspense>
+						<DatePicker
+							className={"asdasdsadsa"}
+							events={filteredEvents}
+							onModal={handlerIsModal}
+							onSearch={handlerIsSearch}
+							category={category}
+							onSelect={handlerSelect}
+							onSelectOptions={handlerSelectOptions}
+							onCreateEvent={handleCreateEvent}
+						/>
+					</Suspense>
+				</Widget>
+				<RightSideBar/>
+			</Layout>
+			<ModalCalendar isOpen={isShow} data={popupData} handleClose={handlerIsModal}/>
+			<ModalSearch isOpen={isSearch} data={events} handleClose={handlerIsSearch}/>
+			<ModalCreateEvent isOpen={createEvent} handleClose={handleCreateEvent} onUpdateEvents={handleUpdateEvents}/>
+		</>
+	);
 }
 
 export default App;
