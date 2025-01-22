@@ -17,31 +17,20 @@ const ModalCalendar = (props) => {
           <ModalClose onClick={handleClose} />
         </ModalHeader>
         <ModalBody>
-          {/* {data.map((item, index) => (
-            <div key={index}>
-              <h4>{item.title}</h4>
-              <p>{item.id}</p>
-              <p>{item.time}</p>
-
-              <p dangerouslySetInnerHTML={{ __html: item.description }} />
-            </div>
-          ))} */}
           {data && (
             <div>
-              <h4>{data.title}</h4>
-              <p>{data.time}</p>
+              <h4 className="modal-calendar-title">{data.title}</h4>
+              <p className="modal-calendar-date">{data.time}</p>
 
-              <p dangerouslySetInnerHTML={{ __html: data.description }} />
-              <p>Category {data?.category}</p>
+              <p
+                className="modal-calendar-description"
+                dangerouslySetInnerHTML={{ __html: data.description }}
+              />
+              <p className="modal-calendar-category"> {data?.category}</p>
             </div>
           )}
         </ModalBody>
-        <ModalFooter
-          // textFirst={"OK"}
-          textSecondary={"Close"}
-          // clickFirst={handleOk}
-          clickSecondary={handleClose}
-        />
+        <ModalFooter textSecondary={"Close"} clickSecondary={handleClose} />
       </Modal>
     </ModalWrapper>
   );

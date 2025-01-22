@@ -7,7 +7,7 @@ import ModalHeader from "../Modal/ModalHeader";
 import ModalBody from "../Modal/ModalBody";
 import ModalFooter from "../Modal/ModalFooter";
 import ModalClose from "../Modal/ModalClose";
-import InputSearch from "../InputSearch/InputSearch";
+
 import { Formik, Form, Field } from "formik";
 import Button from "../Button/Button";
 
@@ -58,7 +58,13 @@ const ModalSearch = ({ data, isOpen, handleClose }) => {
     <ModalWrapper isOpen={isOpen} handleClose={handleClose} isOutside>
       <Modal className={"modal-search"}>
         <ModalHeader>
-          <ModalClose onClick={handleClose} />
+          <ModalClose
+            onClick={() => {
+              setFilteredData([]);
+              handleClose();
+              setIsErrorInput(false);
+            }}
+          />
         </ModalHeader>
         <ModalBody>
           <Formik
@@ -109,6 +115,7 @@ const ModalSearch = ({ data, isOpen, handleClose }) => {
                   Search
                 </Button>
                 <Button
+                  classNames={"close-btn"}
                   onClick={() => {
                     setFilteredData([]);
                     handleClose();
