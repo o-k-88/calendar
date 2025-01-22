@@ -8,12 +8,12 @@ import ModalBody from "../Modal/ModalBody";
 import ModalFooter from "../Modal/ModalFooter";
 import ModalClose from "../Modal/ModalClose";
 import InputSearch from "../InputSearch/InputSearch";
+import { Formik, Form, Field } from "formik";
+import Button from "../Button/Button";
 
-const ModalSearch = (props) => {
-  const { handleClose, isOpen, data, children } = props;
-
-  const [inputValue, setInputValue] = useState("");
-  const [searchedData, setSearchedData] = useState([]);
+const ModalSearch = ({ data, isOpen, handleClose }) => {
+  const [filteredData, setFilteredData] = useState([]);
+  const [isErrorInput, setIsErrorInput] = useState(false);
 
   const updatedData = data.map((item) => {
     const curr = item.currentDate;
@@ -25,23 +25,33 @@ const ModalSearch = (props) => {
     };
   });
 
-  console.log(updatedData);
-
-  const handleSearchBtn = () => {
-    if (inputValue !== "") {
-      const filteredData = updatedData.filter(
-        (item) =>
-          item.title.toLowerCase().includes(inputValue) ||
-          item.category.toLowerCase().includes(inputValue) ||
-          item.description.toLowerCase().includes(inputValue)
-      );
-      setSearchedData(filteredData);
-      setInputValue("");
+  const handleFilterData = ({ search_input, start_date, end_date }) => {
+    // If search_input is empty, set filteredData to an empty array
+    if (search_input.trim() === "") {
+      setIsErrorInput(true);
+      setFilteredData([]);
+      return;
     }
-  };
 
-  const handleInputValue = (e) => {
-    setInputValue(e.target.value);
+    const start = start_date ? new Date(start_date) : null;
+    const end = end_date ? new Date(end_date) : null;
+
+    const filtered = updatedData.filter((event) => {
+      const eventDate = new Date(event.currentDate);
+
+      // Check if event date is within range
+      const isWithinDateRange = (!start || eventDate >= start) && (!end || eventDate <= end);
+
+      // Check if search input matches title, description, or category
+      const matchesSearch =
+        event.title.toLowerCase().includes(search_input.toLowerCase()) ||
+        event.description.toLowerCase().includes(search_input.toLowerCase()) ||
+        event.category.toLowerCase().includes(search_input.toLowerCase());
+
+      return isWithinDateRange && matchesSearch;
+    });
+    setIsErrorInput(false);
+    setFilteredData(filtered);
   };
 
   return (
@@ -49,36 +59,69 @@ const ModalSearch = (props) => {
       <Modal className={"modal-search"}>
         <ModalHeader>
           <ModalClose onClick={handleClose} />
-
-          <InputSearch
-            onChange={handleInputValue}
-            placeholder="Search"
-            type="text"
-            value={inputValue}
-          />
         </ModalHeader>
         <ModalBody>
-          {searchedData.length > 0 &&
-            searchedData.map((item, index) => (
-              <div key={index} className="searched-item">
-                <div className="searched-date">
-                  <span>{item?.currentDate.toDateString()}</span>
-                </div>
-                <div className="searched-category">{item?.category}</div>
-                <div className="searched-details">
-                  <span className="searched-time">{item?.time} - </span>
-                  <span className="searched-title">{item?.title}</span>
-                </div>
-                <p dangerouslySetInnerHTML={{ __html: item?.description }} />
+          <Formik
+            initialValues={{ search_input: "", start_date: "", end_date: "" }}
+            onSubmit={(values) => {
+              handleFilterData(values);
+            }}
+          >
+            <Form>
+              <Field
+                className="search-form-field"
+                type="text"
+                name="search_input"
+                placeholder="Search events"
+              />
+              {isErrorInput && (
+                <p style={{ color: "red", padding: "0 0 5px", fontSize: "12px" }}>
+                  Search input is required
+                </p>
+              )}
+              <span>Occurring between:</span>
+              <div
+                className="search-form-date"
+                style={{ display: "flex", gap: "10px", alignItems: "center" }}
+              >
+                <Field className="search-form-field" type="date" name="start_date" />
+
+                <Field className="search-form-field" type="date" name="end_date" />
               </div>
-            ))}
+              <ul>
+                {filteredData.length > 0 &&
+                  filteredData.map((event) => (
+                    <li className="searched-item " key={event.id}>
+                      <strong className="searched-title">{event.title}</strong>
+                      <p
+                        className="searched-description"
+                        dangerouslySetInnerHTML={{ __html: event.description }}
+                      />
+                      <p>Date: {new Date(event.currentDate).toLocaleDateString()}</p>
+                      <p className="searched-category">
+                        Category: {event.category || "No Category"}
+                      </p>
+                    </li>
+                  ))}
+              </ul>
+              <div className="searched-form-button-group">
+                <Button classNames={"search-btn"} type="submit" underlineView>
+                  Search
+                </Button>
+                <Button
+                  onClick={() => {
+                    setFilteredData([]);
+                    handleClose();
+                    setIsErrorInput(false);
+                  }}
+                  underlineView
+                >
+                  Close
+                </Button>
+              </div>
+            </Form>
+          </Formik>
         </ModalBody>
-        <ModalFooter
-          textFirst={"Search"}
-          clickFirst={handleSearchBtn}
-          textSecondary={"Close"}
-          clickSecondary={handleClose}
-        ></ModalFooter>
       </Modal>
     </ModalWrapper>
   );
