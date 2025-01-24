@@ -1,5 +1,4 @@
 import React from 'react'
-import DatePicker from "../../components/DatePicker/DatePicker.jsx";
 import PropTypes from 'prop-types'
 
 import './Widget.scss'

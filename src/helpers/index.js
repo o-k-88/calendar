@@ -12,6 +12,9 @@ export const formattingEvent = (data) => {
     const regex = /<time[^>]*>(\d+)<\/time>/;
     let matchData = field_start_date.match(regex)[1];
     let date = new Date(Number(matchData) * 1000);
+    /*currentDate*/
+    let currentFormatDate = field_start_date.match(regex)[1]
+    const currentDate = new Date(Number(currentFormatDate) * 1000);
 
     return {
       id: nid,
@@ -19,16 +22,17 @@ export const formattingEvent = (data) => {
       time: currentTime.format("hh:mm A"),
       description: field_description,
       date: `${date.getFullYear()}${date.getMonth()}${date.getDate()}`,
-      currentDate: field_start_date,
+      currentDate: currentDate,
       category: field_category,
     };
   });
-  return;
+  return events;
 };
 
 export const formattingCategory = (data) => {
-  const categoriesArray = new Set([...data]);
-  const removeEmptyString = [...categoriesArray].filter((item) => item !== "");
+  const categoriesArray = data.map(({category}) => category)
+  const categories = new Set([...categoriesArray]);
+  const removeEmptyString = [...categories].filter((item) => item !== "");
   const removeSymbol = removeEmptyString.map((item) => {
     if (item.includes("&#039;")) {
       return item.replace("&#039;", "'");
@@ -36,5 +40,5 @@ export const formattingCategory = (data) => {
     return item;
   });
 
-  return removeSymbol;
+  return ['All Categories', ...removeSymbol];
 };

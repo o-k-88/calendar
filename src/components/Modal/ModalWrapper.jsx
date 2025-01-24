@@ -1,9 +1,9 @@
 import "./Modal.scss";
 
-const ModalWrapper = ({ children, isOpen, handleClose, isOutside }) => {
+const ModalWrapper = ({ children, isOpen, onClose, isOutside }) => {
   const handleOutside = (e) => {
     if (isOutside && !e.target.closest(".modal")) {
-      handleClose();
+      onClose();
     }
   };
 

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./Button.scss";
 
 const Button = (props) => {
-  const { type, classNames, underlineView, children, onClick, to, href, ...restProps } = props;
+  const { type="button", classNames, underlineView, children, onClick, to, href, ...restProps } = props;
 
   let Component = href ? "a" : "button";
 
@@ -11,7 +11,7 @@ const Button = (props) => {
     <Component
       onClick={onClick}
       className={cx("button", classNames, { _outline: underlineView })}
-      type={!href && type}
+      type={href ? undefined : type}
       to={to}
       href={href}
       {...restProps}
