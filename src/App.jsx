@@ -7,8 +7,7 @@ import Widget from "./containers/Widget/Widget.jsx";
 import Layout from "./layout/Layout.jsx";
 import ModalSearch from "./components/ModalSearch/ModalSearch.jsx";
 import ModalCreateEvent from "./components/ModalCreateEvent/ModalCreateEvent.jsx";
-import LoginForm from "./components/LoginForm/LoginForm.jsx";
-
+import { formattingEvent, formattingCategory } from "./helpers/index.js";
 import "./App.scss";
 import RightSideBar from "./components/RightSideBar/RightSideBar.jsx";
 
@@ -32,43 +31,19 @@ function App() {
         return data.json();
       })
       .then((current) => {
-        const split = current.rows.map(
-          ({ field_start_date, title, field_description, field_category, nid }) => {
-            const regex_data = /datetime="([^"]+)"/;
-            let matchTime = field_start_date.match(regex_data);
-            let currentHour = matchTime[1].split("T")[1].slice(0, 2);
-            let currentMinute = matchTime[1].split("T")[1].slice(3, 5);
-            let currentTime = dayjs().set("hour", currentHour).set("minute", currentMinute);
-            const regex = /<time[^>]*>(\d+)<\/time>/;
-            let matchData = field_start_date.match(regex)[1];
-            let date = new Date(Number(matchData) * 1000);
-
-            setCategory((prev) => {
-              const categoriesArray = new Set([...prev, field_category]);
-              const removeEmptyString = [...categoriesArray].filter((item) => item !== "");
-              const removeSymbol = removeEmptyString.map((item) => {
-                if (item.includes("&#039;")) {
-                  return item.replace("&#039;", "'");
-                }
-                return item;
-              });
-
-              return [...removeSymbol];
-            });
-            return {
-              id: nid,
-              title,
-              time: currentTime.format("hh:mm A"),
-              description: field_description,
-              date: `${date.getFullYear()}${date.getMonth()}${date.getDate()}`,
-              currentDate: field_start_date,
-              category: field_category,
-            };
-          }
-        );
-
-        setEvents(split);
-        setFilteredEvents(split);
+        const data = formattingEvent(current.rows);
+        const categories = formattingCategory(data);
+        console.log("data", data);
+        // setEvents(data);
+        // setFilteredEvents(data);
+        // setCategory();
+        return {
+          data,
+          categories,
+        };
+      })
+      .then((data) => {
+        console.log("data 46", data);
       })
       .catch((e) => {
         console.error(e);
