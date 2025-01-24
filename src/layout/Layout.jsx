@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
       <Header />
       <main className="main">
         <div className="container-fluid">
-          <div style={{ display: "flex" }}>{children}</div>
+          <div className="main-content-wrapper">{children}</div>
         </div>
       </main>
       <Footer />

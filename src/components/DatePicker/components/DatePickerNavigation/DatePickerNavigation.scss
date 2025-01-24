@@ -59,7 +59,7 @@
 }
 
 .date-picker-select {
-  width: 270px;
+  min-width: 170px;
 
   .date-picker__control {
     min-height: 53px;
@@ -105,4 +105,9 @@
   align-items: center;
   padding-left: 8px;
   box-sizing: border-box;
+  @media (max-width: 1000px) {
+    display: block;
+    width: 100%;
+    padding-left: 0;
+  }
 }

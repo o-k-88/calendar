@@ -44,7 +44,7 @@ export const FormCreateEvent = ({ handleClose }) => {
         });
 
         const objectToPost = updatedFormData.reduce((acc, obj) => ({ ...acc, ...obj }), {});
-        // console.log("objectToPost", objectToPost);
+        console.log("objectToPost", objectToPost);
 
         fetch("https://hybridcal.dev.sunyempire.edu/node?_format=json", {
           method: "POST",

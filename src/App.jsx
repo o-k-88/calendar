@@ -23,8 +23,6 @@ function App() {
 
   const [filteredEvents, setFilteredEvents] = useState([]);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   // https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
 
   useEffect(() => {
