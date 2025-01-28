@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import DatePickerMain from "react-datepicker";
 import cn from "classnames";
@@ -7,95 +7,95 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./DatePicker.scss";
 
 const DatePickerView = (props) => {
-	const {
-		events,
-		renderDay,
-		renderMonth,
-		onModal,
-		className,
-		category,
-		onSelect,
-		onSearch,
-		onSelectOptions,
-		onCreateEvent,
-	} = props;
-	
-	const [startDate, setStartDate] = useState(new Date());
-	const [showMonthView, setShowMonthView] = useState(false);
-	
-	const handlerStartDate = (date) => setStartDate(date);
-	const handlerSetDateInput = (day) => setStartDate(day);
-	
-	const renderDayContents = (day, date) => {
-		const current = new Date(date);
-		const filteredTooltipText = events?.filter(({date}) => {
-			const currentDate = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
-			
-			return date === currentDate;
-		});
-		
-		return (
-			<>
-				<div className={"day"}>{day}</div>
-				{filteredTooltipText.map((item, index) => (
-					<div key={index} className={"event"}>
-						{item?.title && <span className="label"/>}
-						
-						<div
-							onClick={(e) => {
-								onModal();
-								onSelect(date, e);
-							}}
-							className={"title"}
-						>
-							{item?.time} - {item?.title}
-						</div>
-					</div>
-				))}
-			</>
-		);
-	};
-	
-	const renderMonthContent = (month, shortMonth, longMonth, day) => {
-		const handlerSelectMonth = () => {
-			const fullYear = new Date(day).getFullYear();
-			setShowMonthView(false);
-			//   setCurrentMonth(new Date(`${fullYear}-01-${month + 1 < 10 ? `0${month + 1}` : month + 1}`));
-			handlerStartDate(new Date(`${fullYear}-01-${month + 1 < 10 ? `0${month + 1}` : month + 1}`));
-		};
-		
-		return <div onClick={handlerSelectMonth}>{shortMonth}</div>;
-	};
-	
-	return (
-		<>
-			<DatePickerNavigation
-				category={category}
-				onStartDate={handlerStartDate}
-				onShowMonthView={setShowMonthView}
-				currentDay={startDate}
-				onDateInput={handlerSetDateInput}
-				onSelectOptions={onSelectOptions}
-				events={events}
-				onSearch={onSearch}
-				onCreateEvent={onCreateEvent}
-			/>
-			
-			<div className="wrapper-date-picker">
-				<DatePickerMain
-					{...props}
-					calendarClassName={cn("g-date-picker", className)}
-					selected={startDate}
-					showMonthYearPicker={showMonthView}
-					onChange={handlerStartDate}
-					onSelect={onSelect}
-					renderDayContents={renderDay ? renderDay : renderDayContents}
-					renderMonthContent={renderMonth ? renderMonth : renderMonthContent}
-					inline
-				/>
-			</div>
-		</>
-	);
+  const {
+    events,
+    renderDay,
+    renderMonth,
+    onModal,
+    className,
+    category,
+    onSelect,
+    onSearch,
+    onSelectOptions,
+    onCreateEvent,
+  } = props;
+
+  const [startDate, setStartDate] = useState(new Date());
+  const [showMonthView, setShowMonthView] = useState(false);
+
+  const handlerStartDate = (date) => setStartDate(date);
+  const handlerSetDateInput = (day) => setStartDate(day);
+
+  const renderDayContents = (day, date) => {
+    const current = new Date(date);
+    const filteredTooltipText = events?.filter(({ date }) => {
+      const currentDate = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
+
+      return date === currentDate;
+    });
+
+    return (
+      <>
+        <div className={"day"}>{day}</div>
+        {filteredTooltipText.map((item, index) => (
+          <div key={index} className={"event"}>
+            {item?.title && <span className="label" />}
+
+            <div
+              onClick={(e) => {
+                onModal();
+                onSelect(date, e);
+              }}
+              className={"title"}
+            >
+              {item?.time} - {item?.title}
+            </div>
+          </div>
+        ))}
+      </>
+    );
+  };
+
+  const renderMonthContent = (month, shortMonth, longMonth, day) => {
+    const handlerSelectMonth = () => {
+      const fullYear = new Date(day).getFullYear();
+      setShowMonthView(false);
+      //   setCurrentMonth(new Date(`${fullYear}-01-${month + 1 < 10 ? `0${month + 1}` : month + 1}`));
+      handlerStartDate(new Date(`${fullYear}-01-${month + 1 < 10 ? `0${month + 1}` : month + 1}`));
+    };
+
+    return <div onClick={handlerSelectMonth}>{shortMonth}</div>;
+  };
+
+  return (
+    <>
+      <DatePickerNavigation
+        category={category}
+        onStartDate={handlerStartDate}
+        onShowMonthView={setShowMonthView}
+        currentDay={startDate}
+        onDateInput={handlerSetDateInput}
+        onSelectOptions={onSelectOptions}
+        events={events}
+        onSearch={onSearch}
+        onCreateEvent={onCreateEvent}
+      />
+
+      <div className="wrapper-date-picker">
+        <DatePickerMain
+          {...props}
+          calendarClassName={cn("g-date-picker", className)}
+          selected={startDate}
+          showMonthYearPicker={showMonthView}
+          onChange={handlerStartDate}
+          onSelect={onSelect}
+          renderDayContents={renderDay ? renderDay : renderDayContents}
+          renderMonthContent={renderMonth ? renderMonth : renderMonthContent}
+          inline
+        />
+      </div>
+    </>
+  );
 };
 
 export default DatePickerView;
