@@ -1,6 +1,7 @@
 import React from "react";
 import image from "./images/01month.jpg";
 import "./EventSideBar.scss";
+import svgIcon from "./icons/no-events.svg";
 
 const EventSideBar = ({ currentEvents = [], ongoingEvents = [] }) => {
   return (
@@ -23,6 +24,11 @@ const EventSideBar = ({ currentEvents = [], ongoingEvents = [] }) => {
           <h2 className="sidebar-title">Current Events</h2>
           <div className="sidebar-list-wrapper">
             <ul className="current-list">
+              {currentEvents.length === 0 && (
+                <p className="no-events">
+                  Nothing planned for today. <span>Enjoy!</span>
+                </p>
+              )}
               {currentEvents.map((event, index) => (
                 <li key={index} className="list-item">
                   <p className="list-time"> {event.time}</p>

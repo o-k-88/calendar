@@ -124,23 +124,6 @@ const PageCalendar = () => {
     setFilteredEvents(events.filter((event) => event.category === value.value));
   };
 
-  const currentEvents = [
-    {
-      title: "Spring Express Term Two - Registration period.",
-      time: "10:30 AM",
-      category: "Registration",
-    },
-    {
-      title: "Add/Drop period - Spring Full Term & Express Term One.",
-      time: "11:30 AM",
-      category: "Registration",
-    },
-    {
-      title: "Summer Full Term & Express Term One - Registration period.",
-      time: "12:30 PM",
-      category: "Registration",
-    },
-  ];
   const ongoingEvents = [
     {
       title: "Spring Express Term Two - Registration period.",
