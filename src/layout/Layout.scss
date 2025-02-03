@@ -4,21 +4,14 @@
   height: 100vh;
 
   .main {
-    padding: 50px 0;
-    flex: 1;
-    .container-fluid {
-      width: auto;
-      .main-content-wrapper {
-        display: flex;
-        @media (max-width: 1000px) {
-          flex-direction: column;
-          gap: 20px;
-        }
+    padding: 25px 0;
+
+    .main-content-wrapper {
+      gap: 20px;
+      display: flex;
+      @media (max-width: 1200px) {
+        flex-direction: column;
       }
     }
-  }
-
-  .container {
-    box-sizing: border-box;
   }
 }

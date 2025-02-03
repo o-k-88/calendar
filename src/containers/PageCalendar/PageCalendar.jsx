@@ -26,6 +26,8 @@ const PageCalendar = () => {
 
   const [currentEventDay, setCurrentEventDay] = useState([]);
 
+  const [noEventsFound, setNoEventsFound] = useState(false);
+
   const handleFilterData = ({ search_input, start_date, end_date }) => {
     // If search_input is empty, set filteredData to an empty array
     if (search_input.trim() === "") {
@@ -53,6 +55,8 @@ const PageCalendar = () => {
     });
     setIsErrorInput(false);
     setFilteredData(filtered);
+
+    filteredData.length === 0 ? setNoEventsFound(true) : setNoEventsFound(false);
   };
 
   // https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
@@ -109,6 +113,7 @@ const PageCalendar = () => {
   const handlerClosePopupSearch = () => {
     setFilteredData([]);
     setIsErrorInput(false);
+    setNoEventsFound(false);
     handlerPopup();
   };
 
@@ -166,6 +171,7 @@ const PageCalendar = () => {
         isErrorInput={isErrorInput}
         onClose={handlerClosePopupSearch}
         onFilterData={handleFilterData}
+        noEventsFound={noEventsFound}
       />
       <ModalCreateEvent isOpen={createEvent} onClose={handleCreateEvent} />
     </>

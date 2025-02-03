@@ -1,19 +1,15 @@
 import React from "react";
+import logo from "./images/logo.png";
 import "./Header.scss";
+import Container from "../Container/Container";
 const Header = () => {
   return (
     <header className="header">
-      <nav className="navbar navbar-expand-lg  esc-navbar-main">
-        <div className="container">
-          <a className="navbar-brand" href="#">
-            <img
-              className="navbar-brand__logo"
-              src="https://sunyempire.edu/media/images/brand-standards/ESC-Logo---Horizontal---Orange---White-Letters.png"
-              alt=""
-            />
-          </a>
-        </div>
-      </nav>
+      <Container>
+        <a href="#">
+          <img className="header-logo" src={logo} alt="logo" />
+        </a>
+      </Container>
     </header>
   );
 };
