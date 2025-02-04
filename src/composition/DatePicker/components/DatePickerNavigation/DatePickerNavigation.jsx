@@ -15,6 +15,7 @@ const DatePickerNavigation = (props) => {
     onSelectOptions,
     onSearch,
     onCreateEvent,
+    onSelectEventDay,
   } = props;
 
   const handlerTodayButton = () => {
@@ -73,7 +74,10 @@ const DatePickerNavigation = (props) => {
       <DataCustom
         selected={currentDay}
         startDate={currentDay}
-        onChange={(date) => onDateInput(date)}
+        onChange={(date) => {
+          onDateInput(date);
+          onSelectEventDay(date);
+        }}
       />
       <div className="date-picker-filter">
         <SelectCustom

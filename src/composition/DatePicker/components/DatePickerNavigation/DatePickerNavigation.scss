@@ -1,4 +1,6 @@
 .date-picker-navigation {
+  position: relative;
+  z-index: 10;
   padding: 6px 0;
   display: flex;
 
@@ -42,7 +44,6 @@
     }
 
     &:focus {
-      outline: 2px solid #007acc;
       outline-offset: 2px;
     }
   }
@@ -66,7 +67,8 @@
     border-color: #e0e0e0;
     cursor: pointer;
 
-    &:hover {
+    &:hover,
+    &.date-picker__control--is-focused {
       border-color: #e0e0e0;
       box-shadow: #e0e0e0 0px 4px 12px;
     }
@@ -78,6 +80,9 @@
     color: rgb(66, 66, 66) !important;
     font-weight: 400 !important;
     font-family: "Helvetica Neue", helvetica, arial, sans-serif !important;
+  }
+  input[type="text"].date-picker__input:focus {
+    box-shadow: none;
   }
 
   .date-picker__menu {

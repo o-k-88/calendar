@@ -118,6 +118,8 @@
       padding: 2px 0 2px 10px;
       border-radius: 4px;
       position: relative;
+      word-break: break-all;
+
       &::before {
         content: " ";
         display: inline-block;

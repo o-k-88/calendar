@@ -56,7 +56,7 @@ const PageCalendar = () => {
     setIsErrorInput(false);
     setFilteredData(filtered);
 
-    filteredData.length === 0 ? setNoEventsFound(true) : setNoEventsFound(false);
+    filtered.length === 0 ? setNoEventsFound(true) : setNoEventsFound(false);
   };
 
   // https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
@@ -159,6 +159,7 @@ const PageCalendar = () => {
             onSelect={handlerSelect}
             onSelectOptions={handlerSelectOptions}
             onCreateEvent={handleCreateEvent}
+            onSelectEventDay={selectEventDay}
           />
         </Widget>
         {/* <RightSideBar /> */}
