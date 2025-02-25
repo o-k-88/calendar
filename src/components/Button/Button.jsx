@@ -11,7 +11,7 @@ const Button = (props) => {
     onClick,
     to,
     href,
-    imgSource,
+
     ...restProps
   } = props;
 
@@ -26,8 +26,7 @@ const Button = (props) => {
       href={href}
       {...restProps}
     >
-      {imgSource && <img className="button-img" src={imgSource} alt="Button icon" />}
-      <p className="button-children">{children}</p>
+      {children}
     </Component>
   );
 };

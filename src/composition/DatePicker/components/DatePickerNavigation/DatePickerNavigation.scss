@@ -5,20 +5,30 @@
   display: flex;
   gap: 5px;
 
-  @media (max-width: 576px) {
-    // flex-direction: column;
-    // gap: 8px;
-    flex-wrap: wrap;
+  @media (max-width: 992px) {
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 
-  .date-picker-navigation-add-event,
-  .date-picker-navigation-btn-today,
-  .date-picker-navigation-set-day,
-  .date-picker-navigation-btn-search {
+  .button-navigation {
     margin-right: 8px;
+
     @media (max-width: 1000px) {
       margin-right: 0;
+    }
+    .icon {
+      display: none;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      @media (max-width: 768px) {
+        display: block;
+      }
+    }
+    .text {
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
   }
 }
@@ -118,4 +128,18 @@
     width: 100%;
     padding-left: 0;
   }
+}
+
+.navigation-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  @media (max-width: 992px) {
+    width: 100%;
+  }
+}
+
+.react-datepicker-wrapper {
+  min-width: 124px !important;
 }
