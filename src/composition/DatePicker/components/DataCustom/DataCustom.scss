@@ -1,5 +1,9 @@
 .react-datepicker-wrapper {
   min-width: 150px;
+
+  @media (max-width: 576px) {
+    flex: 1;
+  }
   .react-datepicker__input-container {
     .data-custom {
       min-height: 53px; /* Adjust height as needed */

@@ -3,7 +3,17 @@ import PropTypes from "prop-types";
 import "./Button.scss";
 
 const Button = (props) => {
-  const { type="button", classNames, underlineView, children, onClick, to, href, ...restProps } = props;
+  const {
+    type = "button",
+    classNames,
+    underlineView,
+    children,
+    onClick,
+    to,
+    href,
+    imgSource,
+    ...restProps
+  } = props;
 
   let Component = href ? "a" : "button";
 
@@ -16,7 +26,8 @@ const Button = (props) => {
       href={href}
       {...restProps}
     >
-      {children}
+      {imgSource && <img className="button-img" src={imgSource} alt="Button icon" />}
+      <p className="button-children">{children}</p>
     </Component>
   );
 };
