@@ -167,8 +167,6 @@ const PageCalendar = () => {
     }
   }, [currentUrl]);
 
-  console.log(currentUser.exp);
-
   return (
     <>
       <Layout isLogin={isLogin} isAddEvent={isAddEvent} currentUser={currentUser} >
