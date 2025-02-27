@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 import DatePicker from "../../composition/DatePicker/DatePicker.jsx";
 import ModalCalendar from "../../composition/ModalCalendar/ModalCalendar.jsx";
@@ -8,6 +9,7 @@ import ModalCreateEvent from "../../composition/ModalCreateEvent/ModalCreateEven
 import EventSideBar from "../../components/EventSideBar/EventSideBar.jsx";
 import Widget from "../../layout/Widget/Widget.jsx";
 import Layout from "../../layout/Layout.jsx";
+
 
 import { formattingEvent, formattingCategory, overflowHidden } from "../../helpers/index.js";
 
@@ -146,9 +148,30 @@ const PageCalendar = () => {
     selectEventDay(current);
   }, [events]);
 
+
+  const [currentUrl, setCurrentUrl] = useState(window.location.href);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isLogin, setIsLogin] = useState(currentUrl.includes("/?sso=esc2902931876") || false);
+  const [isAddEvent, setAddEvent] = useState(false);
+
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+
+    if (currentUrl.includes("/?sso=esc2902931876")) {
+      setIsLogin(true);
+    }
+    if (currentUrl.includes("/?token=")) {
+      setIsLogin(false);
+      setAddEvent(true);
+      setCurrentUser(jwtDecode(currentUrl));
+    }
+  }, [currentUrl]);
+
+  console.log(currentUser.exp);
+
   return (
     <>
-      <Layout>
+      <Layout isLogin={isLogin} isAddEvent={isAddEvent} currentUser={currentUser} >
         <Widget>
           <DatePicker
             className={"asdasdsadsa"}

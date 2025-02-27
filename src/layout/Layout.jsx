@@ -4,10 +4,14 @@ import Footer from "../components/Footer/Footer";
 import "./Layout.scss";
 import Container from "../components/Container/Container";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, isLogin, isAddEvent, currentUser }) => {
   return (
     <div className="g-layout">
-      <Header />
+      <Header
+          isLogin={isLogin}
+          isAddEvent={isAddEvent}
+          currentUser={currentUser}
+      />
       <main className="main">
         <Container>
           <div className="main-content-wrapper">{children}</div>
