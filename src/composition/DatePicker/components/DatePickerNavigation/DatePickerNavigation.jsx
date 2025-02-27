@@ -32,19 +32,6 @@ const DatePickerNavigation = (props) => {
 
   return (
     <div className="date-picker-navigation">
-      <Button
-        underlineView
-        classNames="button-navigation"
-        href={
-          "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=95a95fe5-983f-45a4-90a8-36973e266001&response_type=code+id_token&redirect_uri=https://hybridcal.dev.sunyempire.edu/azure&scope=user.read+openid+profile+email&response_mode=form_post&state=12345&nonce=678910"
-        }
-        target="_blank"
-      >
-        <span className="icon">
-          <img src={AddEventIcon} alt="" />
-        </span>
-        <span className="text"> Add Event</span>
-      </Button>
       {/* <Button onClick={onCreateEvent} underlineView classNames="date-picker-navigation-add-event">
         Add New Event Form
       </Button> */}

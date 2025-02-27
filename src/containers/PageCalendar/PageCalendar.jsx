@@ -151,6 +151,7 @@ const PageCalendar = () => {
 
   const [currentUrl, setCurrentUrl] = useState(window.location.href);
   const [currentUser, setCurrentUser] = useState(null);
+  const [currentToken, setCurrentToken] = useState(null);
   const [isLogin, setIsLogin] = useState(currentUrl.includes("/?sso=esc2902931876") || false);
   const [isAddEvent, setAddEvent] = useState(false);
 
@@ -160,16 +161,20 @@ const PageCalendar = () => {
     if (currentUrl.includes("/?sso=esc2902931876")) {
       setIsLogin(true);
     }
-    if (currentUrl.includes("/?token=")) {
+    if (currentToken) {
       setIsLogin(false);
       setAddEvent(true);
-      setCurrentUser(jwtDecode(currentUrl));
+      setCurrentUser(jwtDecode(currentToken));
     }
-  }, [currentUrl]);
+  }, [currentUrl,currentToken]);
+
+  const handleToken = (token) => {
+      setCurrentToken(token)
+  }
 
   return (
     <>
-      <Layout isLogin={isLogin} isAddEvent={isAddEvent} currentUser={currentUser} >
+      <Layout isLogin={isLogin} isAddEvent={isAddEvent} currentUser={currentUser} onToken={handleToken}>
         <Widget>
           <DatePicker
             className={"asdasdsadsa"}
