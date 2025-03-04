@@ -36,6 +36,7 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken }) =
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (token) {
+      console.log(token);
       onToken(token);
     }
   });
