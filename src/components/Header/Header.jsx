@@ -29,11 +29,11 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken, log
     if (token) {
       onToken(token);
       sessionStorage.setItem("token", token);
-      const timeout = setTimeout(() => {
-        navigate("/");
-      }, 1000);
+      //   const timeout = setTimeout(() => {
+      //     navigate("/");
+      //   }, 1000);
 
-      return () => clearTimeout(timeout);
+      //   return () => clearTimeout(timeout);
     }
   }, [window.location.href]);
 
