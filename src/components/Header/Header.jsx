@@ -24,7 +24,7 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken, log
 
   const navigate = useNavigate();
 
-  useEffect(async () => {
+  useEffect(() => {
     const token = getTokenFromCurrentUrl();
     if (token) {
       onToken(token);
