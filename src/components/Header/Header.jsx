@@ -24,12 +24,16 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken, log
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useEffect(async () => {
     const token = getTokenFromCurrentUrl();
     if (token) {
       onToken(token);
       sessionStorage.setItem("token", token);
-      navigate("/");
+      const timeout = setTimeout(() => {
+        navigate("/");
+      }, 1000);
+
+      return () => clearTimeout(timeout);
     }
   }, [window.location.href]);
 
