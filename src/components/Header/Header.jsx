@@ -32,6 +32,13 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken }) =
       navigate("/");
     }
   }, [window.location.href]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      onToken(token);
+    }
+  });
   return (
     <header className="header">
       <Container>
