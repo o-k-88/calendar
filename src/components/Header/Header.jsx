@@ -4,6 +4,7 @@ import "./Header.scss";
 import Container from "../Container/Container";
 import { getTokenFromCurrentUrl } from "../../helpers";
 import ButtonText from "../Button/ButtonText";
+import { useNavigate } from "react-router";
 
 const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken }) => {
   const token_oleg =
@@ -21,10 +22,14 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken }) =
   //     "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=95a95fe5-983f-45a4-90a8-36973e266001&response_type=code+id_token&redirect_uri=https://hybridcal.dev.sunyempire.edu/azure&scope=user.read+openid+profile+email&response_mode=form_post&state=12345&nonce=678910"
   // }
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const token = getTokenFromCurrentUrl();
     if (token) {
       onToken(token);
+      sessionStorage.setItem("token", token);
+      navigate("/");
     }
   }, [window.location.href]);
   return (
@@ -43,7 +48,7 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken }) =
               </button>
             )} */}
 
-            {isLogin && <ButtonText href={base_login_url}>Link to sso</ButtonText>}
+            {isLogin && <ButtonText href={base_login_url}>Login</ButtonText>}
 
             {isAddEvent && (
               <div className="header-info">
