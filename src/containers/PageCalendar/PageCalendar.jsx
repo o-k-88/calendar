@@ -10,8 +10,12 @@ import EventSideBar from "../../components/EventSideBar/EventSideBar.jsx";
 import Widget from "../../layout/Widget/Widget.jsx";
 import Layout from "../../layout/Layout.jsx";
 
-
-import { formattingEvent, formattingCategory, overflowHidden } from "../../helpers/index.js";
+import {
+  formattingEvent,
+  formattingCategory,
+  overflowHidden,
+  getTokenFromCurrentUrl,
+} from "../../helpers/index.js";
 
 const PageCalendar = () => {
   const [events, setEvents] = useState([]);
@@ -148,7 +152,6 @@ const PageCalendar = () => {
     selectEventDay(current);
   }, [events]);
 
-
   const [currentUrl, setCurrentUrl] = useState(window.location.href);
   const [currentUser, setCurrentUser] = useState(null);
   const [currentToken, setCurrentToken] = useState(null);
@@ -164,17 +167,23 @@ const PageCalendar = () => {
     if (currentToken) {
       setIsLogin(false);
       setAddEvent(true);
+
       setCurrentUser(jwtDecode(currentToken));
     }
-  }, [currentUrl,currentToken]);
+  }, [currentUrl, currentToken]);
 
   const handleToken = (token) => {
-      setCurrentToken(token)
-  }
+    setCurrentToken(token);
+  };
 
   return (
     <>
-      <Layout isLogin={isLogin} isAddEvent={isAddEvent} currentUser={currentUser} onToken={handleToken}>
+      <Layout
+        isLogin={isLogin}
+        isAddEvent={isAddEvent}
+        currentUser={currentUser}
+        onToken={handleToken}
+      >
         <Widget>
           <DatePicker
             className={"asdasdsadsa"}

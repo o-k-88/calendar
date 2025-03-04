@@ -49,3 +49,9 @@ export const formattingCategory = (data) => {
 
   return ["All Categories", ...formattedCategories];
 };
+
+export const getTokenFromCurrentUrl = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  console.log("urlParams", urlParams);
+  return urlParams.get("token");
+};
