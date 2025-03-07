@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./Layout.scss";
 import Container from "../components/Container/Container";
+import { use } from "react";
 
 const Layout = ({ children, isLogin, isAddEvent, currentUser, onToken }) => {
   const [logout, setLogout] = useState(false);
@@ -10,12 +11,14 @@ const Layout = ({ children, isLogin, isAddEvent, currentUser, onToken }) => {
   const timestamp = currentUser?.exp * 1000; // Convert seconds to milliseconds
   const now = new Date().getTime(); // Current time in milliseconds
 
+  const logoutTime = useMemo(() => timestamp - now, [timestamp, now]);
+
   useEffect(() => {
-    console.log(`Difference: ${(timestamp - now) / (1000 * 60)} minutes`);
+    console.log(`Difference: ${logoutTime / (1000 * 60)} minutes`);
     const timeout = setTimeout(() => {
       sessionStorage.setItem("token", "");
       setLogout(true);
-    }, timestamp - now);
+    }, logoutTime);
 
     return () => clearTimeout(timeout);
   }, []);
