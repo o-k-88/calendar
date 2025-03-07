@@ -7,11 +7,14 @@ import Container from "../components/Container/Container";
 const Layout = ({ children, isLogin, isAddEvent, currentUser, onToken }) => {
   const [logout, setLogout] = useState(false);
 
+  const timestamp = currentUser?.exp * 1000; // Convert seconds to milliseconds
+  const now = new Date().getTime(); // Current time in milliseconds
+
   useEffect(() => {
     const interval = setTimeout(() => {
       sessionStorage.setItem("token", "");
       setLogout(true);
-    }, 10000);
+    }, timestamp - now);
 
     return () => clearTimeout(interval);
   }, []);
