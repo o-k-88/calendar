@@ -6,6 +6,7 @@ import Container from "../components/Container/Container";
 
 const Layout = ({ children, isLogin, isAddEvent, currentUser, onToken }) => {
   const [logout, setLogout] = useState(false);
+
   useEffect(() => {
     const interval = setTimeout(() => {
       sessionStorage.setItem("token", "");
@@ -23,6 +24,7 @@ const Layout = ({ children, isLogin, isAddEvent, currentUser, onToken }) => {
         currentUser={currentUser}
         onToken={onToken}
         logout={logout}
+        setLogout={setLogout}
       />
       <main className="main">
         <Container>

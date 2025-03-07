@@ -6,7 +6,14 @@ import { getTokenFromCurrentUrl } from "../../helpers";
 import ButtonText from "../Button/ButtonText";
 import { useNavigate } from "react-router";
 
-const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken, logout }) => {
+const Header = ({
+  isLogin = false,
+  isAddEvent = false,
+  currentUser,
+  onToken,
+  logout,
+  setLogout,
+}) => {
   const token_oleg =
     "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImltaTBZMnowZFlLeEJ0dEFxS19UdDVoWUJUayJ9.eyJhdWQiOiI5NWE5NWZlNS05ODNmLTQ1YTQtOTBhOC0zNjk3M2UyNjYwMDEiLCJpc3MiOiJodHRwczpcL1wvbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbVwvNTAwOTExMzItNTQ2NC00ZjY5LTk4YzYtZDA4OWVhNWU4NzVjXC92Mi4wIiwiaWF0IjoxNzQwNjcyMDM2LCJuYmYiOjE3NDA2NzIwMzYsImV4cCI6MTc0MDY3NTkzNiwiYWlvIjoiQVpRQWFcLzhaQUFBQXFkcGdBMm1EXC80VmpaOVdOYlRENHNObUxnTFRnaDdaWHUwemN4OVRjS0NUeEpuK2FsYXZHZForM0JZaW1vNTZBTDBHVXpra01DYzNyeVk5T2xpYXBWMnNZUnV0dk9jRUJrRDNqRU1IY0t1dUlsQTdKUHdFSmNHOUxVMk5FbTVvNGpVZkNuV1NZVTBhRzlZckg0dWk4RUpCbG93dHRnc0p3OUJpTWhIK2lYQnlNV2NjVWZTOXpPN2R3d29MSHNXWWsiLCJjX2hhc2giOiJKX2FXVnI2Ui12Q3I5ZEZhenhkQkV3IiwiZW1haWwiOiJvbGVoLmt5cnlsZW5rb0BzdW55ZW1waXJlLmVkdSIsIm5hbWUiOiJPbGVoIEt5cnlsZW5rbyIsIm5vbmNlIjoiNjc4OTEwIiwib2lkIjoiOWM2ODgwYWUtNGZiMi00MmMxLTk2NzEtYjNlMmJkYTUxNDYzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoib2xlaC5reXJ5bGVua29Ac3VueWVtcGlyZS5lZHUiLCJyaCI6IjEuQVRnQU1oRUpVR1JVYVUtWXh0Q0o2bDZIWE9WZnFaVV9tS1JGa0tnMmx6NG1ZQUgwQUxVNEFBLiIsInNpZCI6IjAwMjJhYjE5LTY5ZDgtNTQ5MC03ZTdiLTNmMGY1YzVhMGI0NCIsInN1YiI6InNwbURvUnJ3emhFbjQzQWI0WjhvdzdiN0ZIUGx1NHQtVUVzZWdMQ0tSTzQiLCJ0aWQiOiI1MDA5MTEzMi01NDY0LTRmNjktOThjNi1kMDg5ZWE1ZTg3NWMiLCJ1dGkiOiJrTEdsZEJqdnFreTR3NlNyOVprLUFBIiwidmVyIjoiMi4wIiwidWlkIjoiMiJ9.Szi2kaloOMVUqxI9okqNc0thVM1nBFjWkyrNS8xrUggIsmrGN6LYbLMUKTwtbdLgdNEAttNY9vYc21_Y8DQVIwdqvj-h7sKCQKOtXfz6OtPlZTzBfGDWKKLwlzzplPKZgtA0ASitoXi8zlaqVsC25heVXsJCbQsaRxRTc67vZX4IOJWUXj1id_o4BedOZbmMD7gEztZEM7FzcQcoHSue7DKeXUY_7qoyc2WBN8QT1TvvkjsC56rY7v2iU8jfuYKX7Qv7mBN70szGjcbxVTxyMNU2gvBtYHfvJr2SByGbX_bAW-lG1cXV5FMqBxtPi6_f9AEbJ5Suv1QIMLu3kkp41Q";
   const token_jeremy =
@@ -22,11 +29,16 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken, log
   //     "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=95a95fe5-983f-45a4-90a8-36973e266001&response_type=code+id_token&redirect_uri=https://hybridcal.dev.sunyempire.edu/azure&scope=user.read+openid+profile+email&response_mode=form_post&state=12345&nonce=678910"
   // }
 
-  const [currentToken, setCurrentToken] = useState("");
+  // const [currentToken, setCurrentToken] = useState("");
 
   const navigate = useNavigate();
-
   const ref = useRef(null);
+
+  const handlerLogout = () => {
+    sessionStorage.setItem("token", "");
+    ref.current = "";
+    setLogout(true);
+  };
 
   useEffect(() => {
     const token = getTokenFromCurrentUrl();
@@ -85,7 +97,7 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken, log
                   <p>{currentUser.name}</p>
                 </div>
                 <div className="header-actions">
-                  <button type="button" className="button-header">
+                  <button onClick={handlerLogout} type="button" className="button-header">
                     Log out
                   </button>
                   <a
