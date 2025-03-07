@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./images/logo.png";
 import "./Header.scss";
 import Container from "../Container/Container";
@@ -22,6 +22,8 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken, log
   //     "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=95a95fe5-983f-45a4-90a8-36973e266001&response_type=code+id_token&redirect_uri=https://hybridcal.dev.sunyempire.edu/azure&scope=user.read+openid+profile+email&response_mode=form_post&state=12345&nonce=678910"
   // }
 
+  const [currentToken, setCurrentToken] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,34 +31,26 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken, log
     if (token) {
       onToken(token);
       sessionStorage.setItem("token", token);
-      navigate("/");
-      //   const timeout = setTimeout(() => {
-      //     navigate("/");
-      //   }, 1000);
-
-      //   return () => clearTimeout(timeout);
+      setCurrentToken(token);
     }
   }, [window.location.href]);
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      onToken(token);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = sessionStorage.getItem("token");
+  //   if (token) {
+  //     onToken(token);
+  //   }
+  // }, []);
 
-  //   sessionStorage.setItem("token", token_oleg);
+  useEffect(() => {
+    setCurrentToken(sessionStorage.getItem("token"));
+    if (currentToken) {
+      onToken(currentToken);
+      navigate("/");
+    }
+  }, [currentToken]);
 
   const isUserInfo = isAddEvent && !logout;
-
-  //   useEffect(() => {
-  //     const interval = setTimeout(() => {
-  //       sessionStorage.setItem("token", "");
-  //       window.location.href = "/";
-  //     }, 5000);
-
-  //     return () => clearTimeout(interval);
-  //   }, []);
 
   return (
     <header className="header">
