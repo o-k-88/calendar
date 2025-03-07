@@ -153,7 +153,7 @@ const PageCalendar = () => {
   }, [events]);
 
   const [currentUrl, setCurrentUrl] = useState(window.location.href);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
   const [currentToken, setCurrentToken] = useState(null);
   const [isLogin, setIsLogin] = useState(currentUrl.includes("/?sso=esc2902931876") || false);
   const [isAddEvent, setAddEvent] = useState(false);

@@ -3,25 +3,24 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./Layout.scss";
 import Container from "../components/Container/Container";
-import { use } from "react";
 
 const Layout = ({ children, isLogin, isAddEvent, currentUser, onToken }) => {
   const [logout, setLogout] = useState(false);
-
-  const timestamp = currentUser?.exp * 1000; // Convert seconds to milliseconds
-  const now = new Date().getTime(); // Current time in milliseconds
-
-  const logoutTime = useMemo(() => timestamp - now, [timestamp, now]);
+  const [timeoutTime, setTimeoutTime] = useState(60000);
 
   useEffect(() => {
-    console.log(`Difference: ${logoutTime / (1000 * 60)} minutes`);
+    if (currentUser.exp) {
+      setTimeoutTime(currentUser.exp * 1000 - new Date().getTime());
+    }
+    console.log(`Difference: ${timeoutTime / (1000 * 60)} minutes`);
+
     const timeout = setTimeout(() => {
       sessionStorage.setItem("token", "");
       setLogout(true);
-    }, logoutTime);
+    }, timeoutTime);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [timeoutTime, currentUser]);
 
   return (
     <div className="g-layout">
