@@ -11,12 +11,13 @@ const Layout = ({ children, isLogin, isAddEvent, currentUser, onToken }) => {
   const now = new Date().getTime(); // Current time in milliseconds
 
   useEffect(() => {
-    const interval = setTimeout(() => {
+    console.log(`Difference: ${(timestamp - now) / (1000 * 60)} minutes`);
+    const timeout = setTimeout(() => {
       sessionStorage.setItem("token", "");
       setLogout(true);
     }, timestamp - now);
 
-    return () => clearTimeout(interval);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
