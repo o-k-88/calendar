@@ -10,7 +10,7 @@ const Layout = ({ children, isLogin, isAddEvent, currentUser, onToken }) => {
     const interval = setTimeout(() => {
       sessionStorage.setItem("token", "");
       setLogout(true);
-    }, 60000);
+    }, 10000);
 
     return () => clearTimeout(interval);
   }, []);
