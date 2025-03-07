@@ -29,6 +29,7 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken, log
     if (token) {
       onToken(token);
       sessionStorage.setItem("token", token);
+      navigate("/");
       //   const timeout = setTimeout(() => {
       //     navigate("/");
       //   }, 1000);
