@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import logo from "./images/logo.png";
 import "./Header.scss";
 import Container from "../Container/Container";
@@ -26,12 +26,15 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken, log
 
   const navigate = useNavigate();
 
+  const ref = useRef(null);
+
   useEffect(() => {
     const token = getTokenFromCurrentUrl();
     if (token) {
       onToken(token);
+      ref.current = token;
       sessionStorage.setItem("token", token);
-      setCurrentToken(token);
+      // setCurrentToken(token);
     }
   }, [window.location.href]);
 
@@ -43,12 +46,18 @@ const Header = ({ isLogin = false, isAddEvent = false, currentUser, onToken, log
   // }, []);
 
   useEffect(() => {
-    setCurrentToken(sessionStorage.getItem("token"));
-    if (currentToken) {
-      onToken(currentToken);
+    // setCurrentToken(sessionStorage.getItem("token"));
+    if (!ref.current && sessionStorage.getItem("token")) {
+      ref.current = sessionStorage.getItem("token");
+    }
+    if (ref.current) {
+      onToken(ref.current);
       navigate("/");
     }
-  }, [currentToken]);
+    if (!sessionStorage.getItem("token") && ref.current) {
+      sessionStorage.setItem("token", ref.current);
+    }
+  }, []);
 
   const isUserInfo = isAddEvent && !logout;
 
