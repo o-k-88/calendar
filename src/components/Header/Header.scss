@@ -9,6 +9,7 @@
   .header-wrapper {
     display: flex;
     align-items: center;
+    min-height: 96px;
   }
 
   .header-right {
@@ -18,7 +19,8 @@
     justify-content: flex-end;
   }
 
-  .header-info { }
+  .header-info {
+  }
 
   .header-user {
     margin-bottom: 8px;
