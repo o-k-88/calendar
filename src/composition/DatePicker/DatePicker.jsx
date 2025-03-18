@@ -14,11 +14,12 @@ const DatePickerView = (props) => {
     onModal,
     className,
     category,
-    onSelect,
+    onCurrentEvent,
     onSearch,
     onSelectOptions,
     onCreateEvent,
     onSelectEventDay,
+    onSelectDate,
   } = props;
 
   const [startDate, setStartDate] = useState(new Date());
@@ -45,7 +46,7 @@ const DatePickerView = (props) => {
             <div
               onClick={(e) => {
                 onModal();
-                onSelect(date, e);
+                onCurrentEvent(item);
               }}
               className={"title"}
             >
@@ -90,7 +91,7 @@ const DatePickerView = (props) => {
           selected={startDate}
           showMonthYearPicker={showMonthView}
           onChange={handlerStartDate}
-          onSelect={onSelect}
+          onSelect={onSelectDate}
           renderDayContents={renderDay ? renderDay : renderDayContents}
           renderMonthContent={renderMonth ? renderMonth : renderMonthContent}
           inline

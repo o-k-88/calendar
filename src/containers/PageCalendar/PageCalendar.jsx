@@ -11,11 +11,12 @@ import Widget from "../../layout/Widget/Widget.jsx";
 import Layout from "../../layout/Layout.jsx";
 
 import {
-  formattingEvent,
   formattingCategory,
   overflowHidden,
-  getTokenFromCurrentUrl,
+  getAllFormattedEvents,
+  getOauthToken,
 } from "../../helpers/index.js";
+import { current } from "@reduxjs/toolkit";
 
 const PageCalendar = () => {
   const [events, setEvents] = useState([]);
@@ -23,6 +24,7 @@ const PageCalendar = () => {
   const [filteredEvents, setFilteredEvents] = useState([]);
 
   const [popupData, setPopupData] = useState({});
+
   const [isShow, setIsShow] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [createEvent, setCreateEvent] = useState(false);
@@ -33,6 +35,10 @@ const PageCalendar = () => {
   const [currentEventDay, setCurrentEventDay] = useState([]);
 
   const [noEventsFound, setNoEventsFound] = useState(false);
+
+  const [totalPages, setTotalPages] = useState([]);
+  const [oauthToken, setOauthToken] = useState("");
+  const [refreshToken, setRefreshToken] = useState("");
 
   const handleFilterData = ({ search_input, start_date, end_date }) => {
     // If search_input is empty, set filteredData to an empty array
@@ -67,43 +73,63 @@ const PageCalendar = () => {
 
   // https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
 
+  // https://hybridcal.dev.sunyempire.edu/api/v2/calendar/event/all?_format=json
   const selectEventDay = (date) => {
     const current = new Date(date);
+
     const currentDate = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
+
     const currentEvent = events.filter(({ date }) => date === currentDate);
     setCurrentEventDay(currentEvent);
   };
 
   useEffect(() => {
-    const data = fetch("https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json");
-    data
-      .then((data) => {
-        return data.json();
+    getOauthToken().then((data) => {
+      setOauthToken(data.access_token);
+      setRefreshToken(data.refresh_token);
+      fetch("https://hybridcal.dev.sunyempire.edu/api/v2/calendar/event/all?_format=json", {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + data.access_token,
+        },
       })
-      .then((current) => {
-        const data = formattingEvent(current.rows);
+        .then((res) => res.json())
+        .then((current) => {
+          const totalPagesArr = new Array(current.pager.total_pages)
+            .fill(null)
+            .map(
+              (item, index) =>
+                `https://hybridcal.dev.sunyempire.edu/api/v2/calendar/event/all?_format=json&page=${
+                  index + 1
+                }`
+            );
 
-        const categories = formattingCategory(data);
-
-        return {
-          data,
-          categories,
-        };
-      })
-      .then(({ data, categories }) => {
-        setEvents(data);
-        setFilteredEvents(data);
-        setCategory(categories);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+          setTotalPages(totalPagesArr);
+        });
+    });
   }, []);
 
-  const handlerSelect = (dateSelect, e) => {
+  const getDataCalendar = async () => {
+    const data = await getAllFormattedEvents(totalPages, oauthToken);
+    console.log("data", data);
+    const categories = formattingCategory(data);
+    setEvents(data);
+    setFilteredEvents(data);
+    setCategory(categories);
+  };
+
+  useEffect(() => {
+    if (totalPages.length > 0) {
+      getDataCalendar();
+    }
+  }, [totalPages]);
+
+  const handleSelectDate = (dateSelect) => {
     selectEventDay(dateSelect);
-    const currentEventTitle = e.target.textContent.replace(/^\d{2}:\d{2} [APM]{2} -\s*/, ""); //I'm not sure if this is the best way to do this
-    setPopupData(events.find((item) => item.title === currentEventTitle));
+  };
+
+  const handlerCurrentEvent = (dataEvent) => {
+    setPopupData(dataEvent);
   };
 
   const handlerIsModal = () => {
@@ -175,6 +201,8 @@ const PageCalendar = () => {
   const handleToken = (token) => {
     setCurrentToken(token);
   };
+  console.log("events", events);
+  console.log("Total pages ", totalPages);
 
   return (
     <>
@@ -191,7 +219,8 @@ const PageCalendar = () => {
             onModal={handlerIsModal}
             onSearch={handlerPopup}
             category={category}
-            onSelect={handlerSelect}
+            onSelectDate={handleSelectDate}
+            onCurrentEvent={handlerCurrentEvent}
             onSelectOptions={handlerSelectOptions}
             onCreateEvent={handleCreateEvent}
             onSelectEventDay={selectEventDay}
@@ -200,7 +229,12 @@ const PageCalendar = () => {
         {/* <RightSideBar /> */}
         <EventSideBar currentEvents={currentEventDay} ongoingEvents={ongoingEvents} />
       </Layout>
-      <ModalCalendar isOpen={isShow} data={popupData} onClose={handlerIsModal} />
+      <ModalCalendar
+        isOpen={isShow}
+        data={popupData}
+        onClose={handlerIsModal}
+        currentUserUid={currentUser.uid}
+      />
       <ModalSearch
         isOpen={isSearch}
         filteredData={filteredData}

@@ -16,13 +16,14 @@ const EventSideBar = ({ currentEvents = [], ongoingEvents = [] }) => {
                   Nothing planned for today. <span>Enjoy!</span>
                 </p>
               )}
-              {currentEvents.map((event, index) => (
-                <li key={index} className="list-item">
-                  <p className="list-time"> {event.time}</p>
-                  <p className="list-title"> {event.title}</p>
-                  <p className="list-category"> {event.category}</p>
-                </li>
-              ))}
+              {currentEvents.length > 0 &&
+                currentEvents.map((event, index) => (
+                  <li key={index} className="list-item">
+                    <p className="list-time"> {event?.time}</p>
+                    <p className="list-title"> {event?.title}</p>
+                    <p className="list-category"> {event?.category}</p>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
