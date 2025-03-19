@@ -200,10 +200,6 @@ const PageCalendar = () => {
   const handleToken = (token) => {
     setCurrentToken(token);
   };
-  console.log(
-    "events find",
-    events.find((event) => event.title === "Sunny Day")
-  );
 
   return (
     <>

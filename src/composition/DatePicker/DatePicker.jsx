@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+
 import DatePickerMain from "react-datepicker";
 import cn from "classnames";
 import DatePickerNavigation from "./components/DatePickerNavigation/DatePickerNavigation.jsx";
+import Loader from "../../components/Loader/Loader.jsx";
 import "react-datepicker/dist/react-datepicker.css";
 import "./DatePicker.scss";
 
@@ -86,7 +87,7 @@ const DatePickerView = (props) => {
 
       <div className="wrapper-date-picker">
         {events.length === 0 ? (
-          <div className="no-events">loading...</div>
+          <Loader />
         ) : (
           <DatePickerMain
             {...props}

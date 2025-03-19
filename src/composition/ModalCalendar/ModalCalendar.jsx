@@ -39,7 +39,14 @@ const ModalCalendar = (props) => {
           // textFirst={"Edit"}
           clickSecondary={onClose}
         >
-          {isEdit && <a href={`https://hybridcal.dev.sunyempire.edu${data.path}`}>Edit</a>}
+          {isEdit && (
+            <a
+              className="button button-edit"
+              href={`https://hybridcal.dev.sunyempire.edu${data.path}`}
+            >
+              Edit
+            </a>
+          )}
         </ModalFooter>
       </Modal>
     </ModalWrapper>
