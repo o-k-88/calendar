@@ -61,11 +61,11 @@ export const formattingEvent = (data) => {
       });
 
       const year = dateFromStr.getFullYear();
-      const month = dateFromStr.getMonth() + 1; // getMonth() is zero-based
+      const month = dateFromStr.getMonth(); // getMonth() is zero-based
       const day = dateFromStr.getDate();
 
       // Format as "YYYYDMM"
-      const formattedDate = `${year}${day}${month}`;
+      const formattedDate = `${year}${month}${day}`;
 
       return {
         currentDate: dateFromStr,

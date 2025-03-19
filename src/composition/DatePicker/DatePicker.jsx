@@ -85,17 +85,21 @@ const DatePickerView = (props) => {
       />
 
       <div className="wrapper-date-picker">
-        <DatePickerMain
-          {...props}
-          calendarClassName={cn("g-date-picker", className)}
-          selected={startDate}
-          showMonthYearPicker={showMonthView}
-          onChange={handlerStartDate}
-          onSelect={onSelectDate}
-          renderDayContents={renderDay ? renderDay : renderDayContents}
-          renderMonthContent={renderMonth ? renderMonth : renderMonthContent}
-          inline
-        />
+        {events.length === 0 ? (
+          <div className="no-events">loading...</div>
+        ) : (
+          <DatePickerMain
+            {...props}
+            calendarClassName={cn("g-date-picker", className)}
+            selected={startDate}
+            showMonthYearPicker={showMonthView}
+            onChange={handlerStartDate}
+            onSelect={onSelectDate}
+            renderDayContents={renderDay ? renderDay : renderDayContents}
+            renderMonthContent={renderMonth ? renderMonth : renderMonthContent}
+            inline
+          />
+        )}
       </div>
     </>
   );

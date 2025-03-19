@@ -16,7 +16,18 @@ import {
   getAllFormattedEvents,
   getOauthToken,
 } from "../../helpers/index.js";
-import { current } from "@reduxjs/toolkit";
+
+const ongoingEvents = [
+  {
+    title: "Spring Express Term Two - Registration period.",
+  },
+  {
+    title: "Add/Drop period - Spring Full Term & Express Term One.",
+  },
+  {
+    title: "Summer Full Term & Express Term One - Registration period.",
+  },
+];
 
 const PageCalendar = () => {
   const [events, setEvents] = useState([]);
@@ -111,7 +122,7 @@ const PageCalendar = () => {
 
   const getDataCalendar = async () => {
     const data = await getAllFormattedEvents(totalPages, oauthToken);
-    console.log("data", data);
+
     const categories = formattingCategory(data);
     setEvents(data);
     setFilteredEvents(data);
@@ -161,18 +172,6 @@ const PageCalendar = () => {
     setFilteredEvents(events.filter((event) => event.category === value.value));
   };
 
-  const ongoingEvents = [
-    {
-      title: "Spring Express Term Two - Registration period.",
-    },
-    {
-      title: "Add/Drop period - Spring Full Term & Express Term One.",
-    },
-    {
-      title: "Summer Full Term & Express Term One - Registration period.",
-    },
-  ];
-
   useEffect(() => {
     const current = new Date();
     selectEventDay(current);
@@ -201,8 +200,10 @@ const PageCalendar = () => {
   const handleToken = (token) => {
     setCurrentToken(token);
   };
-  console.log("events", events);
-  console.log("Total pages ", totalPages);
+  console.log(
+    "events find",
+    events.find((event) => event.title === "Sunny Day")
+  );
 
   return (
     <>
