@@ -10,6 +10,7 @@ import EventSideBar from "../../components/EventSideBar/EventSideBar.jsx";
 import Widget from "../../layout/Widget/Widget.jsx";
 import Layout from "../../layout/Layout.jsx";
 
+import { API_HOST } from "../../const/";
 import {
   formattingCategory,
   overflowHidden,
@@ -98,7 +99,7 @@ const PageCalendar = () => {
     getOauthToken().then((data) => {
       setOauthToken(data.access_token);
       setRefreshToken(data.refresh_token);
-      fetch("https://hybridcal.dev.sunyempire.edu/api/v2/calendar/event/all?_format=json", {
+      fetch(`${API_HOST}/api/v2/calendar/event/all?_format=json`, {
         method: "GET",
         headers: {
           Authorization: "Bearer " + data.access_token,
@@ -110,9 +111,7 @@ const PageCalendar = () => {
             .fill(null)
             .map(
               (item, index) =>
-                `https://hybridcal.dev.sunyempire.edu/api/v2/calendar/event/all?_format=json&page=${
-                  index + 1
-                }`
+                `${API_HOST}/api/v2/calendar/event/all?_format=json&page=${index + 1}`
             );
 
           setTotalPages(totalPagesArr);

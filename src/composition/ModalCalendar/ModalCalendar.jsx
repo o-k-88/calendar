@@ -7,6 +7,8 @@ import ModalClose from "../../components/Modal/ModalClose";
 
 import "./ModalCalendar.scss";
 
+import { API_HOST } from "../../const";
+
 const ModalCalendar = (props) => {
   const { onClose, isOpen, data, currentUserUid } = props;
 
@@ -40,10 +42,7 @@ const ModalCalendar = (props) => {
           clickSecondary={onClose}
         >
           {isEdit && (
-            <a
-              className="button button-edit"
-              href={`https://hybridcal.dev.sunyempire.edu${data.path}`}
-            >
+            <a className="button button-edit" href={`${API_HOST}${data.path}`}>
               Edit
             </a>
           )}

@@ -1,6 +1,7 @@
 import { current } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
 
+import { API_HOST, TOKEN_OBJECT } from "../const";
 export const overflowHidden = (param) => (document.body.style.overflow = param ? "auto" : "hidden"); // This functiom is used to hide the overflow of the body when a modal is open
 
 // export const formattingEvent = (data) => {
@@ -108,18 +109,12 @@ export const getTokenFromCurrentUrl = () => {
 };
 
 export const getOauthToken = () => {
-  return fetch("https://hybridcal.dev.sunyempire.edu/oauth/token", {
+  return fetch(`${API_HOST}/oauth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      grant_type: "password",
-      client_id: "IX9W9VGvHK0QcMYpqBby3UAe-c_kAg4enINuDlwMo_E",
-      client_secret: "ThisIsASecret123!",
-      username: "content_creator@sunyempire.edu",
-      password: "Password123!",
-    }),
+    body: JSON.stringify(TOKEN_OBJECT),
   }).then((response) => response.json());
 };
 
