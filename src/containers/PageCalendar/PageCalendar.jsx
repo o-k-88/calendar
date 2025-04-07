@@ -10,7 +10,7 @@ import EventSideBar from "../../components/EventSideBar/EventSideBar.jsx";
 import Widget from "../../layout/Widget/Widget.jsx";
 import Layout from "../../layout/Layout.jsx";
 
-import { API_HOST } from "../../const/";
+import { API_HOST, TOKEN_OBJECT_STRINGIFY } from "../../const/";
 import {
   formattingCategory,
   overflowHidden,
@@ -98,6 +98,7 @@ const PageCalendar = () => {
   useEffect(() => {
     getOauthToken().then((data) => {
       setOauthToken(data?.access_token);
+      console.log(oauthToken);
       setRefreshToken(data?.refresh_token);
       fetch(`${API_HOST}/api/v2/calendar/event/all?_format=json`, {
         method: "GET",
@@ -123,6 +124,7 @@ const PageCalendar = () => {
     const data = await getAllFormattedEvents(totalPages, oauthToken);
 
     const categories = formattingCategory(data);
+
     setEvents(data);
     setFilteredEvents(data);
     setCategory(categories);
@@ -199,6 +201,27 @@ const PageCalendar = () => {
   const handleToken = (token) => {
     setCurrentToken(token);
   };
+
+  // useEffect(() => {
+  //   fetch("https://admin.calendar.sunyempire.edu/oauth/token", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/x-www-form-urlencoded",
+  //     },
+  //     body: urlEncodedData,
+  //   }).then((response) => {
+  //     response
+  //       .json()
+  //       .then((data) => {
+  //         console.log(data);
+
+  //         // Handle the response data here
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error parsing JSON:", error);
+  //       });
+  //   });
+  // }, []);
 
   return (
     <>
