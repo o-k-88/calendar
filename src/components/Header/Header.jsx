@@ -22,6 +22,9 @@ const Header = ({
   const base_login_url =
     "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=95a95fe5-983f-45a4-90a8-36973e266001&response_type=code+id_token&redirect_uri=https://hybridcal.dev.sunyempire.edu/azure&scope=user.read+openid+profile+email&response_mode=form_post&state=12345&nonce=678910";
 
+  const admin_calendar_login_link =
+    "https://login.microsoftonline.com/50091132-5464-4f69-98c6-d089ea5e875c/oauth2/v2.0/authorize?client_id=70d8f531-ea37-4163-9a6c-c9993e9b741c&response_type=code+id_token&redirect_uri=https://admin.calendar.sunyempire.edu/azure&response_mode=form_post&scope=user.read+openid+profile+email&state=local&nonce=678910";
+
   const base_login_url_oleg =
     "http://localhost:5173/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImltaTBZMnowZFlLeEJ0dEFxS19UdDVoWUJUayJ9.eyJhdWQiOiI5NWE5NWZlNS05ODNmLTQ1YTQtOTBhOC0zNjk3M2UyNjYwMDEiLCJpc3MiOiJodHRwczpcL1wvbG9naW4ubWljcm9zb2Z0b25saW5lLmNvbVwvNTAwOTExMzItNTQ2NC00ZjY5LTk4YzYtZDA4OWVhNWU4NzVjXC92Mi4wIiwiaWF0IjoxNzQxMDE2ODUzLCJuYmYiOjE3NDEwMTY4NTMsImV4cCI6MTc0MTAyMDc1MywiYWlvIjoiQVpRQWFcLzhaQUFBQWFTVXcyY2RnS2lFXC9LaEtsWDB6K2NYWWRFc1NYdjJsa0ZnNUhKVVY2UW5KU0VcL2pJeTNCajVBbDdORWc0XC9yOGRVKytlY2RiZXdxTXVRUDI1OGo4a0lTTUh5SDRudGdrdnpFWFNReVFMZWwzVWdMdURSUzQ4bkZXN0UrZHRTOStDVmJZU1wvQkR0QlJGdTJaVnF2enV4cmpOVjFxTTR0VW9OV1k1OHBhMXNzUjRqelNDVWJsZUtzOXc1VU1uXC8xU25LIiwiY19oYXNoIjoiS1ptZVllRWxNQU9pUTlPX2E4eC1oQSIsImVtYWlsIjoib2xlaC5reXJ5bGVua29Ac3VueWVtcGlyZS5lZHUiLCJuYW1lIjoiT2xlaCBLeXJ5bGVua28iLCJub25jZSI6IjY3ODkxMCIsIm9pZCI6IjljNjg4MGFlLTRmYjItNDJjMS05NjcxLWIzZTJiZGE1MTQ2MyIsInByZWZlcnJlZF91c2VybmFtZSI6Im9sZWgua3lyeWxlbmtvQHN1bnllbXBpcmUuZWR1IiwicmgiOiIxLkFUZ0FNaEVKVUdSVWFVLVl4dENKNmw2SFhPVmZxWlVfbUtSRmtLZzJsejRtWUFIMEFMVTRBQS4iLCJzaWQiOiIwMDJlNDNkOS0zM2ZiLTI1MTQtMGJlYi1hNjk5NWU4ZTkxYmMiLCJzdWIiOiJzcG1Eb1Jyd3poRW40M0FiNFo4b3c3YjdGSFBsdTR0LVVFc2VnTENLUk80IiwidGlkIjoiNTAwOTExMzItNTQ2NC00ZjY5LTk4YzYtZDA4OWVhNWU4NzVjIiwidXRpIjoia1FCWVBfeHI0RVdjR2g5QXZMOUdBQSIsInZlciI6IjIuMCIsInVpZCI6IjIifQ==.WeyqRSQohSfkffAlR-So0SDfqHLX6vFlfMbY5WviA8FVGUuOdYQRkGD5h_VKFxqAx15bvNGedOoVCJP8ZCF-cEok6jOEL8xrWkvrzGnT29wBZ9i3nP9qFOS2ZeH8t7rJhEtFtm-nf5CTUnGrwHXF8tDVQDoGhELCMdHZZ0L5rSyZmejI7Ge3IJJ6hYhwEW74GPcgcti8LnBkAyNsUC6eTz2MU28CeiQDfCucVZZnys03i1aJe4pMBomLKkGBEzyXAzKdaPIFIeCvV9cVNVhSzsSbumfiKFC4k67tK_RYpZGyrNy7pmT-8__XXGZzRYIajcpfj2dlReFUNvAkjKwplA";
 
@@ -95,7 +98,7 @@ const Header = ({
               </button>
             )} */}
 
-            {isLogin && <ButtonText href={base_login_url}>Login</ButtonText>}
+            {isLogin && <ButtonText href={admin_calendar_login_link}>Login</ButtonText>}
 
             {isUserInfo && (
               <div className="header-info">
@@ -109,7 +112,7 @@ const Header = ({
                   <a
                     className="button-header"
                     rel="noreferrer"
-                    href="https://hybridcal.dev.sunyempire.edu/node/add/calendar_event"
+                    href="https://admin.calendar.sunyempire.edu/node/add/calendar_event"
                   >
                     Add event
                   </a>
