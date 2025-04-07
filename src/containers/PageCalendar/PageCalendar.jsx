@@ -97,8 +97,8 @@ const PageCalendar = () => {
 
   useEffect(() => {
     getOauthToken().then((data) => {
-      setOauthToken(data.access_token);
-      setRefreshToken(data.refresh_token);
+      setOauthToken(data?.access_token);
+      setRefreshToken(data?.refresh_token);
       fetch(`${API_HOST}/api/v2/calendar/event/all?_format=json`, {
         method: "GET",
         headers: {

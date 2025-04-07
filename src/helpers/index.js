@@ -1,7 +1,7 @@
 import { current } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
 
-import { API_HOST, TOKEN_OBJECT } from "../const";
+import { API_HOST, TOKEN_OBJECT, TOKEN_OBJECT_STRINGIFY } from "../const";
 export const overflowHidden = (param) => (document.body.style.overflow = param ? "auto" : "hidden"); // This functiom is used to hide the overflow of the body when a modal is open
 
 // export const formattingEvent = (data) => {
@@ -112,9 +112,9 @@ export const getOauthToken = () => {
   return fetch(`${API_HOST}/oauth/token`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: JSON.stringify(TOKEN_OBJECT),
+    body: TOKEN_OBJECT_STRINGIFY,
   }).then((response) => response.json());
 };
 
