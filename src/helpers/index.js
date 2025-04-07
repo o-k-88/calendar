@@ -40,8 +40,8 @@ export const overflowHidden = (param) => (document.body.style.overflow = param ?
 export const formattingEvent = (data) => {
   const events = data.map(
     ({
-      field_start_date,
-      field_end_date,
+      start_date: field_start_date,
+      end_date: field_end_date,
       title,
       field_description,
       field_category,
@@ -130,6 +130,7 @@ export async function getAllFormattedEvents(totalPages, token) {
 
     const eventsResponse = await Promise.allSettled(requests);
     const events = eventsResponse.map(({ value }) => value.response.rows).flat();
+    console.log(events);
     const formattedEvents = formattingEvent(events);
     return formattedEvents;
   } catch (e) {
