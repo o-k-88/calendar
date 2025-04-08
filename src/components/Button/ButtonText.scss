@@ -11,4 +11,8 @@
   box-shadow: none;
   outline: none;
   text-decoration: none;
+  @media (max-width: 480px) {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
 }

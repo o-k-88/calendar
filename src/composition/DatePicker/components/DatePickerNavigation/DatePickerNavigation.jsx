@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import DataCustom from "../DataCustom/DataCustom.jsx";
+import DateCustom from "../DataCustom/DataCustom.jsx";
 import Button from "../../../../components/Button/Button";
 import SelectCustom from "../SelectCustom/SelectCustom";
 import AddEventIcon from "./icons/add-event.svg";
@@ -72,15 +72,17 @@ const DatePickerNavigation = (props) => {
       </Button>
 
       <div className="navigation-actions">
-        <DataCustom
-          selected={currentDay}
-          startDate={currentDay}
-          onChange={(date) => {
-            onDateInput(date);
-            onSelectEventDay(date);
-          }}
-        />
-        <div className="date-picker-filter">
+        <div className="date-picker-date-custom action-button">
+          <DateCustom
+            selected={currentDay}
+            startDate={currentDay}
+            onChange={(date) => {
+              onDateInput(date);
+              onSelectEventDay(date);
+            }}
+          />
+        </div>
+        <div className="date-picker-filter action-button">
           <SelectCustom
             data={category}
             onChange={onSelectOptions}

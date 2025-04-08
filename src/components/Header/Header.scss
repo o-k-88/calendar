@@ -6,9 +6,15 @@
     display: flex;
     align-items: center;
     min-height: 96px;
+    @media (max-width: 480px) {
+      min-height: 86px;
+    }
     .header-logo {
       .logo {
         max-width: 247px;
+        @media (max-width: 480px) {
+          max-width: 130px;
+        }
       }
     }
     .header-right {

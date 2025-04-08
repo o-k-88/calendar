@@ -15,7 +15,7 @@
   .button-navigation {
     margin-right: 8px;
 
-    box-shadow:none;
+    box-shadow: none;
     color: #000;
     background: transparent;
     border: 1px solid transparent;
@@ -24,7 +24,7 @@
 
     &:hover {
       background: transparent;
-      box-shadow:none;
+      box-shadow: none;
       border-color: #d9d1d1;
       transform: none;
     }
@@ -144,6 +144,11 @@
     width: 100%;
     padding-left: 0;
   }
+  .date-picker-select .date-picker__single-value,
+  .date-picker-select .date-picker__input {
+    font-size: 14px !important;
+    line-height: 1.2;
+  }
 }
 
 .navigation-actions {
@@ -151,19 +156,32 @@
   align-items: center;
   justify-content: center;
   flex: 1 1 0.1%;
-
+  margin: -6px;
   @media (max-width: 992px) {
+    width: 100%;
+  }
+  .action-button {
+    margin: 6px;
+  }
+}
+
+.date-picker-filter {
+  .date-picker-select {
+    min-width: 140px;
     width: 100%;
   }
 }
 
 .date-picker-filter,
-.react-datepicker-wrapper {
+.date-picker-date-custom {
   max-width: 50%;
   width: 100%;
-  min-width: 124px !important;
-}
 
-.date-picker-select {
-  width: 100%;
+  box-sizing: border-box;
+}
+.date-picker-date-custom {
+  .react-datepicker-wrapper {
+    min-width: 124px !important;
+    width: 100%;
+  }
 }
