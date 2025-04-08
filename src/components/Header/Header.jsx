@@ -92,16 +92,16 @@ const Header = ({
                   <p>{currentUser.name}</p>
                 </div>
                 <div className="header-actions">
-                  <button onClick={handlerLogout} type="button" className="button-header">
+                  <ButtonText onClick={handlerLogout} type="button" className="button-header">
                     Log out
-                  </button>
-                  <a
+                  </ButtonText>
+                  <ButtonText
                     className="button-header"
                     rel="noreferrer"
                     href="https://admin.calendar.sunyempire.edu/node/add/calendar_event"
                   >
                     Add event
-                  </a>
+                  </ButtonText>
                 </div>
               </div>
             )}
