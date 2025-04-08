@@ -4,11 +4,11 @@ import ModalHeader from "../../components/Modal/ModalHeader";
 import ModalBody from "../../components/Modal/ModalBody";
 import ModalFooter from "../../components/Modal/ModalFooter";
 import ModalClose from "../../components/Modal/ModalClose";
+import Button from "../../components/Button/Button";
 
 import "./ModalCalendar.scss";
 
 import { API_HOST } from "../../const";
-import { Button } from "bootstrap";
 
 const ModalCalendar = (props) => {
   const { onClose, isOpen, data, currentUserUid } = props;
