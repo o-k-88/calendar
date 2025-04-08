@@ -32,16 +32,13 @@ const DatePickerNavigation = (props) => {
 
   return (
     <div className="date-picker-navigation">
-      {/* <Button onClick={onCreateEvent} underlineView classNames="date-picker-navigation-add-event">
-        Add New Event Form
-      </Button> */}
-      <Button underlineView classNames="button-navigation" onClick={handlerTodayButton}>
+      <Button underlineView className="button-navigation" onClick={handlerTodayButton}>
         <span className="icon">
           <img src={AddEventIcon} alt="" />
         </span>
         <span className="text"> Today</span>
       </Button>
-      <Button underlineView classNames="button-navigation" onClick={handlerMonthButton}>
+      <Button underlineView className="button-navigation" onClick={handlerMonthButton}>
         <span className="icon">
           <img src={AddEventIcon} alt="" />
         </span>
@@ -49,7 +46,7 @@ const DatePickerNavigation = (props) => {
       </Button>
       <Button
         underlineView
-        classNames="button-navigation"
+        className="button-navigation"
         href={"https://sunyempire.edu/media/academic-affairs/registrar/2024-2025-Academic-Year.pdf"}
       >
         <span className="icon">
@@ -59,7 +56,7 @@ const DatePickerNavigation = (props) => {
       </Button>
       <Button
         underlineView
-        classNames="button-navigation"
+        className="button-navigation"
         href={"https://sunyempire.edu/media/academic-affairs/registrar/2025-2026-Academic-Year.pdf"}
       >
         <span className="icon">
@@ -67,7 +64,7 @@ const DatePickerNavigation = (props) => {
         </span>
         <span className="text"> '25-'26 Term Bookmark</span>
       </Button>
-      <Button onClick={onSearch} underlineView classNames="button-navigation">
+      <Button onClick={onSearch} underlineView className="button-navigation">
         <span className="icon">
           <img src={AddEventIcon} alt="" />
         </span>

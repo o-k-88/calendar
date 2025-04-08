@@ -74,10 +74,10 @@ const ModalSearch = ({
                 )}
               </ul>
               <div className="searched-form-button-group">
-                <Button classNames={"search-btn"} type="submit" underlineView>
+                <Button className={"search-btn"} type="submit" underlineView>
                   Search
                 </Button>
-                <Button classNames={"close-btn"} onClick={onClose} underlineView>
+                <Button className={"close-btn"} onClick={onClose} underlineView>
                   Close
                 </Button>
               </div>

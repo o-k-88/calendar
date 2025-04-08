@@ -52,7 +52,7 @@ const ModalCalendar = (props) => {
             // </a>
             <Button
               href={`${API_HOST}${data.path}`}
-              className="button-edit"
+              className="modal-button"
               rel="noopener noreferrer"
             >
               Edit

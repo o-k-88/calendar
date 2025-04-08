@@ -55,9 +55,13 @@
     background-color: transparent;
   }
 
-  .button-wrapper {
+  .modal-buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
+    margin: -6px;
+    .modal-button {
+      margin: 6px;
+    }
   }
 }

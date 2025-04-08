@@ -5,7 +5,7 @@ import "./Button.scss";
 const Button = (props) => {
   const {
     type = "button",
-    classNames,
+    className,
     underlineView,
     children,
     onClick,
@@ -20,7 +20,7 @@ const Button = (props) => {
   return (
     <Component
       onClick={onClick}
-      className={cx("button", classNames, { _outline: underlineView })}
+      className={cx("button", className, { _outline: underlineView })}
       type={href ? undefined : type}
       to={to}
       href={href}
@@ -39,7 +39,7 @@ Button.propTypes = {
   type: PropTypes.string,
   to: PropTypes.string,
   href: PropTypes.string,
-  classNames: PropTypes.string,
+  className: PropTypes.string,
   boxView: PropTypes.bool,
   underlineView: PropTypes.bool,
   children: PropTypes.any,
