@@ -40,21 +40,23 @@ const DatePickerView = (props) => {
     return (
       <>
         <div className={"day"}>{day}</div>
-        {filteredTooltipText.map((item, index) => (
-          <div key={index} className={"event"}>
-            {item?.title && <span className="label" />}
+        {filteredTooltipText.map((item, index) => {
+          return (
+            <div key={index} className={"event"}>
+              {item?.title && <span className="label" />}
 
-            <div
-              onClick={(e) => {
-                onModal();
-                onCurrentEvent(item);
-              }}
-              className={"title"}
-            >
-              {item?.time} - {item?.title}
+              <div
+                onClick={(e) => {
+                  onModal();
+                  onCurrentEvent(item);
+                }}
+                className={"title"}
+              >
+                {item?.time} - {item?.title}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </>
     );
   };

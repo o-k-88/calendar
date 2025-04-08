@@ -54,7 +54,8 @@ export const formattingEvent = (data) => {
       if (field_start_date === "") {
         return {};
       }
-      const dateFromStr = new Date(field_start_date.replace(" ", "T") + "Z");
+      const dateFromStr = new Date(field_start_date);
+
       const formattedTime = dateFromStr.toLocaleTimeString("en-US", {
         hour: "2-digit",
         minute: "2-digit",
@@ -130,7 +131,7 @@ export async function getAllFormattedEvents(totalPages, token) {
 
     const eventsResponse = await Promise.allSettled(requests);
     const events = eventsResponse.map(({ value }) => value.response.rows).flat();
-    console.log(events);
+
     const formattedEvents = formattingEvent(events);
     return formattedEvents;
   } catch (e) {
