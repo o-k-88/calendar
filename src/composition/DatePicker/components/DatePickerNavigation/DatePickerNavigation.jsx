@@ -67,6 +67,18 @@ const DatePickerNavigation = (props) => {
         </span>
         <span className="text"> '25-'26 Term Bookmark</span>
       </Button>
+      <Button
+        underlineView
+        className="button-navigation"
+        href={
+          "https://www.sunyempire.edu/media/president/diversity-equity-and-inclusion/DEI-Calendar-23-24.pdf"
+        }
+      >
+        <span className="icon">
+          <img src={AddEventIcon} alt="" />
+        </span>
+        <span className="text">Diversity, Equity and Inclusion Calendar</span>
+      </Button>
       <Button onClick={onSearch} underlineView className="button-navigation">
         <span className="icon">
           <img src={searchIcon} alt="" />

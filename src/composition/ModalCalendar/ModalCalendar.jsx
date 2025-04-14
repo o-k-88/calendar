@@ -24,15 +24,28 @@ const ModalCalendar = (props) => {
         </ModalHeader>
         <ModalBody>
           {data && (
-            <div>
-              <h4 className="modal-calendar-title">{data.title}</h4>
-              <p className="modal-calendar-date">{data.time}</p>
-
-              <p
-                className="modal-calendar-description"
-                dangerouslySetInnerHTML={{ __html: data.description }}
-              />
-              <p className="modal-calendar-category"> {data?.category}</p>
+            <div className="modal-calendar-card">
+              <div className="modal-calendar-row">
+                <span className="modal-calendar-label">🏷️ Title:</span>
+                <span className="modal-calendar-value">{data?.title}</span>
+              </div>
+              <div className="modal-calendar-row">
+                <span className="modal-calendar-label">🗂️ Category:</span>
+                <span className="modal-calendar-value">{data?.category}</span>
+              </div>
+              <div className="modal-calendar-row">
+                <span className="modal-calendar-label">📝 Description:</span>
+                <span
+                  className="modal-calendar-value"
+                  dangerouslySetInnerHTML={{ __html: data.description }}
+                ></span>
+              </div>
+              <div className="modal-calendar-row">
+                <span className="modal-calendar-label">📅 Date / Time:</span>
+                <span className="modal-calendar-value">
+                  {new Date(data?.currentDate).toLocaleDateString()} {data?.time}
+                </span>
+              </div>
             </div>
           )}
         </ModalBody>
@@ -43,13 +56,6 @@ const ModalCalendar = (props) => {
           clickSecondary={onClose}
         >
           {isEdit && (
-            // <a
-            //   className="button button-edit"
-            //   rel="noopener noreferrer"
-            //   href={`${API_HOST}${data.path}`}
-            // >
-            //   Edit
-            // </a>
             <Button
               href={`${API_HOST}${data.path}`}
               className="modal-button"

@@ -9,46 +9,43 @@
   .modal-content {
     overflow-y: auto;
     height: 100%;
-    .modal-calendar-title {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 15px;
-      text-align: center;
-      text-transform: capitalize;
-    }
+    .modal-calendar-card {
+      background-color: #fdfdfd;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
 
-    .modal-calendar-date {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #555;
-      margin-bottom: 20px;
+      max-width: 700px;
 
-      font-style: italic;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 10px;
-    }
+      .modal-calendar-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+        padding: 10px;
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
 
-    .modal-calendar-description {
-      font-size: 1rem;
-      line-height: 1.8;
-      color: #444;
-      margin-bottom: 25px;
-    }
+        &:last-child {
+          margin-bottom: 0;
+        }
 
-    .modal-calendar-category {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #007bff;
-      text-transform: uppercase;
-      margin-top: 10px;
+        .modal-calendar-label {
+          font-weight: 600;
 
-      letter-spacing: 1px;
-    }
+          color: #222;
 
-    .modal-calendar-category::before {
-      content: "📂 ";
-      color: #007bff;
+          min-width: 100px;
+        }
+
+        .modal-calendar-value {
+          line-height: 1.5;
+          color: #555;
+          background-color: #fafafa;
+          padding: 0.75rem 1rem;
+
+          width: 100%;
+        }
+      }
     }
   }
 }

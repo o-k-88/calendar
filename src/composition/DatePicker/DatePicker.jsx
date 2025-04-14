@@ -51,6 +51,13 @@ const DatePickerView = (props) => {
                   onCurrentEvent(item);
                 }}
                 className={"title"}
+                title={
+                  item?.time +
+                  " " +
+                  item?.title +
+                  " " +
+                  item?.description?.replace(/<[^>]*>?/gm, "")
+                }
               >
                 {item?.time} - {item?.title}
               </div>
