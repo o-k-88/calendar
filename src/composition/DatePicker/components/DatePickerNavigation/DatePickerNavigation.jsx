@@ -3,6 +3,9 @@ import DateCustom from "../DataCustom/DataCustom.jsx";
 import Button from "../../../../components/Button/Button";
 import SelectCustom from "../SelectCustom/SelectCustom";
 import AddEventIcon from "./icons/add-event.svg";
+import monthIcon from "./icons/month-calendar.svg";
+import todayIcon from "./icons/today-calendar.svg";
+import searchIcon from "./icons/search-calendar.svg";
 import "./DatePickerNavigation.scss";
 
 const DatePickerNavigation = (props) => {
@@ -34,13 +37,13 @@ const DatePickerNavigation = (props) => {
     <div className="date-picker-navigation">
       <Button underlineView className="button-navigation" onClick={handlerTodayButton}>
         <span className="icon">
-          <img src={AddEventIcon} alt="" />
+          <img src={todayIcon} alt="" />
         </span>
         <span className="text"> Today</span>
       </Button>
       <Button underlineView className="button-navigation" onClick={handlerMonthButton}>
         <span className="icon">
-          <img src={AddEventIcon} alt="" />
+          <img src={monthIcon} alt="" />
         </span>
         <span className="text"> Month</span>
       </Button>
@@ -66,7 +69,7 @@ const DatePickerNavigation = (props) => {
       </Button>
       <Button onClick={onSearch} underlineView className="button-navigation">
         <span className="icon">
-          <img src={AddEventIcon} alt="" />
+          <img src={searchIcon} alt="" />
         </span>
         <span className="text"> Search</span>
       </Button>
