@@ -150,7 +150,8 @@
       }
 
       @media (max-width: 767px) {
-        display: none;
+        // display: none;
+        font-size: 12px;
       }
     }
 
@@ -166,29 +167,29 @@
       text-align: left;
 
       @media (max-width: 767px) {
-        float: left;
+        // float: left;
       }
 
       & + .event {
         margin-top: 8px;
 
-        @media (max-width: 767px) {
-          margin-top: 0px;
-        }
+        // @media (max-width: 767px) {
+        //   margin-top: 0px;
+        // }
       }
     }
 
-    .label {
-      display: none;
-      margin: 2px;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: oklch(0.707 0.022 261.3);
+    // .label {
+    //   display: none;
+    //   margin: 2px;
+    //   width: 8px;
+    //   height: 8px;
+    //   border-radius: 50%;
+    //   background-color: oklch(0.707 0.022 261.3);
 
-      @media (max-width: 767px) {
-        display: block;
-      }
-    }
+    //   @media (max-width: 767px) {
+    //     display: block;
+    //   }
+    // }
   }
 }
