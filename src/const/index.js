@@ -1,6 +1,9 @@
 // export const API_HOST = "https://hybridcal.dev.sunyempire.edu";
 export const API_HOST = "https://admin.calendar.sunyempire.edu";
 
+export const ONGOING_EVENTS_API =
+  "https://admin.calendar.sunyempire.edu/api/v2/calendar/ongoing/2025-04?_format=json";
+
 // export const TOKEN_OBJECT = {
 //   grant_type: "password",
 //   client_id: "IX9W9VGvHK0QcMYpqBby3UAe-c_kAg4enINuDlwMo_E",

@@ -18,18 +18,6 @@ import {
   getOauthToken,
 } from "../../helpers/index.js";
 
-const ongoingEvents = [
-  {
-    title: "Spring Express Term Two - Registration period.",
-  },
-  {
-    title: "Add/Drop period - Spring Full Term & Express Term One.",
-  },
-  {
-    title: "Summer Full Term & Express Term One - Registration period.",
-  },
-];
-
 const PageCalendar = () => {
   const [events, setEvents] = useState([]);
   const [category, setCategory] = useState(["All Categories"]);
@@ -51,6 +39,7 @@ const PageCalendar = () => {
   const [totalPages, setTotalPages] = useState([]);
   const [oauthToken, setOauthToken] = useState("");
   const [refreshToken, setRefreshToken] = useState("");
+  const [currentDatePickerDate, setCurrentDatePickerDate] = useState(new Date());
 
   const handleFilterData = ({ search_input, start_date, end_date }) => {
     // If search_input is empty, set filteredData to an empty array
@@ -137,6 +126,7 @@ const PageCalendar = () => {
 
   const handleSelectDate = (dateSelect) => {
     selectEventDay(dateSelect);
+    setCurrentDatePickerDate(dateSelect);
   };
 
   const handlerCurrentEvent = (dataEvent) => {
@@ -211,6 +201,7 @@ const PageCalendar = () => {
       >
         <Widget>
           <DatePicker
+            onChange={(date) => console.log(date)}
             className={"asdasdsadsa"}
             events={filteredEvents}
             onModal={handlerIsModal}
@@ -224,7 +215,7 @@ const PageCalendar = () => {
           />
         </Widget>
         {/* <RightSideBar /> */}
-        <EventSideBar currentEvents={currentEventDay} ongoingEvents={ongoingEvents} />
+        <EventSideBar currentEvents={currentEventDay} currentDate={currentDatePickerDate} />
       </Layout>
       <ModalCalendar
         isOpen={isShow}

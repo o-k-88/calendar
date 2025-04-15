@@ -21,12 +21,16 @@ const DatePickerView = (props) => {
     onCreateEvent,
     onSelectEventDay,
     onSelectDate,
+    onChange,
   } = props;
 
   const [startDate, setStartDate] = useState(new Date());
   const [showMonthView, setShowMonthView] = useState(false);
 
-  const handlerStartDate = (date) => setStartDate(date);
+  const handlerStartDate = (date) => {
+    setStartDate(date);
+    onChange(date);
+  };
   const handlerSetDateInput = (day) => setStartDate(day);
 
   const renderDayContents = (day, date) => {
