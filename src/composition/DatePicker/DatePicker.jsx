@@ -22,6 +22,7 @@ const DatePickerView = (props) => {
     onSelectEventDay,
     onSelectDate,
     onChange,
+    onMonthChange,
   } = props;
 
   const [startDate, setStartDate] = useState(new Date());
@@ -111,6 +112,7 @@ const DatePickerView = (props) => {
             onSelect={onSelectDate}
             renderDayContents={renderDay ? renderDay : renderDayContents}
             renderMonthContent={renderMonth ? renderMonth : renderMonthContent}
+            onMonthChange={onMonthChange}
             inline
           />
         )}

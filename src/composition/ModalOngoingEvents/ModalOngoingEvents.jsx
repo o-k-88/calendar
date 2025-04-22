@@ -32,9 +32,15 @@ const ModalOngoingEvents = (props) => {
                 ></span>
               </div>
               <div className="modal-calendar-row">
-                <span className="modal-calendar-label">📅 Date / Time:</span>
+                <span className="modal-calendar-label">📅 Start Date / Time:</span>
                 <span className="modal-calendar-value">
                   {new Date(data?.field_start_date).toLocaleDateString()}
+                </span>
+              </div>
+              <div className="modal-calendar-row">
+                <span className="modal-calendar-label">📅 End Date / Time:</span>
+                <span className="modal-calendar-value">
+                  {new Date(data?.field_end_date).toLocaleDateString()}
                 </span>
               </div>
             </div>

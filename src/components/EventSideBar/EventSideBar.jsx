@@ -20,10 +20,12 @@ import "./EventSideBar.scss";
 //   "cache_test": 37751
 //   },
 
-const EventSideBar = ({ currentEvents = [], currentDate }) => {
+const EventSideBar = ({ currentEvents = [], currentDate, currentMonth }) => {
   const [ongoingEvents, setOngoingEvents] = useState([]);
   const [currentOngoingEvent, setCurrentOngoingEvent] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
+
+  console.log("currentMonth", currentMonth);
 
   const handleOngoingEvent = (event) => {
     setCurrentOngoingEvent(event);
@@ -32,20 +34,17 @@ const EventSideBar = ({ currentEvents = [], currentDate }) => {
 
   const filterOngoingEvent = useMemo(() => {
     return ongoingEvents.filter((item) => {
-      const startOngoingEvent = new Date(item.field_start_date).getMonth() + 1;
-      const endOngoingEvent = new Date(item.field_end_date).getMonth() + 1;
-      console.log("startOngoingEvent", startOngoingEvent);
-      console.log("endOngoingEvent", endOngoingEvent);
+      const startOngoingEvent = new Date(item.field_start_date).getMonth();
+      const endOngoingEvent = new Date(item.field_end_date).getMonth();
+      // console.log("startOngoingEvent", startOngoingEvent);
+      // console.log("endOngoingEvent", endOngoingEvent);
 
-      const currentMonth = new Date(currentDate).getMonth() + 1;
-      // const currentMonth = 6;
-      console.log("currentMonth", currentMonth);
       return (
         (currentMonth === startOngoingEvent || currentMonth > startOngoingEvent) &&
         currentMonth <= endOngoingEvent
       );
     });
-  }, [ongoingEvents]);
+  }, [ongoingEvents, currentMonth]);
 
   useEffect(() => {
     getOauthToken()

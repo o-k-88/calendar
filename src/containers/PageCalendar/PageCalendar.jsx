@@ -18,6 +18,8 @@ import {
   getOauthToken,
 } from "../../helpers/index.js";
 
+const newDate = new Date();
+
 const PageCalendar = () => {
   const [events, setEvents] = useState([]);
   const [category, setCategory] = useState(["All Categories"]);
@@ -39,7 +41,14 @@ const PageCalendar = () => {
   const [totalPages, setTotalPages] = useState([]);
   const [oauthToken, setOauthToken] = useState("");
   const [refreshToken, setRefreshToken] = useState("");
-  const [currentDatePickerDate, setCurrentDatePickerDate] = useState(new Date());
+  const [currentDatePickerDate, setCurrentDatePickerDate] = useState(newDate);
+
+  const [currentUrl, setCurrentUrl] = useState(window.location.href);
+  const [currentUser, setCurrentUser] = useState({});
+  const [currentToken, setCurrentToken] = useState(null);
+  const [isLogin, setIsLogin] = useState(currentUrl.includes("/?sso=esc2902931876") || false);
+  const [isAddEvent, setAddEvent] = useState(false);
+  const [currentMonth, setCurrentMonth] = useState(newDate.getMonth());
 
   const handleFilterData = ({ search_input, start_date, end_date }) => {
     // If search_input is empty, set filteredData to an empty array
@@ -167,12 +176,6 @@ const PageCalendar = () => {
     selectEventDay(current);
   }, [events]);
 
-  const [currentUrl, setCurrentUrl] = useState(window.location.href);
-  const [currentUser, setCurrentUser] = useState({});
-  const [currentToken, setCurrentToken] = useState(null);
-  const [isLogin, setIsLogin] = useState(currentUrl.includes("/?sso=esc2902931876") || false);
-  const [isAddEvent, setAddEvent] = useState(false);
-
   useEffect(() => {
     setCurrentUrl(window.location.href);
 
@@ -189,6 +192,10 @@ const PageCalendar = () => {
 
   const handleToken = (token) => {
     setCurrentToken(token);
+  };
+
+  const handleMonthChange = (date) => {
+    setCurrentMonth(date.getMonth());
   };
 
   return (
@@ -212,10 +219,15 @@ const PageCalendar = () => {
             onSelectOptions={handlerSelectOptions}
             onCreateEvent={handleCreateEvent}
             onSelectEventDay={selectEventDay}
+            onMonthChange={handleMonthChange}
           />
         </Widget>
         {/* <RightSideBar /> */}
-        <EventSideBar currentEvents={currentEventDay} currentDate={currentDatePickerDate} />
+        <EventSideBar
+          currentEvents={currentEventDay}
+          currentDate={currentDatePickerDate}
+          currentMonth={currentMonth}
+        />
       </Layout>
       <ModalCalendar
         isOpen={isShow}
