@@ -128,3 +128,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+/* @media (max-width: 560px) {
+  body {
+    min-width: 560px;
+  }
+} */

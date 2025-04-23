@@ -5,7 +5,7 @@ import ModalOngoingEvents from "../../composition/ModalOngoingEvents/ModalOngoin
 
 import Portal from "../Portal/Portal.jsx";
 
-import { getOauthToken } from "../../helpers/index.js";
+import { getOauthToken, overflowHidden } from "../../helpers/index.js";
 import { ONGOING_EVENTS_API } from "../../const/index.js";
 import "./EventSideBar.scss";
 
@@ -25,19 +25,21 @@ const EventSideBar = ({ currentEvents = [], currentDate, currentMonth }) => {
   const [currentOngoingEvent, setCurrentOngoingEvent] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
 
-  console.log("currentMonth", currentMonth);
-
   const handleOngoingEvent = (event) => {
     setCurrentOngoingEvent(event);
     setModalOpen(true);
+    overflowHidden(modalOpen);
+  };
+
+  const onCloseOngoingEvent = () => {
+    setModalOpen(false);
+    overflowHidden(modalOpen);
   };
 
   const filterOngoingEvent = useMemo(() => {
     return ongoingEvents.filter((item) => {
       const startOngoingEvent = new Date(item.field_start_date).getMonth();
       const endOngoingEvent = new Date(item.field_end_date).getMonth();
-      // console.log("startOngoingEvent", startOngoingEvent);
-      // console.log("endOngoingEvent", endOngoingEvent);
 
       return (
         (currentMonth === startOngoingEvent || currentMonth > startOngoingEvent) &&
@@ -60,7 +62,6 @@ const EventSideBar = ({ currentEvents = [], currentDate, currentMonth }) => {
       })
       .then((response) => response.json())
       .then((data) => {
-        console.log("ongoing events", data.response.rows);
         setOngoingEvents(data.response.rows);
       })
       .catch((error) => {
@@ -111,7 +112,7 @@ const EventSideBar = ({ currentEvents = [], currentDate, currentMonth }) => {
       <Portal>
         <ModalOngoingEvents
           isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
+          onClose={() => onCloseOngoingEvent()}
           data={currentOngoingEvent}
         />
       </Portal>
