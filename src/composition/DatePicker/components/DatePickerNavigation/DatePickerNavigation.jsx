@@ -49,27 +49,27 @@ const DatePickerNavigation = (props) => {
       </Button>
       <Button
         underlineView
-        className="button-navigation"
+        className="button-navigation mobile-hidden"
         href={"https://sunyempire.edu/media/academic-affairs/registrar/2024-2025-Academic-Year.pdf"}
       >
         <span className="icon">
           <img src={AddEventIcon} alt="" />
         </span>
-        <span className="text"> '24-'25 Term Bookmark</span>
+        <span className="text">’24-’25 Term Bookmark</span>
       </Button>
       <Button
         underlineView
-        className="button-navigation"
+        className="button-navigation mobile-hidden"
         href={"https://sunyempire.edu/media/academic-affairs/registrar/2025-2026-Academic-Year.pdf"}
       >
         <span className="icon">
           <img src={AddEventIcon} alt="" />
         </span>
-        <span className="text"> '25-'26 Term Bookmark</span>
+        <span className="text">'25-’26 Term Bookmark</span>
       </Button>
       <Button
         underlineView
-        className="button-navigation"
+        className="button-navigation mobile-hidden"
         href={
           "https://www.sunyempire.edu/media/president/diversity-equity-and-inclusion/DEI-Calendar-23-24.pdf"
         }
@@ -81,7 +81,7 @@ const DatePickerNavigation = (props) => {
       </Button>
       <Button onClick={onSearch} underlineView className="button-navigation">
         <span className="icon">
-          <img src={searchIcon} alt="" />
+          <img src={searchIcon} alt="search" />
         </span>
         <span className="text"> Search</span>
       </Button>

@@ -15,14 +15,12 @@
 
   .button-navigation {
     margin-right: 8px;
-
     box-shadow: none;
     color: #000;
     background: transparent;
     border: 1px solid transparent;
     box-sizing: border-box;
     outline: none;
-
     &:hover {
       background: transparent;
       box-shadow: none;
@@ -46,6 +44,12 @@
       @media (max-width: 768px) {
         display: none;
       }
+    }
+  }
+
+  .button-navigation.mobile-hidden {
+    @media (max-width: 767px) {
+      display: none;
     }
   }
 }

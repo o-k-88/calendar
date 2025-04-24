@@ -73,7 +73,7 @@ const EventSideBar = ({ currentEvents = [], currentDate, currentMonth }) => {
       <div className="event-sidebar-wrapper">
         <div className="sidebar-box">
           <div className="events-current">
-            <h2 className="sidebar-title">Current Events</h2>
+            <h2 className="sidebar-title">Today's Events</h2>
             <div className="sidebar-list-wrapper">
               <ul className="current-list">
                 {currentEvents.length === 0 && (

@@ -30,6 +30,10 @@ const ModalCalendar = (props) => {
                 <span className="modal-calendar-value">{data?.title}</span>
               </div>
               <div className="modal-calendar-row">
+                <span className="modal-calendar-label">📍 Location:</span>
+                <span className="modal-calendar-value">{data?.field_location}</span>
+              </div>
+              <div className="modal-calendar-row">
                 <span className="modal-calendar-label">🗂️ Category:</span>
                 <span className="modal-calendar-value">{data?.category}</span>
               </div>
@@ -41,9 +45,20 @@ const ModalCalendar = (props) => {
                 ></span>
               </div>
               <div className="modal-calendar-row">
-                <span className="modal-calendar-label">📅 Date / Time:</span>
+                <span className="modal-calendar-label">📅 Start date / Time:</span>
                 <span className="modal-calendar-value">
                   {new Date(data?.currentDate).toLocaleDateString()} {data?.time}
+                </span>
+              </div>
+              <div className="modal-calendar-row">
+                <span className="modal-calendar-label">📅 End Date </span>
+                <span className="modal-calendar-value">
+                  {new Date(data?.field_end_date).toLocaleDateString()}{" "}
+                  {new Date(data?.field_end_date).toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
                 </span>
               </div>
             </div>

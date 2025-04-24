@@ -24,6 +24,7 @@ const ModalOngoingEvents = (props) => {
                 <span className="modal-calendar-label">🏷️ Title:</span>
                 <span className="modal-calendar-value">{data?.title}</span>
               </div>
+
               <div className="modal-calendar-row">
                 <span className="modal-calendar-label">📝 Description:</span>
                 <span
