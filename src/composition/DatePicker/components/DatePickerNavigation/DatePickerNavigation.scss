@@ -60,27 +60,27 @@
   width: 100%;
   max-width: 300px;
 
-  .date-picker-navigation-select {
-    width: 100%;
-    padding: 0.5rem;
-    font-size: 1rem;
-    font-family: inherit;
-    color: #333;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    appearance: none; // Removes default browser styling
-    cursor: pointer;
-    transition: all 0.3s ease;
+  // .date-picker-navigation-select {
+  //   width: 100%;
+  //   padding: 0.5rem;
+  //   font-size: 1rem;
+  //   font-family: inherit;
+  //   color: #333;
+  //   background-color: #f9f9f9;
+  //   border: 1px solid #ccc;
+  //   border-radius: 5px;
+  //   appearance: none; // Removes default browser styling
+  //   cursor: pointer;
+  //   transition: all 0.3s ease;
 
-    &:hover {
-      background-color: #e6e6e6;
-    }
+  //   &:hover {
+  //     background-color: #e6e6e6;
+  //   }
 
-    &:focus {
-      outline-offset: 2px;
-    }
-  }
+  //   &:focus {
+  //     outline-offset: 2px;
+  //   }
+  // }
 
   &::after {
     content: "▼";
@@ -113,7 +113,7 @@
     font-size: 16px !important;
     color: rgb(66, 66, 66) !important;
     font-weight: 400 !important;
-    font-family: "Helvetica Neue", helvetica, arial, sans-serif !important;
+    font-family: inherit !important;
   }
   input[type="text"].date-picker__input:focus {
     box-shadow: none;

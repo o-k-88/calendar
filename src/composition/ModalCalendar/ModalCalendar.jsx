@@ -31,7 +31,9 @@ const ModalCalendar = (props) => {
               </div>
               <div className="modal-calendar-row">
                 <span className="modal-calendar-label">📍 Location:</span>
-                <span className="modal-calendar-value">{data?.field_location}</span>
+                <span className="modal-calendar-value">
+                  {data?.field_location ? data.field_location : "No information provided"}
+                </span>
               </div>
               <div className="modal-calendar-row">
                 <span className="modal-calendar-label">🗂️ Category:</span>

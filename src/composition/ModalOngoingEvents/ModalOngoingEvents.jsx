@@ -13,7 +13,7 @@ const ModalOngoingEvents = (props) => {
 
   return (
     <ModalWrapper isOpen={isOpen} onClose={onClose} isOutside>
-      <Modal className="modal-calendar">
+      <Modal className="modal-ongoing-events">
         <ModalHeader>
           <ModalClose onClick={onClose} />
         </ModalHeader>

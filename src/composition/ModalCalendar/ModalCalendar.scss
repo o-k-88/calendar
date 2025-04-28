@@ -1,12 +1,10 @@
-.modal-wrapper-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+// .modal-wrapper-box {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
 
 .modal-calendar {
-  // max-height: 500px;
-  // height: 100%;
   position: relative;
   top: 0;
   left: 0;
@@ -15,10 +13,8 @@
 
   @media (max-width: 767px) {
     height: 100vh;
-
     border-radius: 0;
   }
-
   .modal-box {
     display: flex;
     flex-direction: column;

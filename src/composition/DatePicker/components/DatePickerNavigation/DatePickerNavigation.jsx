@@ -29,23 +29,23 @@ const DatePickerNavigation = (props) => {
     onShowMonthView(true);
   };
 
-  // https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=95a95fe5-983f-45a4-90a8-36973e266001&response_type=code+id_token&redirect_uri=https://hybridcal.dev.sunyempire.edu/azure&scope=user.read+openid+profile+email&response_mode=form_post&state=12345&nonce=678910
-
-  // "https://hybridcal.dev.sunyempire.edu/node/add/calendar_event"
-
   return (
     <div className="date-picker-navigation">
       <Button underlineView className="button-navigation" onClick={handlerTodayButton}>
         <span className="icon">
-          <img src={todayIcon} alt="" />
+          <img src={todayIcon} alt="today button" />
         </span>
-        <span className="text"> Today</span>
+        <span className="text" title="Today's day">
+          Today
+        </span>
       </Button>
       <Button underlineView className="button-navigation" onClick={handlerMonthButton}>
         <span className="icon">
-          <img src={monthIcon} alt="" />
+          <img src={monthIcon} alt="month button" />
         </span>
-        <span className="text"> Month</span>
+        <span className="text" title="Pick month">
+          Month
+        </span>
       </Button>
       <Button
         underlineView
@@ -53,7 +53,7 @@ const DatePickerNavigation = (props) => {
         href={"https://sunyempire.edu/media/academic-affairs/registrar/2024-2025-Academic-Year.pdf"}
       >
         <span className="icon">
-          <img src={AddEventIcon} alt="" />
+          <img src={AddEventIcon} alt="24-’25 Term Bookmark" />
         </span>
         <span className="text">’24-’25 Term Bookmark</span>
       </Button>
@@ -63,7 +63,7 @@ const DatePickerNavigation = (props) => {
         href={"https://sunyempire.edu/media/academic-affairs/registrar/2025-2026-Academic-Year.pdf"}
       >
         <span className="icon">
-          <img src={AddEventIcon} alt="" />
+          <img src={AddEventIcon} alt="'25-’26 Term Bookmark" />
         </span>
         <span className="text">'25-’26 Term Bookmark</span>
       </Button>
@@ -81,7 +81,7 @@ const DatePickerNavigation = (props) => {
       </Button>
       <Button onClick={onSearch} underlineView className="button-navigation">
         <span className="icon">
-          <img src={searchIcon} alt="search" />
+          <img src={searchIcon} alt="search button" />
         </span>
         <span className="text"> Search</span>
       </Button>
