@@ -81,15 +81,20 @@ const PageCalendar = () => {
     filtered.length === 0 ? setNoEventsFound(true) : setNoEventsFound(false);
   };
 
-  // https://hybridcal.dev.sunyempire.edu/api/v1/calendar/all?_format=json
-
-  // https://hybridcal.dev.sunyempire.edu/api/v2/calendar/event/all?_format=json
   const selectEventDay = (date) => {
     const current = new Date(date);
 
     const currentDate = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
 
     const currentEvent = events.filter(({ date }) => date === currentDate);
+    // console.log("currentEvent", currentEvent);
+    currentEvent.sort((a, b) => {
+      const dateA = new Date(a.currentDate).getHours();
+      const dateB = new Date(b.currentDate).getHours();
+      // console.log(dateA, dateB);
+      return dateA - dateB;
+    });
+
     setCurrentEventDay(currentEvent);
   };
 
