@@ -87,11 +87,11 @@ const PageCalendar = () => {
     const currentDate = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
 
     const currentEvent = events.filter(({ date }) => date === currentDate);
-    // console.log("currentEvent", currentEvent);
+
     currentEvent.sort((a, b) => {
-      const dateA = new Date(a.currentDate).getHours();
-      const dateB = new Date(b.currentDate).getHours();
-      // console.log(dateA, dateB);
+      const dateA = new Date(a.currentDate).getTime();
+      const dateB = new Date(b.currentDate).getTime();
+
       return dateA - dateB;
     });
 
