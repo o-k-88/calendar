@@ -116,7 +116,7 @@ export async function sendRequest(url, method = "GET", options) {
   return response.json();
 }
 
-export const sortEventsByHours = (data) => {
+export const sortEventsByTime = (data) => {
   const sortedEvents = data.sort((a, b) => {
     const timeA = new Date(a.currentDate).getTime();
     const timeB = new Date(b.currentDate).getTime();

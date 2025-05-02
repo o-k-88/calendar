@@ -16,6 +16,7 @@ import {
   overflowHidden,
   getAllFormattedEvents,
   getOauthToken,
+  sortEventsByTime,
 } from "../../helpers/index.js";
 
 const newDate = new Date();
@@ -86,14 +87,9 @@ const PageCalendar = () => {
 
     const currentDate = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
 
-    const currentEvent = events.filter(({ date }) => date === currentDate);
+    const filterEvent = events.filter(({ date }) => date === currentDate);
 
-    currentEvent.sort((a, b) => {
-      const dateA = new Date(a.currentDate).getTime();
-      const dateB = new Date(b.currentDate).getTime();
-
-      return dateA - dateB;
-    });
+    const currentEvent = sortEventsByTime(filterEvent);
 
     setCurrentEventDay(currentEvent);
   };

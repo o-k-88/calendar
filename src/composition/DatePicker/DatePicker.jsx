@@ -6,6 +6,7 @@ import DatePickerNavigation from "./components/DatePickerNavigation/DatePickerNa
 import Loader from "../../components/Loader/Loader.jsx";
 import "react-datepicker/dist/react-datepicker.css";
 import "./DatePicker.scss";
+import { sortEventsByTime } from "../../helpers/index.js";
 
 const DatePickerView = (props) => {
   const {
@@ -36,39 +37,14 @@ const DatePickerView = (props) => {
 
   const renderDayContents = (day, date) => {
     const current = new Date(date);
-    const filteredTooltipText = events?.filter(({ date }) => {
+    let filteredTooltipText = events?.filter(({ date }) => {
       const currentDate = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
 
       return date === currentDate;
     });
 
-    //     Condition Check:
-
-    // if (filteredTooltipText.length > 0):
-    // This checks if the filteredTooltipText array contains any elements. If the array is empty, the sorting logic is skipped.
-    // Sorting Logic:
-
-    // filteredTooltipText.sort((a, b) => { ... }):
-    // The sort method is used to reorder the elements of the filteredTooltipText array in ascending order based on the hour of the day.
-    // Extracting Hours:
-
-    // const timeA = new Date(a.currentDate).getHours();
-    // const timeB = new Date(b.currentDate).getHours();
-    // For each event object (a and b), the currentDate property is converted into a Date object, and the hour is extracted using the getHours() method.
-    // Comparison:
-
-    // return timeA - timeB;
-    // The difference between timeA and timeB determines the order:
-    // If timeA is less than timeB, a is placed before b.
-    // If timeA is greater than timeB, b is placed before a.
-    // If they are equal, their order remains unchanged.
-
     if (filteredTooltipText.length > 0) {
-      filteredTooltipText.sort((a, b) => {
-        const timeA = new Date(a.currentDate).getHours();
-        const timeB = new Date(b.currentDate).getHours();
-        return timeA - timeB;
-      });
+      filteredTooltipText = sortEventsByTime(filteredTooltipText);
     }
 
     return (
