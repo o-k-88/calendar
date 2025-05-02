@@ -64,6 +64,12 @@
         }
       }
 
+      .current-list {
+        .list-item {
+          pointer-events: none;
+        }
+      }
+
       .ongoing-list,
       .current-list {
         list-style: none;
@@ -89,6 +95,7 @@
           background-color: #f5f5f5;
           border-radius: 6px;
           transition: all 0.3s ease;
+          cursor: pointer;
 
           &:hover {
             background-color: #bedeef;
@@ -100,7 +107,6 @@
             font-size: 1rem;
             font-weight: 500;
             color: #333;
-            cursor: pointer;
           }
 
           .list-time {

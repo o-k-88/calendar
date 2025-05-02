@@ -22,7 +22,6 @@ const DatePickerView = (props) => {
     onCreateEvent,
     onSelectEventDay,
     onSelectDate,
-    onChange,
     onMonthChange,
   } = props;
 
@@ -31,7 +30,6 @@ const DatePickerView = (props) => {
 
   const handlerStartDate = (date) => {
     setStartDate(date);
-    onChange(date);
   };
   const handlerSetDateInput = (day) => setStartDate(day);
 

@@ -1,4 +1,3 @@
-import { current } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
 
 import { API_HOST, TOKEN_OBJECT, TOKEN_OBJECT_STRINGIFY } from "../const";
@@ -124,4 +123,11 @@ export const sortEventsByTime = (data) => {
   });
 
   return sortedEvents;
+};
+
+export const createUrlImageSidebar = (date) => {
+  const currentDate = dayjs(date).format("MM");
+  console.log("createUrlImageSidebar", currentDate);
+
+  return `https://source.unsplash.com/featured/?event,${currentDate},${currentTime}`;
 };

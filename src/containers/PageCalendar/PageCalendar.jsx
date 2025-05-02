@@ -209,7 +209,6 @@ const PageCalendar = () => {
       >
         <Widget>
           <DatePicker
-            onChange={(date) => console.log(date)}
             className={"asdasdsadsa"}
             events={filteredEvents}
             onModal={handlerIsModal}

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import image from "./images/01month.jpg";
 import svgIcon from "./icons/no-events.svg";
 import ModalOngoingEvents from "../../composition/ModalOngoingEvents/ModalOngoingEvents.jsx";
+import EventSideBarImage from "./components/EventSideBarImage.jsx";
 
 import Portal from "../Portal/Portal.jsx";
 
@@ -93,9 +94,7 @@ const EventSideBar = ({ currentEvents = [], currentDate, currentMonth }) => {
             </div>
           </div>
           <div className="events-ongoing">
-            <div className="sidebar-image">
-              <img className="image" src={image} alt="alt" />
-            </div>
+            <EventSideBarImage currentMonth={currentMonth} />
             <h2 className="sidebar-title">Ongoing Events</h2>
             <ul className="ongoing-list">
               {filterOngoingEvent.map((item, index) => (
