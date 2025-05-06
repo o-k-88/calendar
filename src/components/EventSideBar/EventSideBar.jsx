@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import image from "./images/01month.jpg";
-import svgIcon from "./icons/no-events.svg";
+
 import ModalOngoingEvents from "../../composition/ModalOngoingEvents/ModalOngoingEvents.jsx";
 import EventSideBarImage from "./components/EventSideBarImage.jsx";
 
@@ -10,21 +9,13 @@ import { getOauthToken, overflowHidden } from "../../helpers/index.js";
 import { ONGOING_EVENTS_API } from "../../const/index.js";
 import "./EventSideBar.scss";
 
-// {
-//   "title": "Summer Full Term &amp; Express Term One - Registration period.",
-//   "description": "Registration period for the Full Term and Express Term One: 2/4/2025 through 5/11/2025.",
-//   "field_start_date": "2025-02-04 09:00:00",
-//   "field_end_date": "2025-05-11 23:59:00",
-//   "field_category": "3",
-//   "nid": "752",
-//   "uuid": "c2d13536-d524-4914-a3f9-954346b079c6",
-//   "cache_test": 37751
-//   },
-
-const EventSideBar = ({ currentEvents = [], currentDate, currentMonth }) => {
+const EventSideBar = ({ currentEvents = [], currentDateMonth }) => {
   const [ongoingEvents, setOngoingEvents] = useState([]);
   const [currentOngoingEvent, setCurrentOngoingEvent] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
+
+  const currentMonth = new Date(currentDateMonth).getMonth();
+  const currentTimestamp = new Date(currentDateMonth).getTime();
 
   const handleOngoingEvent = (event) => {
     setCurrentOngoingEvent(event);
@@ -39,15 +30,15 @@ const EventSideBar = ({ currentEvents = [], currentDate, currentMonth }) => {
 
   const filterOngoingEvent = useMemo(() => {
     return ongoingEvents.filter((item) => {
-      const startOngoingEvent = new Date(item.field_start_date).getMonth();
-      const endOngoingEvent = new Date(item.field_end_date).getMonth();
+      const startOngoingEvent = new Date(item.field_start_date).getTime();
+      const endOngoingEvent = new Date(item.field_end_date).getTime();
 
       return (
-        (currentMonth === startOngoingEvent || currentMonth > startOngoingEvent) &&
-        currentMonth <= endOngoingEvent
+        (currentTimestamp === startOngoingEvent || currentTimestamp > startOngoingEvent) &&
+        currentTimestamp <= endOngoingEvent
       );
     });
-  }, [ongoingEvents, currentMonth]);
+  }, [ongoingEvents, currentTimestamp]);
 
   useEffect(() => {
     getOauthToken()

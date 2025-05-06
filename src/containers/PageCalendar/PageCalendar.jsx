@@ -49,7 +49,7 @@ const PageCalendar = () => {
   const [currentToken, setCurrentToken] = useState(null);
   const [isLogin, setIsLogin] = useState(currentUrl.includes("/?sso=esc2902931876") || false);
   const [isAddEvent, setAddEvent] = useState(false);
-  const [currentMonth, setCurrentMonth] = useState(newDate.getMonth());
+  const [currentDateMonth, setCurrentDateMonth] = useState(newDate);
 
   const handleFilterData = ({ search_input, start_date, end_date }) => {
     // If search_input is empty, set filteredData to an empty array
@@ -196,7 +196,7 @@ const PageCalendar = () => {
   };
 
   const handleMonthChange = (date) => {
-    setCurrentMonth(date.getMonth());
+    setCurrentDateMonth(date);
   };
 
   return (
@@ -223,11 +223,7 @@ const PageCalendar = () => {
           />
         </Widget>
         {/* <RightSideBar /> */}
-        <EventSideBar
-          currentEvents={currentEventDay}
-          currentDate={currentDatePickerDate}
-          currentMonth={currentMonth}
-        />
+        <EventSideBar currentEvents={currentEventDay} currentDateMonth={currentDateMonth} />
       </Layout>
       <ModalCalendar
         isOpen={isShow}
