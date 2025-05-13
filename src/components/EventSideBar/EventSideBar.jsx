@@ -54,6 +54,9 @@ const EventSideBar = ({ currentEvents = [], currentDateMonth }) => {
       })
       .then((response) => response.json())
       .then((data) => {
+        if (data.response.rows.length === 0) {
+          return null;
+        }
         setOngoingEvents(data.response.rows);
       })
       .catch((error) => {
