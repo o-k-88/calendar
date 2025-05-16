@@ -57,9 +57,9 @@ const EventSideBar = ({ currentEvents = [], currentDateMonth }) => {
         if (data?.response?.rows) {
           setOngoingEvents(data.response.rows);
         } else {
-          console.warn("No ongoing events found in response:", data);
-          setOngoingEvents([]); // or keep it unchanged
+          setOngoingEvents([]);
         }
+        // setOngoingEvents(data.response.rows);
       })
       .catch((error) => {
         console.error("Error fetching ongoing events:", error);
