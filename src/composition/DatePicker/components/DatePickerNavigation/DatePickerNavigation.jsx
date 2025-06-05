@@ -50,7 +50,9 @@ const DatePickerNavigation = (props) => {
       <Button
         underlineView
         className="button-navigation mobile-hidden"
-        href={"https://sunyempire.edu/media/academic-affairs/registrar/2024-2025-Academic-Year.pdf"}
+        href={
+          "https://sunyempire.edu/_resources/images/its-external/calendar-pdf/2024-2025-Academic-Year.pdf"
+        }
       >
         <span className="icon">
           <img src={AddEventIcon} alt="24-’25 Term Bookmark" />
@@ -60,7 +62,9 @@ const DatePickerNavigation = (props) => {
       <Button
         underlineView
         className="button-navigation mobile-hidden"
-        href={"https://sunyempire.edu/media/academic-affairs/registrar/2025-2026-Academic-Year.pdf"}
+        href={
+          "https://sunyempire.edu/_resources/images/its-external/calendar-pdf/2025-2026-Academic%20Year.pdf"
+        }
       >
         <span className="icon">
           <img src={AddEventIcon} alt="'25-’26 Term Bookmark" />
@@ -71,7 +75,7 @@ const DatePickerNavigation = (props) => {
         underlineView
         className="button-navigation mobile-hidden"
         href={
-          "https://www.sunyempire.edu/media/president/diversity-equity-and-inclusion/DEI-Calendar-23-24.pdf"
+          "https://sunyempire.edu/_resources/images/its-external/calendar-pdf/DEI%20Calendar%2023-24.pdf"
         }
       >
         <span className="icon">
