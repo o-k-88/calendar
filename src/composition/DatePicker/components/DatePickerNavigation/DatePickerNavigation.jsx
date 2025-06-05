@@ -75,7 +75,7 @@ const DatePickerNavigation = (props) => {
         underlineView
         className="button-navigation mobile-hidden"
         href={
-          "https://sunyempire.edu/_resources/images/its-external/calendar-pdf/DEI%20Calendar%2023-24.pdf"
+          "https://sunyempire.edu/_resources/images/its-external/calendar-pdf/DEI-Calendar-23-24.pdf"
         }
       >
         <span className="icon">
