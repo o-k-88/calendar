@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, forwardRef } from "react";
 import DateCustom from "../DataCustom/DataCustom.jsx";
 import Button from "../../../../components/Button/Button";
 import SelectCustom from "../SelectCustom/SelectCustom";
@@ -7,6 +7,12 @@ import monthIcon from "./icons/month-calendar.svg";
 import todayIcon from "./icons/today-calendar.svg";
 import searchIcon from "./icons/search-calendar.svg";
 import "./DatePickerNavigation.scss";
+import cx from "classnames";
+const DatePickerButton = forwardRef(({ value, onClick, className }, ref) => (
+  <button className={cx(className, "date-picker-input")} onClick={onClick} ref={ref}>
+    {value}
+  </button>
+));
 
 const DatePickerNavigation = (props) => {
   const {
@@ -99,10 +105,12 @@ const DatePickerNavigation = (props) => {
               onDateInput(date);
               onSelectEventDay(date);
             }}
+            customInput={<DatePickerButton />}
           />
         </div>
         <div className="date-picker-filter action-button">
           <SelectCustom
+            isSearchable={false}
             data={category}
             onChange={onSelectOptions}
             className="date-picker-select"
