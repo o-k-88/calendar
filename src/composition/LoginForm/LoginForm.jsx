@@ -8,7 +8,6 @@ const LoginForm = ({ onLogin }) => {
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={(values, actions) => {
-          console.log(values);
           onLogin();
         }}
       >

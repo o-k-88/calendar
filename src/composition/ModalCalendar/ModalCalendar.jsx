@@ -15,6 +15,7 @@ const ModalCalendar = (props) => {
 
   const isEdit = data.uid && data.uid === currentUserUid;
   // const isEdit = true;
+  const isRecurringEvent = data?.hasOwnProperty("field_recurring_day_of_week");
 
   return (
     <ModalWrapper isOpen={isOpen} onClose={onClose} isOutside>
@@ -35,17 +36,22 @@ const ModalCalendar = (props) => {
                   {data?.field_location ? data.field_location : "No information provided"}
                 </span>
               </div>
-              <div className="modal-calendar-row">
-                <span className="modal-calendar-label">🗂️ Category:</span>
-                <span className="modal-calendar-value">{data?.category}</span>
-              </div>
-              <div className="modal-calendar-row">
-                <span className="modal-calendar-label">📝 Description:</span>
-                <span
-                  className="modal-calendar-value"
-                  dangerouslySetInnerHTML={{ __html: data.description }}
-                ></span>
-              </div>
+              {data?.category && (
+                <div className="modal-calendar-row">
+                  <span className="modal-calendar-label">🗂️ Category:</span>
+                  <span className="modal-calendar-value">{data?.category}</span>
+                </div>
+              )}
+
+              {data?.description && (
+                <div className="modal-calendar-row">
+                  <span className="modal-calendar-label">📝 Description:</span>
+                  <span
+                    className="modal-calendar-value"
+                    dangerouslySetInnerHTML={{ __html: data.description }}
+                  ></span>
+                </div>
+              )}
               <div className="modal-calendar-row">
                 <span className="modal-calendar-label">📅 Start date / Time:</span>
                 <span className="modal-calendar-value">
@@ -63,6 +69,9 @@ const ModalCalendar = (props) => {
                   })}
                 </span>
               </div>
+              {isRecurringEvent && (
+                <div className="modal-calendar-recurring-event">Recurring event</div>
+              )}
             </div>
           )}
         </ModalBody>

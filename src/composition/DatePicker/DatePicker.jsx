@@ -23,6 +23,7 @@ const DatePickerView = (props) => {
     onSelectEventDay,
     onSelectDate,
     onMonthChange,
+    isLoadingEvents,
   } = props;
 
   const [startDate, setStartDate] = useState(new Date());
@@ -48,9 +49,11 @@ const DatePickerView = (props) => {
     return (
       <>
         <div className={"day"}>{day}</div>
+
         {filteredTooltipText.map((item, index) => {
+          const isRecurringEvent = item?.hasOwnProperty("field_recurring_day_of_week");
           return (
-            <div key={index} className={"event"}>
+            <div key={index} className={cn("event", { "recurring-event": isRecurringEvent })}>
               {item?.title && <span className="label" />}
 
               <div
@@ -59,13 +62,15 @@ const DatePickerView = (props) => {
                   onCurrentEvent(item);
                 }}
                 className={"title"}
-                title={
-                  item?.time +
-                  " " +
-                  item?.title +
-                  " " +
-                  item?.description?.replace(/<[^>]*>?/gm, "")
-                }
+                title={`${
+                  isRecurringEvent
+                    ? "This is recurring event"
+                    : item?.time +
+                      " " +
+                      item?.title +
+                      " " +
+                      item?.description?.replace(/<[^>]*>?/gm, "")
+                }`}
               >
                 {item?.time} - {item?.title}
               </div>
@@ -103,7 +108,7 @@ const DatePickerView = (props) => {
       />
 
       <div className="wrapper-date-picker">
-        {events.length === 0 ? (
+        {isLoadingEvents ? (
           <Loader />
         ) : (
           <DatePickerMain

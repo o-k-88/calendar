@@ -57,6 +57,58 @@ export const formattingEvent = (data) => {
   return events;
 };
 
+// {
+//   changed: "1755279188";
+//   created: "1755279096";
+//   end_date: "2025-09-02 15:00:00";
+//   field_category: "Governance";
+//   field_description: "<p>This is a test for another recurring event.</p>";
+//   field_location: "";
+//   field_recurring_day_of_week: "tuesday";
+//   field_recurring_event: "1";
+//   field_recurring_ordinal: "first";
+//   menu_link: "";
+//   nid: "1381";
+//   path: "/node/1381";
+//   revision_default: "1";
+//   start_date: "2025-09-02 13:00:00";
+//   status: "1";
+//   title: "Test Recurring Event 2";
+//   uid: "1";
+//   uuid: "e074d395-dff4-4e41-b3a6-721b593f910d";
+// }
+export const formattingEventRecurring = (data) => {
+  const events = data.map((item) => {
+    if (item.start_date === "") {
+      return {};
+    }
+    const dateFromStr = new Date(item.start_date);
+
+    const formattedTime = dateFromStr.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+
+    const year = dateFromStr.getFullYear();
+    const month = dateFromStr.getMonth(); // getMonth() is zero-based
+    const day = dateFromStr.getDate();
+
+    // Format as "YYYYDMM"
+    const formattedDate = `${year}${month}${day}`;
+
+    return {
+      currentDate: dateFromStr,
+      time: formattedTime,
+      date: formattedDate,
+      field_end_date: item.end_date,
+      ...item,
+    };
+  });
+
+  return events;
+};
+
 export const formattingCategory = (data) => {
   const categoriesArray = data
     .map((item) => item.category ?? "") // Use optional chaining and default to an empty string
@@ -77,13 +129,13 @@ export const getTokenFromCurrentUrl = () => {
   return urlParams.get("token");
 };
 
-export const getOauthToken = () => {
-  return fetch(`${API_HOST}/oauth/token`, {
+export const getOauthToken = (host, tokenObj) => {
+  return fetch(`${host}/oauth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: TOKEN_OBJECT_STRINGIFY,
+    body: tokenObj,
   }).then((response) => response.json());
 };
 
@@ -127,7 +179,6 @@ export const sortEventsByTime = (data) => {
 
 export const createUrlImageSidebar = (date) => {
   const currentDate = dayjs(date).format("MM");
-  console.log("createUrlImageSidebar", currentDate);
 
   return `https://source.unsplash.com/featured/?event,${currentDate},${currentTime}`;
 };

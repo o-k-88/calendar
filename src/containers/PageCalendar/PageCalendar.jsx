@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 
+import dayjs from "dayjs";
 import DatePicker from "../../composition/DatePicker/DatePicker.jsx";
 import ModalCalendar from "../../composition/ModalCalendar/ModalCalendar.jsx";
 import ModalSearch from "../../composition/ModalSearch/ModalSearch.jsx";
@@ -10,14 +11,21 @@ import EventSideBar from "../../components/EventSideBar/EventSideBar.jsx";
 import Widget from "../../layout/Widget/Widget.jsx";
 import Layout from "../../layout/Layout.jsx";
 
-import { API_HOST, TOKEN_OBJECT_STRINGIFY } from "../../const/";
+import {
+  API_HOST,
+  API_HOST_DEV,
+  TOKEN_OBJECT_STRINGIFY_DEV,
+  TOKEN_OBJECT_STRINGIFY,
+} from "../../const/";
 import {
   formattingCategory,
+  formattingEventRecurring,
   overflowHidden,
   getAllFormattedEvents,
   getOauthToken,
   sortEventsByTime,
 } from "../../helpers/index.js";
+import { recurringUrl } from "../../const/";
 
 const newDate = new Date();
 
@@ -50,6 +58,8 @@ const PageCalendar = () => {
   const [isLogin, setIsLogin] = useState(currentUrl.includes("/?sso=esc2902931876") || false);
   const [isAddEvent, setAddEvent] = useState(false);
   const [currentDateMonth, setCurrentDateMonth] = useState(newDate);
+
+  const [isLoadingEvents, setIsLoadingEvents] = useState(true);
 
   const handleFilterData = ({ search_input, start_date, end_date }) => {
     // If search_input is empty, set filteredData to an empty array
@@ -95,10 +105,10 @@ const PageCalendar = () => {
   };
 
   useEffect(() => {
-    getOauthToken().then((data) => {
+    getOauthToken(API_HOST, TOKEN_OBJECT_STRINGIFY).then((data) => {
       setOauthToken(data?.access_token);
 
-      setRefreshToken(data?.refresh_token);
+      // setRefreshToken(data?.refresh_token);
       fetch(`${API_HOST}/api/v2/calendar/event/all?_format=json`, {
         method: "GET",
         headers: {
@@ -113,19 +123,55 @@ const PageCalendar = () => {
               (item, index) =>
                 `${API_HOST}/api/v2/calendar/event/all?_format=json&page=${index + 1}`
             );
-
           setTotalPages(totalPagesArr);
         });
     });
   }, []);
 
+  useEffect(() => {
+    getOauthToken(API_HOST_DEV, TOKEN_OBJECT_STRINGIFY).then((data) => {
+      const currentMonth = dayjs(currentDateMonth).format("YYYY-MM");
+
+      const url = recurringUrl(API_HOST_DEV, currentMonth);
+      fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + data.access_token,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data) {
+            return null;
+          }
+          const formattedData = formattingEventRecurring(data.response.rows);
+
+          setFilteredEvents((prev) => {
+            if (prev.length === 0) {
+              return [...prev, ...formattedData];
+            }
+            const uniqueDates = new Set(prev.map((event) => new Date(event.currentDate).getTime()));
+
+            const uniqueIds = new Set(prev.map((event) => event.uuid));
+
+            const filtered = formattedData.filter(
+              (event) =>
+                !uniqueIds.has(event.uuid) || !uniqueDates.has(new Date(event.start_date).getTime())
+            );
+
+            return [...prev, ...filtered];
+          });
+        });
+    });
+  }, [currentDateMonth]);
+
   const getDataCalendar = async () => {
     const data = await getAllFormattedEvents(totalPages, oauthToken);
     const categories = formattingCategory(data);
-
     setEvents(data);
-    setFilteredEvents(data);
+    setFilteredEvents((prev) => [...prev, ...data]);
     setCategory(categories);
+    setIsLoadingEvents(false);
   };
 
   useEffect(() => {
@@ -220,6 +266,7 @@ const PageCalendar = () => {
             onCreateEvent={handleCreateEvent}
             onSelectEventDay={selectEventDay}
             onMonthChange={handleMonthChange}
+            isLoadingEvents={isLoadingEvents}
           />
         </Widget>
         {/* <RightSideBar /> */}

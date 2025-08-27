@@ -7,6 +7,7 @@ import Portal from "../Portal/Portal.jsx";
 
 import { getOauthToken, overflowHidden } from "../../helpers/index.js";
 import { ONGOING_EVENTS_API } from "../../const/index.js";
+import { API_HOST, TOKEN_OBJECT_STRINGIFY } from "../../const/index.js";
 import "./EventSideBar.scss";
 
 const EventSideBar = ({ currentEvents = [], currentDateMonth }) => {
@@ -41,7 +42,7 @@ const EventSideBar = ({ currentEvents = [], currentDateMonth }) => {
   }, [ongoingEvents, currentTimestamp]);
 
   useEffect(() => {
-    getOauthToken()
+    getOauthToken(API_HOST, TOKEN_OBJECT_STRINGIFY)
       .then((data) => {
         const { access_token } = data;
         return fetch(ONGOING_EVENTS_API, {
@@ -65,6 +66,7 @@ const EventSideBar = ({ currentEvents = [], currentDateMonth }) => {
         console.error("Error fetching ongoing events:", error);
       });
   }, []);
+
   return (
     <>
       <div className="event-sidebar-wrapper">
@@ -93,6 +95,11 @@ const EventSideBar = ({ currentEvents = [], currentDateMonth }) => {
             <EventSideBarImage currentMonth={currentMonth} />
             <h2 className="sidebar-title">Ongoing Events</h2>
             <ul className="ongoing-list">
+              {filterOngoingEvent.length === 0 && (
+                <p className="no-events">
+                  <span>No ongoing events at the moment.</span>
+                </p>
+              )}
               {filterOngoingEvent.map((item, index) => (
                 <li key={index} className="list-item">
                   <p className="list-title" onClick={() => handleOngoingEvent(item)}>
