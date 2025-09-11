@@ -158,8 +158,8 @@ const PageCalendar = () => {
         return data;
       })
       .then(() => {
-        getOauthToken(API_HOST_DEV, TOKEN_OBJECT_STRINGIFY).then((data) => {
-          const url = recurringUrl(API_HOST_DEV, currentMonth);
+        getOauthToken(API_HOST, TOKEN_OBJECT_STRINGIFY).then((data) => {
+          const url = recurringUrl(API_HOST, currentMonth);
           fetch(url, {
             method: "GET",
             headers: {
