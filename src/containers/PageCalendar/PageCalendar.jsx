@@ -24,8 +24,9 @@ import {
   getAllFormattedEvents,
   getOauthToken,
   sortEventsByTime,
+  formattingEvent,
 } from "../../helpers/index.js";
-import { recurringUrl } from "../../const/";
+import { recurringUrl, eventsUrl } from "../../const/";
 
 const newDate = new Date();
 
@@ -103,82 +104,97 @@ const PageCalendar = () => {
 
     setCurrentEventDay(currentEvent);
   };
+  const currentMonth = dayjs(currentDateMonth).format("YYYY-MM");
 
   useEffect(() => {
-    getOauthToken(API_HOST, TOKEN_OBJECT_STRINGIFY).then((data) => {
-      setOauthToken(data?.access_token);
+    getOauthToken(API_HOST, TOKEN_OBJECT_STRINGIFY)
+      .then((data) => {
+        setOauthToken(data?.access_token);
 
-      // setRefreshToken(data?.refresh_token);
-      fetch(`${API_HOST}/api/v2/calendar/event/all?_format=json`, {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + data.access_token,
-        },
-      })
-        .then((res) => res.json())
-        .then((current) => {
-          const totalPagesArr = new Array(current.pager.total_pages)
-            .fill(null)
-            .map(
-              (item, index) =>
-                `${API_HOST}/api/v2/calendar/event/all?_format=json&page=${index + 1}`
-            );
-          setTotalPages(totalPagesArr);
-        });
-    });
-  }, []);
+        const url = eventsUrl(API_HOST, currentMonth);
 
-  useEffect(() => {
-    getOauthToken(API_HOST_DEV, TOKEN_OBJECT_STRINGIFY).then((data) => {
-      const currentMonth = dayjs(currentDateMonth).format("YYYY-MM");
+        // setRefreshToken(data?.refresh_token);
+        fetch(url, {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + data.access_token,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const events = data.response.rows || [];
+            const formattedEvents = formattingEvent(events);
 
-      const url = recurringUrl(API_HOST_DEV, currentMonth);
-      fetch(url, {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + data.access_token,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (!data) {
-            return null;
-          }
-          const formattedData = formattingEventRecurring(data.response.rows);
+            const categories = formattingCategory(events);
+            setEvents((prev) => {
+              const uniqueDates = new Set(
+                prev.map((event) => new Date(event.currentDate).getTime())
+              );
+              const uniqueIds = new Set(prev.map((event) => event.uuid));
+              const filtered = formattedEvents.filter(
+                (event) =>
+                  !uniqueIds.has(event.uuid) ||
+                  !uniqueDates.has(new Date(event.start_date).getTime())
+              );
 
-          setFilteredEvents((prev) => {
-            if (prev.length === 0) {
-              return [...prev, ...formattedData];
-            }
-            const uniqueDates = new Set(prev.map((event) => new Date(event.currentDate).getTime()));
+              return filtered;
+            });
+            setFilteredEvents((prev) => {
+              const uniqueDates = new Set(
+                prev.map((event) => new Date(event.currentDate).getTime())
+              );
+              const uniqueIds = new Set(prev.map((event) => event.uuid));
 
-            const uniqueIds = new Set(prev.map((event) => event.uuid));
-
-            const filtered = formattedData.filter(
-              (event) =>
-                !uniqueIds.has(event.uuid) || !uniqueDates.has(new Date(event.start_date).getTime())
-            );
-
-            return [...prev, ...filtered];
+              const filtered = formattedEvents.filter(
+                (event) =>
+                  !uniqueIds.has(event.uuid) ||
+                  !uniqueDates.has(new Date(event.start_date).getTime())
+              );
+              return filtered;
+            });
+            setCategory(categories);
+            setIsLoadingEvents(false);
           });
+        return data;
+      })
+      .then(() => {
+        getOauthToken(API_HOST_DEV, TOKEN_OBJECT_STRINGIFY).then((data) => {
+          const url = recurringUrl(API_HOST_DEV, currentMonth);
+          fetch(url, {
+            method: "GET",
+            headers: {
+              Authorization: "Bearer " + data.access_token,
+            },
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (!data) {
+                return null;
+              }
+              const formattedData = formattingEventRecurring(data.response.rows || []);
+
+              setFilteredEvents((prev) => {
+                if (prev.length === 0) {
+                  return [...prev, ...formattedData];
+                }
+                const uniqueDates = new Set(
+                  prev.map((event) => new Date(event.currentDate).getTime())
+                );
+
+                const uniqueIds = new Set(prev.map((event) => event.uuid));
+
+                const filtered = formattedData.filter(
+                  (event) =>
+                    !uniqueIds.has(event.uuid) ||
+                    !uniqueDates.has(new Date(event.start_date).getTime())
+                );
+
+                return [...prev, ...filtered];
+              });
+            });
         });
-    });
+      });
   }, [currentDateMonth]);
-
-  const getDataCalendar = async () => {
-    const data = await getAllFormattedEvents(totalPages, oauthToken);
-    const categories = formattingCategory(data);
-    setEvents(data);
-    setFilteredEvents((prev) => [...prev, ...data]);
-    setCategory(categories);
-    setIsLoadingEvents(false);
-  };
-
-  useEffect(() => {
-    if (totalPages.length > 0) {
-      getDataCalendar();
-    }
-  }, [totalPages]);
 
   const handleSelectDate = (dateSelect) => {
     selectEventDay(dateSelect);

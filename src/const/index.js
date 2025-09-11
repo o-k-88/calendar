@@ -13,7 +13,10 @@ export const ONGOING_EVENTS_API =
 export const recurringUrl = (host, date) =>
   `${host}/api/v2/calendar/event/recurring/${date}?_format=json`;
 
-// https://hybridcal.dev.sunyempire.edu/api/v2/calendar/event/recurring/2025-09?_format=json
+export const eventsUrl = (host, date) => `${host}/api/v2/calendar/event/${date}?_format=json`;
+
+// https://admin.calendar.sunyempire.edu/api/v2/calendar/event/2025-02?_format=json --- events for month
+// https://hybridcal.dev.sunyempire.edu/api/v2/calendar/event/recurring/2025-09?_format=json --- recurring events for month
 
 export const TOKEN_OBJECT_DEV = {
   grant_type: "password",
