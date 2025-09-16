@@ -224,3 +224,26 @@
     // }
   }
 }
+
+.g-date-picker {
+  .react-datepicker__day {
+    transition:
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover,
+    &:focus {
+      border-color: var(--color-primary);
+      outline: none;
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transform: translateY(-1px);
+    }
+
+    &.react-datepicker__day--keyboard-selected,
+    &.react-datepicker__day--selected {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      background-color: transparent;
+    }
+  }
+}

@@ -113,8 +113,6 @@ const DatePickerNavigation = (props) => {
             isSearchable={false}
             data={category}
             onChange={onSelectOptions}
-            className="date-picker-select"
-            classNamePrefix="date-picker"
             // defaultMenuIsOpen // открыть выпадающее меню селектора
           />
         </div>

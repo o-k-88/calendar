@@ -4,6 +4,9 @@ export const API_HOST = "https://admin.calendar.sunyempire.edu";
 export const ONGOING_EVENTS_API =
   "https://admin.calendar.sunyempire.edu/api/v2/calendar/ongoing/2025-04?_format=json";
 
+export const ongoingEventsUrl = (host, date) =>
+  `${host}/api/v2/calendar/ongoing/${date}?_format=json`;
+
 /**
  *
  * @param {string} host - The API host URL

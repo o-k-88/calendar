@@ -1,0 +1,9 @@
+.date-picker-select {
+  .date-picker__option {
+    word-break: break-all;
+    &:first-child {
+      word-break: normal;
+      white-space: nowrap;
+    }
+  }
+}

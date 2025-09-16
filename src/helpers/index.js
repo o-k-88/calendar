@@ -57,26 +57,6 @@ export const formattingEvent = (data) => {
   return events;
 };
 
-// {
-//   changed: "1755279188";
-//   created: "1755279096";
-//   end_date: "2025-09-02 15:00:00";
-//   field_category: "Governance";
-//   field_description: "<p>This is a test for another recurring event.</p>";
-//   field_location: "";
-//   field_recurring_day_of_week: "tuesday";
-//   field_recurring_event: "1";
-//   field_recurring_ordinal: "first";
-//   menu_link: "";
-//   nid: "1381";
-//   path: "/node/1381";
-//   revision_default: "1";
-//   start_date: "2025-09-02 13:00:00";
-//   status: "1";
-//   title: "Test Recurring Event 2";
-//   uid: "1";
-//   uuid: "e074d395-dff4-4e41-b3a6-721b593f910d";
-// }
 export const formattingEventRecurring = (data) => {
   const events = data.map((item) => {
     if (item.start_date === "") {
@@ -111,7 +91,7 @@ export const formattingEventRecurring = (data) => {
 
 export const formattingCategory = (data) => {
   const categoriesArray = data
-    .map((item) => item.category ?? "") // Use optional chaining and default to an empty string
+    .map((item) => item.field_category ?? "") // Use optional chaining and default to an empty string
     .filter((category) => category !== ""); // Remove empty strings immediately
 
   const uniqueCategories = [...new Set(categoriesArray)];

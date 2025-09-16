@@ -1,40 +1,22 @@
 import React, { useState, useEffect } from "react";
+import dayjs from "dayjs";
 import { jwtDecode } from "jwt-decode";
 
-import dayjs from "dayjs";
 import DatePicker from "../../composition/DatePicker/DatePicker.jsx";
 import ModalCalendar from "../../composition/ModalCalendar/ModalCalendar.jsx";
 import ModalSearch from "../../composition/ModalSearch/ModalSearch.jsx";
 import ModalCreateEvent from "../../composition/ModalCreateEvent/ModalCreateEvent.jsx";
-
 import EventSideBar from "../../components/EventSideBar/EventSideBar.jsx";
 import Widget from "../../layout/Widget/Widget.jsx";
 import Layout from "../../layout/Layout.jsx";
 
-import {
-  API_HOST,
-  API_HOST_DEV,
-  TOKEN_OBJECT_STRINGIFY_DEV,
-  TOKEN_OBJECT_STRINGIFY,
-} from "../../const/";
-import {
-  formattingCategory,
-  formattingEventRecurring,
-  overflowHidden,
-  getAllFormattedEvents,
-  getOauthToken,
-  sortEventsByTime,
-  formattingEvent,
-} from "../../helpers/index.js";
-import { recurringUrl, eventsUrl } from "../../const/";
+import { overflowHidden, sortEventsByTime } from "../../helpers/index.js";
+
+import { useGetEvents } from "../../hooks/useGetEvents.js";
 
 const newDate = new Date();
 
 const PageCalendar = () => {
-  const [events, setEvents] = useState([]);
-  const [category, setCategory] = useState(["All Categories"]);
-  const [filteredEvents, setFilteredEvents] = useState([]);
-
   const [popupData, setPopupData] = useState({});
 
   const [isShow, setIsShow] = useState(false);
@@ -48,11 +30,6 @@ const PageCalendar = () => {
 
   const [noEventsFound, setNoEventsFound] = useState(false);
 
-  const [totalPages, setTotalPages] = useState([]);
-  const [oauthToken, setOauthToken] = useState("");
-  const [refreshToken, setRefreshToken] = useState("");
-  const [currentDatePickerDate, setCurrentDatePickerDate] = useState(newDate);
-
   const [currentUrl, setCurrentUrl] = useState(window.location.href);
   const [currentUser, setCurrentUser] = useState({});
   const [currentToken, setCurrentToken] = useState(null);
@@ -60,7 +37,8 @@ const PageCalendar = () => {
   const [isAddEvent, setAddEvent] = useState(false);
   const [currentDateMonth, setCurrentDateMonth] = useState(newDate);
 
-  const [isLoadingEvents, setIsLoadingEvents] = useState(true);
+  const { events, category, filteredEvents, isLoadingEvents, setFilteredEvents } =
+    useGetEvents(currentDateMonth);
 
   const handleFilterData = ({ search_input, start_date, end_date }) => {
     // If search_input is empty, set filteredData to an empty array
@@ -104,106 +82,10 @@ const PageCalendar = () => {
 
     setCurrentEventDay(currentEvent);
   };
-  const currentMonth = dayjs(currentDateMonth).format("YYYY-MM");
 
-  useEffect(() => {
-    getOauthToken(API_HOST, TOKEN_OBJECT_STRINGIFY)
-      .then((data) => {
-        setOauthToken(data?.access_token);
+  const handleSelectDate = (dateSelect) => selectEventDay(dateSelect);
 
-        const url = eventsUrl(API_HOST, currentMonth);
-
-        // setRefreshToken(data?.refresh_token);
-        fetch(url, {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + data.access_token,
-          },
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            const events = data.response.rows || [];
-            const formattedEvents = formattingEvent(events);
-
-            const categories = formattingCategory(events);
-            setEvents((prev) => {
-              const uniqueDates = new Set(
-                prev.map((event) => new Date(event.currentDate).getTime())
-              );
-              const uniqueIds = new Set(prev.map((event) => event.uuid));
-              const filtered = formattedEvents.filter(
-                (event) =>
-                  !uniqueIds.has(event.uuid) ||
-                  !uniqueDates.has(new Date(event.start_date).getTime())
-              );
-
-              return filtered;
-            });
-            setFilteredEvents((prev) => {
-              const uniqueDates = new Set(
-                prev.map((event) => new Date(event.currentDate).getTime())
-              );
-              const uniqueIds = new Set(prev.map((event) => event.uuid));
-
-              const filtered = formattedEvents.filter(
-                (event) =>
-                  !uniqueIds.has(event.uuid) ||
-                  !uniqueDates.has(new Date(event.start_date).getTime())
-              );
-              return filtered;
-            });
-            setCategory(categories);
-            setIsLoadingEvents(false);
-          });
-        return data;
-      })
-      .then(() => {
-        getOauthToken(API_HOST, TOKEN_OBJECT_STRINGIFY).then((data) => {
-          const url = recurringUrl(API_HOST, currentMonth);
-          fetch(url, {
-            method: "GET",
-            headers: {
-              Authorization: "Bearer " + data.access_token,
-            },
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              if (!data) {
-                return null;
-              }
-              const formattedData = formattingEventRecurring(data.response.rows || []);
-
-              setFilteredEvents((prev) => {
-                if (prev.length === 0) {
-                  return [...prev, ...formattedData];
-                }
-                const uniqueDates = new Set(
-                  prev.map((event) => new Date(event.currentDate).getTime())
-                );
-
-                const uniqueIds = new Set(prev.map((event) => event.uuid));
-
-                const filtered = formattedData.filter(
-                  (event) =>
-                    !uniqueIds.has(event.uuid) ||
-                    !uniqueDates.has(new Date(event.start_date).getTime())
-                );
-
-                return [...prev, ...filtered];
-              });
-            });
-        });
-      });
-  }, [currentDateMonth]);
-
-  const handleSelectDate = (dateSelect) => {
-    selectEventDay(dateSelect);
-    setCurrentDatePickerDate(dateSelect);
-  };
-
-  const handlerCurrentEvent = (dataEvent) => {
-    setPopupData(dataEvent);
-  };
+  const handlerCurrentEvent = (dataEvent) => setPopupData(dataEvent);
 
   const handlerIsModal = () => {
     setIsShow(!isShow);
@@ -234,6 +116,10 @@ const PageCalendar = () => {
     setFilteredEvents(events.filter((event) => event.category === value.value));
   };
 
+  const handleToken = (token) => setCurrentToken(token);
+
+  const handleMonthChange = (date) => setCurrentDateMonth(date);
+
   useEffect(() => {
     const current = new Date();
     selectEventDay(current);
@@ -252,14 +138,6 @@ const PageCalendar = () => {
       setCurrentUser(jwtDecode(currentToken));
     }
   }, [currentUrl, currentToken]);
-
-  const handleToken = (token) => {
-    setCurrentToken(token);
-  };
-
-  const handleMonthChange = (date) => {
-    setCurrentDateMonth(date);
-  };
 
   return (
     <>

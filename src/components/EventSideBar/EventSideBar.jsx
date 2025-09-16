@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import dayjs from "dayjs";
 
 import ModalOngoingEvents from "../../composition/ModalOngoingEvents/ModalOngoingEvents.jsx";
 import EventSideBarImage from "./components/EventSideBarImage.jsx";
@@ -6,8 +7,14 @@ import EventSideBarImage from "./components/EventSideBarImage.jsx";
 import Portal from "../Portal/Portal.jsx";
 
 import { getOauthToken, overflowHidden } from "../../helpers/index.js";
-import { ONGOING_EVENTS_API } from "../../const/index.js";
-import { API_HOST, TOKEN_OBJECT_STRINGIFY } from "../../const/index.js";
+
+import {
+  API_HOST,
+  TOKEN_OBJECT_STRINGIFY,
+  ONGOING_EVENTS_API,
+  ongoingEventsUrl,
+} from "../../const/index.js";
+
 import "./EventSideBar.scss";
 
 const EventSideBar = ({ currentEvents = [], currentDateMonth }) => {
@@ -17,6 +24,8 @@ const EventSideBar = ({ currentEvents = [], currentDateMonth }) => {
 
   const currentMonth = new Date(currentDateMonth).getMonth();
   const currentTimestamp = new Date(currentDateMonth).getTime();
+
+  const currentYearAndMonth = dayjs(currentDateMonth).format("YYYY-MM");
 
   const handleOngoingEvent = (event) => {
     setCurrentOngoingEvent(event);
@@ -45,7 +54,8 @@ const EventSideBar = ({ currentEvents = [], currentDateMonth }) => {
     getOauthToken(API_HOST, TOKEN_OBJECT_STRINGIFY)
       .then((data) => {
         const { access_token } = data;
-        return fetch(ONGOING_EVENTS_API, {
+        const url = ongoingEventsUrl(API_HOST, currentYearAndMonth);
+        return fetch(url, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${access_token}`,
@@ -65,7 +75,7 @@ const EventSideBar = ({ currentEvents = [], currentDateMonth }) => {
       .catch((error) => {
         console.error("Error fetching ongoing events:", error);
       });
-  }, []);
+  }, [currentYearAndMonth]);
 
   return (
     <>
