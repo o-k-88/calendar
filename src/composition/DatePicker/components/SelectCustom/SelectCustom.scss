@@ -1,4 +1,8 @@
 .date-picker-select {
+  .date-picker__menu {
+    min-width: 180px;
+    right: 0;
+  }
   .date-picker__option {
     word-break: break-all;
     &:first-child {

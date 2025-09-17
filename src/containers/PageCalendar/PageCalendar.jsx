@@ -37,7 +37,12 @@ const PageCalendar = () => {
   const [isAddEvent, setAddEvent] = useState(false);
   const [currentDateMonth, setCurrentDateMonth] = useState(newDate);
 
-  const { events, category, filteredEvents, isLoadingEvents, setFilteredEvents } =
+  const [currentCategory, setCurrentCategory] = useState({
+    label: "All Categories",
+    value: "All Categories",
+  });
+
+  const { events, filteredEvents, isLoadingEvents, setFilteredEvents } =
     useGetEvents(currentDateMonth);
 
   const handleFilterData = ({ search_input, start_date, end_date }) => {
@@ -110,6 +115,10 @@ const PageCalendar = () => {
   };
 
   const handlerSelectOptions = (value) => {
+    if (value.value !== currentCategory.value) {
+      setCurrentCategory(value);
+    }
+
     if (value.value === "All Categories") {
       return setFilteredEvents(events);
     }
@@ -123,6 +132,7 @@ const PageCalendar = () => {
   useEffect(() => {
     const current = new Date();
     selectEventDay(current);
+    handlerSelectOptions(currentCategory);
   }, [events]);
 
   useEffect(() => {
@@ -149,11 +159,9 @@ const PageCalendar = () => {
       >
         <Widget>
           <DatePicker
-            className={"asdasdsadsa"}
             events={filteredEvents}
             onModal={handlerIsModal}
             onSearch={handlerPopup}
-            category={category}
             onSelectDate={handleSelectDate}
             onCurrentEvent={handlerCurrentEvent}
             onSelectOptions={handlerSelectOptions}

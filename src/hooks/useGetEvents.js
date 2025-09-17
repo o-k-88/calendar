@@ -9,16 +9,11 @@ import {
   TOKEN_OBJECT_STRINGIFY_DEV,
   TOKEN_OBJECT_STRINGIFY,
 } from "../const/";
-import {
-  formattingCategory,
-  formattingEventRecurring,
-  formattingEvent,
-  getOauthToken,
-} from "../helpers/index.js";
+import { formattingEventRecurring, formattingEvent, getOauthToken } from "../helpers/index.js";
 
 export const useGetEvents = (currentDateMonth) => {
   const [events, setEvents] = useState([]);
-  const [category, setCategory] = useState(["All Categories"]);
+
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [isLoadingEvents, setIsLoadingEvents] = useState(true);
 
@@ -40,7 +35,6 @@ export const useGetEvents = (currentDateMonth) => {
             const events = data.response.rows || [];
             const formattedEvents = formattingEvent(events);
 
-            const categories = formattingCategory(events);
             setEvents((prev) => {
               const uniqueDates = new Set(
                 prev.map((event) => new Date(event.currentDate).getTime())
@@ -67,7 +61,7 @@ export const useGetEvents = (currentDateMonth) => {
               );
               return filtered;
             });
-            setCategory(categories);
+
             setIsLoadingEvents(false);
           });
         return data;
@@ -113,7 +107,6 @@ export const useGetEvents = (currentDateMonth) => {
 
   return {
     events,
-    category,
     filteredEvents,
     isLoadingEvents,
     setFilteredEvents,

@@ -16,7 +16,6 @@ const DatePickerButton = forwardRef(({ value, onClick, className }, ref) => (
 
 const DatePickerNavigation = (props) => {
   const {
-    category,
     onStartDate,
     onShowMonthView,
     currentDay,
@@ -111,7 +110,6 @@ const DatePickerNavigation = (props) => {
         <div className="date-picker-filter action-button">
           <SelectCustom
             isSearchable={false}
-            data={category}
             onChange={onSelectOptions}
             // defaultMenuIsOpen // открыть выпадающее меню селектора
           />

@@ -8,12 +8,7 @@ import Portal from "../Portal/Portal.jsx";
 
 import { getOauthToken, overflowHidden } from "../../helpers/index.js";
 
-import {
-  API_HOST,
-  TOKEN_OBJECT_STRINGIFY,
-  ONGOING_EVENTS_API,
-  ongoingEventsUrl,
-} from "../../const/index.js";
+import { API_HOST, TOKEN_OBJECT_STRINGIFY, ongoingEventsUrl } from "../../const/index.js";
 
 import "./EventSideBar.scss";
 

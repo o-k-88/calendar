@@ -15,7 +15,6 @@ const DatePickerView = (props) => {
     renderMonth,
     onModal,
     className,
-    category,
     onCurrentEvent,
     onSearch,
     onSelectOptions,
@@ -24,6 +23,7 @@ const DatePickerView = (props) => {
     onSelectDate,
     onMonthChange,
     isLoadingEvents,
+    onCurrentCategory,
   } = props;
 
   const [startDate, setStartDate] = useState(new Date());
@@ -95,7 +95,6 @@ const DatePickerView = (props) => {
   return (
     <>
       <DatePickerNavigation
-        category={category}
         onStartDate={handlerStartDate}
         onShowMonthView={setShowMonthView}
         currentDay={startDate}
