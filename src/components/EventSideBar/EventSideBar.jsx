@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 
-import ModalOngoingEvents from "../../composition/ModalOngoingEvents/ModalOngoingEvents.jsx";
+import ModalOngoingEvents from "composition/ModalOngoingEvents/ModalOngoingEvents.jsx";
 import EventSideBarImage from "./components/EventSideBarImage.jsx";
 
-import Portal from "../Portal/Portal.jsx";
+import Portal from "components/Portal/Portal.jsx";
 
-import { getOauthToken, overflowHidden } from "../../helpers/index.js";
+import { getOauthToken, overflowHidden } from "helpers/index.js";
 
-import { API_HOST, TOKEN_OBJECT_STRINGIFY, ongoingEventsUrl } from "../../const/index.js";
+import { API_HOST, TOKEN_OBJECT_STRINGIFY, ongoingEventsUrl } from "constants/";
 
 import "./EventSideBar.scss";
 

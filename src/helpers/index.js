@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-import { API_HOST, TOKEN_OBJECT, TOKEN_OBJECT_STRINGIFY } from "../const";
+import { API_HOST, TOKEN_OBJECT, TOKEN_OBJECT_STRINGIFY } from "constants/";
 export const overflowHidden = (param) => (document.body.style.overflow = param ? "auto" : "hidden"); // This functiom is used to hide the overflow of the body when a modal is open
 
 export const formattingEvent = (data) => {
@@ -21,6 +21,10 @@ export const formattingEvent = (data) => {
       if (field_start_date === "") {
         return {};
       }
+
+      const isConditionContinuesEvent =
+        new Date(dayjs(field_end_date).format("YYYY-MM-DD")).getTime() >
+        new Date(dayjs(field_start_date).format("YYYY-MM-DD")).getTime();
       const dateFromStr = new Date(field_start_date);
 
       const formattedTime = dateFromStr.toLocaleTimeString("en-US", {
@@ -50,6 +54,8 @@ export const formattingEvent = (data) => {
         uuid,
         status,
         field_end_date,
+        field_start_date,
+        isContinuesEvent: isConditionContinuesEvent,
       };
     }
   );
@@ -82,6 +88,7 @@ export const formattingEventRecurring = (data) => {
       time: formattedTime,
       date: formattedDate,
       field_end_date: item.end_date,
+      field_start_date: item.start_date,
       ...item,
     };
   });

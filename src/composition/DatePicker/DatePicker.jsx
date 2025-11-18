@@ -8,6 +8,18 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./DatePicker.scss";
 import { sortEventsByTime } from "../../helpers/index.js";
 
+const renderTitle = (data) => {
+  const isRecurringEvent = data?.hasOwnProperty("field_recurring_day_of_week");
+  const isContinuesEvent = data?.isContinuesEvent;
+  if (isContinuesEvent) {
+    return `This is continues event. ${data?.time} ${data?.title} ${data?.description?.replace(/<[^>]*>?/gm, "")}`;
+  }
+  if (isRecurringEvent) {
+    return `This is recurring event. ${data?.time} ${data?.title} ${data?.description?.replace(/<[^>]*>?/gm, "")}`;
+  }
+  return `${data?.time} ${data?.title} ${data?.description?.replace(/<[^>]*>?/gm, "")}`;
+};
+
 const DatePickerView = (props) => {
   const {
     events,
@@ -17,13 +29,11 @@ const DatePickerView = (props) => {
     className,
     onCurrentEvent,
     onSearch,
-    onSelectOptions,
-    onCreateEvent,
+    onSelectCategory,
+    // onCreateEvent,
     onSelectEventDay,
-    onSelectDate,
     onMonthChange,
     isLoadingEvents,
-    onCurrentCategory,
   } = props;
 
   const [startDate, setStartDate] = useState(new Date());
@@ -36,24 +46,57 @@ const DatePickerView = (props) => {
 
   const renderDayContents = (day, date) => {
     const current = new Date(date);
-    let filteredTooltipText = events?.filter(({ date }) => {
+
+    let currentDayEvents = events?.filter(({ date }) => {
       const currentDate = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
 
       return date === currentDate;
     });
 
-    if (filteredTooltipText.length > 0) {
-      filteredTooltipText = sortEventsByTime(filteredTooltipText);
+    if (currentDayEvents.length > 0) {
+      currentDayEvents = sortEventsByTime(currentDayEvents);
     }
 
     return (
       <>
         <div className={"day"}>{day}</div>
 
-        {filteredTooltipText.map((item, index) => {
+        {currentDayEvents.map((item, index) => {
           const isRecurringEvent = item?.hasOwnProperty("field_recurring_day_of_week");
+          const isContinuesEvent = item?.isContinuesEvent;
+
+          // const continuesEventStartDate =
+          //   new Date(item?.continuesStartDate).getTime() === new Date(date).getTime();
+
+          // if (isContinuesEvent && !continuesEventStartDate) {
+
+          //   return (
+          //     <div
+          //       key={index}
+          //       className=""
+          //       onClick={() => {
+          //         onModal();
+          //         onCurrentEvent(item);
+          //       }}
+          //     >
+          //       Continues Event
+          //     </div>
+          //   );
+          // }
+
+          const continuesEventEndDate =
+            new Date(item?.field_end_date).getTime() === new Date(date).getTime();
+          if (isContinuesEvent && continuesEventEndDate) {
+          }
           return (
-            <div key={index} className={cn("event", { "recurring-event": isRecurringEvent })}>
+            <div
+              key={index}
+              className={cn(
+                "event",
+                { "recurring-event": isRecurringEvent },
+                { "continues-event": isContinuesEvent }
+              )}
+            >
               {item?.title && <span className="label" />}
 
               <div
@@ -62,15 +105,7 @@ const DatePickerView = (props) => {
                   onCurrentEvent(item);
                 }}
                 className={"title"}
-                title={`${
-                  isRecurringEvent
-                    ? "This is recurring event"
-                    : item?.time +
-                      " " +
-                      item?.title +
-                      " " +
-                      item?.description?.replace(/<[^>]*>?/gm, "")
-                }`}
+                title={renderTitle(item)}
               >
                 {item?.time} - {item?.title}
               </div>
@@ -99,10 +134,10 @@ const DatePickerView = (props) => {
         onShowMonthView={setShowMonthView}
         currentDay={startDate}
         onDateInput={handlerSetDateInput}
-        onSelectOptions={onSelectOptions}
+        onSelectCategory={onSelectCategory}
         events={events}
         onSearch={onSearch}
-        onCreateEvent={onCreateEvent}
+        // onCreateEvent={onCreateEvent}
         onSelectEventDay={onSelectEventDay}
       />
 
@@ -116,7 +151,7 @@ const DatePickerView = (props) => {
             selected={startDate}
             showMonthYearPicker={showMonthView}
             onChange={handlerStartDate}
-            onSelect={onSelectDate}
+            onSelect={onSelectEventDay}
             renderDayContents={renderDay ? renderDay : renderDayContents}
             renderMonthContent={renderMonth ? renderMonth : renderMonthContent}
             onMonthChange={onMonthChange}

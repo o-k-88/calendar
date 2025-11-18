@@ -153,6 +153,24 @@
         }
       }
     }
+    .continues-event {
+      .title {
+        background-color: oklch(92.5% 0.16906 19.993);
+
+        &::before {
+          content: " ";
+          display: inline-block;
+          width: 5px;
+          height: 100%;
+          background-color: oklch(72.3% 0.237 25.331);
+          border-radius: 20px;
+          margin-right: 4px;
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+      }
+    }
 
     .title {
       color: #000;

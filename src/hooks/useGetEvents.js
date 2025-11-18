@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState, useContext } from "react";
 import dayjs from "dayjs";
 
 import {
@@ -8,16 +8,90 @@ import {
   API_HOST_DEV,
   TOKEN_OBJECT_STRINGIFY_DEV,
   TOKEN_OBJECT_STRINGIFY,
-} from "../const/";
-import { formattingEventRecurring, formattingEvent, getOauthToken } from "../helpers/index.js";
+} from "constants/";
+import {
+  formattingEventRecurring,
+  formattingEvent,
+  getOauthToken,
+  sortEventsByTime,
+} from "helpers/index.js";
+
+import { Context } from "context/index.jsx";
 
 export const useGetEvents = (currentDateMonth) => {
-  const [events, setEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState([]);
 
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [isLoadingEvents, setIsLoadingEvents] = useState(true);
+  const [continuesEvents, setContinuesEvents] = useState([]);
+  const [currentSideBarEventDay, setCurrentSideBarEventDay] = useState([]); //context
+  const [currentCategory, setCurrentCategory] = useState({
+    label: "All Categories",
+    value: "All Categories",
+  });
+
+  const events = useMemo(() => {
+    return [...allEvents, ...continuesEvents];
+  }, [allEvents, continuesEvents]);
 
   const currentMonth = dayjs(currentDateMonth).format("YYYY-MM");
+
+  const handlerSelectCategory = (value = currentCategory) => {
+    if (value.value !== currentCategory.value) {
+      setCurrentCategory(value);
+    }
+
+    if (value.value === "All Categories") {
+      return setFilteredEvents(events);
+    }
+    setFilteredEvents(events.filter((event) => event.category === value.value));
+  };
+
+  const handleSelectEventDay = (date) => {
+    const current = new Date(date);
+
+    const currentDate = `${current.getFullYear()}${current.getMonth()}${current.getDate()}`;
+
+    const filterEvent = events.filter(({ date }) => date === currentDate);
+
+    const currentEvent = sortEventsByTime(filterEvent);
+
+    setCurrentSideBarEventDay(currentEvent);
+  };
+
+  // useEffect(() => {
+  //   setContinuesEvents((prev) => {
+  //     const filteredContinuesEvents = allEvents.filter((item) => {
+  //       const endDate = dayjs(item?.field_end_date).format("YYYYMMDD");
+  //       const startDate = dayjs(item?.field_start_date).format("YYYYMMDD");
+  //       return endDate > startDate;
+  //     });
+
+  //     const mappedContinuesEvents = filteredContinuesEvents
+  //       .map((item) => {
+  //         //how to count how many days between two dates
+  //         const endDate = dayjs(item?.field_end_date);
+  //         const startDate = dayjs(item?.field_start_date);
+  //         const daysBetweenStartAndEnd = endDate.diff(startDate, "day");
+  //         const updatedItem = new Array(daysBetweenStartAndEnd).fill("").map((_, index) => {
+  //           return {
+  //             ...item,
+  //             date: startDate.add(index + 1, "day").format("YYYYMDD"),
+  //             currentDate: startDate.add(index + 1, "day").toDate(),
+  //           };
+  //         });
+
+  //         return [...updatedItem];
+  //       })
+  //       .flat();
+
+  //     const unique = [
+  //       ...new Map([...prev, ...mappedContinuesEvents].map((item) => [item.date, item])).values(),
+  //     ];
+
+  //     return unique;
+  //   });
+  // }, [allEvents]);
 
   useEffect(() => {
     getOauthToken(API_HOST, TOKEN_OBJECT_STRINGIFY)
@@ -35,7 +109,7 @@ export const useGetEvents = (currentDateMonth) => {
             const events = data.response.rows || [];
             const formattedEvents = formattingEvent(events);
 
-            setEvents((prev) => {
+            setAllEvents((prev) => {
               const uniqueDates = new Set(
                 prev.map((event) => new Date(event.currentDate).getTime())
               );
@@ -109,6 +183,8 @@ export const useGetEvents = (currentDateMonth) => {
     events,
     filteredEvents,
     isLoadingEvents,
-    setFilteredEvents,
+    handlerSelectCategory,
+    handleSelectEventDay,
+    currentSideBarEventDay,
   };
 };

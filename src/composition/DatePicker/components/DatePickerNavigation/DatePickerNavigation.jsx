@@ -1,4 +1,4 @@
-import React, { useEffect, forwardRef } from "react";
+import React, { forwardRef } from "react";
 import DateCustom from "../DataCustom/DataCustom.jsx";
 import Button from "../../../../components/Button/Button";
 import SelectCustom from "../SelectCustom/SelectCustom";
@@ -8,6 +8,7 @@ import todayIcon from "./icons/today-calendar.svg";
 import searchIcon from "./icons/search-calendar.svg";
 import "./DatePickerNavigation.scss";
 import cx from "classnames";
+
 const DatePickerButton = forwardRef(({ value, onClick, className }, ref) => (
   <button className={cx(className, "date-picker-input")} onClick={onClick} ref={ref}>
     {value}
@@ -20,9 +21,9 @@ const DatePickerNavigation = (props) => {
     onShowMonthView,
     currentDay,
     onDateInput,
-    onSelectOptions,
+    onSelectCategory,
     onSearch,
-    onCreateEvent,
+    // onCreateEvent,
     onSelectEventDay,
   } = props;
 
@@ -110,7 +111,7 @@ const DatePickerNavigation = (props) => {
         <div className="date-picker-filter action-button">
           <SelectCustom
             isSearchable={false}
-            onChange={onSelectOptions}
+            onChange={onSelectCategory}
             // defaultMenuIsOpen // открыть выпадающее меню селектора
           />
         </div>

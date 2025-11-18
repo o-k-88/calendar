@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { getOauthToken } from "../helpers";
+import { getOauthToken } from "helpers";
 
-import { TOKEN_OBJECT_STRINGIFY, API_HOST } from "../const/";
-import { categoriesEventsUrl } from "../const/";
+import { TOKEN_OBJECT_STRINGIFY, API_HOST, categoriesEventsUrl } from "constants/";
 
 export const useGetCategories = () => {
   const [categories, setCategories] = useState([

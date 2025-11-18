@@ -1,4 +1,4 @@
-import PageCalendar from "./containers/PageCalendar/PageCalendar.jsx";
+import PageCalendar from "containers/PageCalendar/PageCalendar.jsx";
 import "./App.scss";
 
 function App() {

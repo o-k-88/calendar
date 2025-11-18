@@ -1,14 +1,14 @@
-import Modal from "../../components/Modal/Modal";
-import ModalWrapper from "../../components/Modal/ModalWrapper";
-import ModalHeader from "../../components/Modal/ModalHeader";
-import ModalBody from "../../components/Modal/ModalBody";
-import ModalFooter from "../../components/Modal/ModalFooter";
-import ModalClose from "../../components/Modal/ModalClose";
-import Button from "../../components/Button/Button";
+import Modal from "components/Modal/Modal";
+import ModalWrapper from "components/Modal/ModalWrapper";
+import ModalHeader from "components/Modal/ModalHeader";
+import ModalBody from "components/Modal/ModalBody";
+import ModalFooter from "components/Modal/ModalFooter";
+import ModalClose from "components/Modal/ModalClose";
+import Button from "components/Button/Button";
 
 import "./ModalCalendar.scss";
 
-import { API_HOST } from "../../const";
+import { API_HOST } from "constants/";
 
 const ModalCalendar = (props) => {
   const { onClose, isOpen, data, currentUserUid } = props;
@@ -16,6 +16,7 @@ const ModalCalendar = (props) => {
   const isEdit = data.uid && data.uid === currentUserUid;
   // const isEdit = true;
   const isRecurringEvent = data?.hasOwnProperty("field_recurring_day_of_week");
+  const isContinuesEvent = data?.isContinuesEvent;
 
   return (
     <ModalWrapper isOpen={isOpen} onClose={onClose} isOutside>
@@ -71,6 +72,9 @@ const ModalCalendar = (props) => {
               </div>
               {isRecurringEvent && (
                 <div className="modal-calendar-recurring-event">Recurring event</div>
+              )}
+              {isContinuesEvent && (
+                <div className="modal-calendar-continues-event">Continues event</div>
               )}
             </div>
           )}
