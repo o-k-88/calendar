@@ -56,7 +56,9 @@ const DatePickerNavigation = (props) => {
       <Button
         underlineView
         className="button-navigation mobile-hidden"
-        href={"/src/assets/2026_2027 Term Calendar Bookmark.pdf"}
+        href={
+          "https://sunyempire.edu/_resources/images/its-external/calendar-pdf/2026_2027 Term Calendar Bookmark.pdf"
+        }
       >
         <span className="icon">
           <img src={AddEventIcon} alt="26-’27 Term Bookmark" />
@@ -66,7 +68,9 @@ const DatePickerNavigation = (props) => {
       <Button
         underlineView
         className="button-navigation mobile-hidden"
-        href={"/src/assets/2027_2028 Term Calendar Bookmark.pdf"}
+        href={
+          "https://sunyempire.edu/_resources/images/its-external/calendar-pdf/2027_2028 Term Calendar Bookmark.pdf"
+        }
       >
         <span className="icon">
           <img src={AddEventIcon} alt="'27-’28 Term Bookmark" />
