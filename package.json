@@ -2,6 +2,11 @@
   "name": "datepicker",
   "private": true,
   "version": "0.0.0",
+  "author": "Oleh Kyrylenko (https://github.com/o-k-88)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/o-k-88/calendar.git"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
