@@ -11,12 +11,24 @@ node_modules
 dist
 dist-ssr
 *.local
+coverage
+
+# Environment variables (keep secrets out of the repo)
+.env
+.env.*
+!.env.example
+
+# Claude Code local files
+.claude/worktrees/
+.claude/settings.local.json
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
+desktop.ini
 *.suo
 *.ntvs*
 *.njsproj
